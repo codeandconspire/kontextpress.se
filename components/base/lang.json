@@ -1,0 +1,21 @@
+{
+  "SITE_NAME": "Kontext",
+  "Loading": "Laddar",
+  "Oops": "Hoppsan!",
+  "try again": "försöka igen",
+  "the homepage": "startsidan",
+  "We apologize, an error has occured on our site. It may be temporary and you could %s or go back to %s.": "Nu gick något galet. Det kan vara bara tillfälligt, prova att %s eller gå tillbaka till %s.",
+  "There is no page at this address. Try finding your way using the menu or from %s.": "Här var det visst tomt. Prova att hitta rätt via menyn eller från %s.",
+  "You seem to be offline. Check your network connection and %s.": "Det är tjall på linan. Kontrollera din uppkoppling och %s.",
+  "Download image": "Ladda ner bild",
+  "Download video": "Ladda ner video",
+  "Download audio": "Ladda ner ljudfil",
+  "Download zip": "Ladda ner zip-fil",
+  "Download document": "Ladda ner dokument",
+  "Go to website": "Gå till webbsidan",
+  "LOADING_TEXT_SHORT": "LOADING_TEXT_SHORT",
+  "LOADING_TEXT_LONG": "LOADING_TEXT_LONG",
+  "We apologize, an error has occured on our site. It may be temporary and you could": "We apologize, an error has occured on our site. It may be temporary and you could",
+  "or go back to": "or go back to",
+  "LOADING_TEXT_MEDIUM": "LOADING_TEXT_MEDIUM"
+}

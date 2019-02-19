@@ -1,0 +1,50 @@
+@import "../base";
+
+/* @define Intro */
+.Intro {
+  color: rgb(var(--current-color));
+}
+
+.Intro-title {
+  max-width: 11em;
+  margin: 0 0 0.2em;
+  font-size: 2.875rem;
+  line-height: .95;
+  hyphens: auto;
+  font-family: var(--heading-font-family);
+}
+
+.Intro-body {
+  margin: 0;
+  max-width: 39em;
+}
+
+.Intro p:not(:first-child) {
+  margin-top: 1.3em;
+}
+
+.Intro p:not(:last-child) {
+  margin-bottom: 1.3em;
+}
+
+.Intro a {
+  font-weight: 600;
+  color: rgb(var(--color-link));
+  transition: color 50ms cubic-bezier(0,0,.2,1);
+  text-decoration: var(--high-contrast-underline, none);
+}
+
+.Intro a:hover {
+  color: rgb(var(--color-link-shaded));
+}
+
+@media (min-width: 1000px) {
+  .Intro-title {
+    max-width: 18em;
+    font-size: 4rem;
+  }
+
+  .Intro-body {
+    font-size: 1.1875rem;
+  }
+}
