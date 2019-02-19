@@ -19,12 +19,8 @@ app.use(require('./stores/prismic')({ repository: REPOSITORY, middleware }))
 app.use(require('choo-meta')({ origin: app.state.origin }))
 app.use(require('choo-service-worker')('/sw.js'))
 
-/**
- * 1. Clumpsy workaround for supporting wildcard parent path
- * 2. Discard parent slug by letting tail override the `slug` param
- */
-
 app.route('/', require('./views/home'))
+app.route('/:category', require('./views/category'))
 
 try {
   module.exports = app.mount('body')

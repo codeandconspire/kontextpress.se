@@ -15,9 +15,22 @@ module.exports = view(home, meta)
 function home (state, emit) {
   return html`
     <main class="View-main">
-      ${state.prismic.getSingle('homepage', function (err, doc) {
+      ${state.prismic.getByUID('category', state.params.category, function (err, doc) {
         if (err) throw err
-        var query = Predicates.at('document.type', 'article')
+        if (!doc) {
+          return html`
+            <div class="u-container">
+              <div class="View-spaceLarge">
+                ${intro.loading()}
+              </div>
+            </div>
+          `
+        }
+
+        var query = [
+          Predicates.at('document.type', 'article'),
+          Predicates.at('my.article.category', doc.id)
+        ]
         var opts = {
           pageSize: 6,
           orderings: '[document.first_publication_date desc]'
@@ -114,12 +127,16 @@ function asCard (article, author) {
 }
 
 function meta (state) {
-  return state.prismic.getSingle('homepage', function (err, doc) {
+  return state.prismic.getByUID('category', state.params.category, function (err, doc) {
     if (err) throw err
     if (!doc) return null
     var props = {
       title: asText(doc.data.title),
       description: asText(doc.data.description)
+    }
+
+    if (doc.data.primary_color) {
+      props['theme-color'] = doc.data.primary_color
     }
 
     if (doc.data.featured_image.url) {

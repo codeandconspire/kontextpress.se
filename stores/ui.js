@@ -1,5 +1,3 @@
-var { hexToRgb } = require('../components/base')
-
 module.exports = ui
 
 function ui (state, emitter) {
@@ -11,11 +9,10 @@ function ui (state, emitter) {
   if (typeof window !== 'undefined') {
     emitter.on('meta', function (props) {
       var theme = props['theme-color']
-      theme = theme && hexToRgb(theme)
       if (theme) {
-        document.documentElement.style.setProperty('--theme-color', theme)
+        document.documentElement.style.setProperty('background-color', theme)
       } else {
-        document.documentElement.style.removeProperty('--theme-color')
+        document.documentElement.style.removeProperty('background-color')
       }
     })
   }

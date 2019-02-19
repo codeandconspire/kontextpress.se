@@ -6,7 +6,7 @@ var error = require('./error')
 var Header = require('../header')
 var Footer = require('../footer')
 var Player = require('../embed/player')
-var { i18n, asText, resolve } = require('../base')
+var { i18n, asText, resolve, hexToRgb } = require('../base')
 
 var text = i18n()
 
@@ -57,7 +57,7 @@ function createView (view, meta) {
         var defaults = {
           title: doc ? asText(doc.data.title) : `${text`Loading`} ~ ${DEFAULT_TITLE}`,
           description: doc ? asText(doc.data.description) : null,
-          'theme-color': state.meta['theme-color']
+          'theme-color': state.ui.isLoading ? state.meta['theme-color'] : '#000'
         }
 
         if (doc && doc.data.featured_image.url) {
@@ -78,8 +78,11 @@ function createView (view, meta) {
         var shortcuts = doc.data.shortcuts.map(link).filter(Boolean)
       }
 
+      var theme = state.meta['theme-color']
+      theme = (theme && hexToRgb(theme)) || 'var(--default-color)'
+
       return html`
-        <body class="View" id="view">
+        <body class="View" id="view" style="--theme-color: ${theme};">
           <script type="application/ld+json">${raw(JSON.stringify(linkedData(state)))}</script>
           ${state.cache(Header, 'header').render(state.href, categories, shortcuts)}
           ${children}
