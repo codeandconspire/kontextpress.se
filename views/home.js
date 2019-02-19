@@ -71,9 +71,11 @@ function asCard (article, author) {
     }
   }
 
-  if (article.data.image.url) {
+  var image = article.data.featured_image
+  if (!image.url) image = article.data.image
+  if (image.url) {
     let sources = srcset(
-      article.data.image.url,
+      image.url,
       [400, 600, [800, 'q_70'], [1600, 'q_50']],
       { transforms: 'c_thumb' }
     )
@@ -83,7 +85,7 @@ function asCard (article, author) {
       srcset: sources,
       src: sources.split(' ')[0],
       alt: article.data.image_caption || ''
-    }, article.data.image.dimensions)
+    }, image.dimensions)
   }
 
   if (author) {
