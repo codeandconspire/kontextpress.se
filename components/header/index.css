@@ -6,6 +6,7 @@
   height: var(--Header-height);
   contain: size style;
   position: relative;
+  border-top: 6px solid rgb(var(--theme-color));
 }
 
 @media (max-width: 999px) {
@@ -26,6 +27,7 @@
 
 .Header-nav {
   flex: 1 0 auto;
+  padding: 0 2rem;
   pointer-events: auto;
 }
 
@@ -35,27 +37,17 @@
 
 /**
  * The logo
- * 1. Optical circle alignment
  */
 
 .Header-logo {
   box-sizing: content-box;
-  display: flex;
-  padding: 0.5rem;
-  margin-right: auto;
-  margin-left: -0.6rem;
-  position: relative;
-  left: -0.06rem; /* 1 */
+  height: 1.875rem;
+  width: auto;
+  padding: 1.5rem 0;
+  z-index: 1;
   vertical-align: top;
   pointer-events: auto;
-  z-index: 1;
-}
-
-@media (min-width: 700px) {
-  .Header .Header-logo {
-    transform: scale(calc(1 + (0.25 * var(--Header-size))));
-    transform-origin: center left;
-  }
+  color: currentColor;
 }
 
 /**
@@ -258,6 +250,6 @@
   }
 
   .Header-item {
-    margin-right: 0.75rem;
+    margin-right: 1.25rem;
   }
 }

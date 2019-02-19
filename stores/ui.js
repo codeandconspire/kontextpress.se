@@ -1,17 +1,24 @@
-var nanoraf = require('nanoraf')
-var Header = require('../components/header')
+var { hexToRgb } = require('../components/base')
 
 module.exports = ui
 
 function ui (state, emitter) {
   state.ui = state.ui || {}
-  state.ui.transitions = []
   state.ui.isLoading = false
   state.ui.hasOverlay = false
-  state.ui.isHighContrast = false
-  state.ui.scrollOffset = 0
-  state.ui.gridLayout = state.ui.gridLayout || Math.ceil(Math.random() * 9)
   state.ui.clock = { ref: 1 }
+
+  if (typeof window !== 'undefined') {
+    emitter.on('meta', function (props) {
+      var theme = props['theme-color']
+      theme = theme && hexToRgb(theme)
+      if (theme) {
+        document.documentElement.style.setProperty('--theme-color', theme)
+      } else {
+        document.documentElement.style.removeProperty('--theme-color')
+      }
+    })
+  }
 
   // generic (optionally namespaced) vector clock for tracking changes
   emitter.on('tick', function (key) {
@@ -28,45 +35,9 @@ function ui (state, emitter) {
     emitter.emit('render')
   })
 
-  emitter.on('contrast:toggle', function (isHighContrast) {
-    state.ui.isHighContrast = isHighContrast
-    var root = document.documentElement
-    root.classList[isHighContrast ? 'add' : 'remove']('u-highContrast')
-    emitter.emit('render')
-  })
-
-  emitter.prependListener('goal:transitionstart', function (id) {
-    emitter.emit('transition:start', 'goal-page')
-  })
-
-  emitter.prependListener('goal:transitionend', function (id) {
-    emitter.emit('transition:end', 'goal-page')
-  })
-
   emitter.prependListener('navigate', function () {
     state.ui.hasOverlay = false
     document.documentElement.classList.remove('has-overlay')
-  })
-
-  emitter.on('transition:start', function (name) {
-    state.ui.transitions.push(name)
-  })
-
-  emitter.on('transition:end', function (name) {
-    var next = state.ui.transitions.filter((transition) => transition !== name)
-    state.ui.transitions = next
-  })
-
-  emitter.on('navigate', function () {
-    state.ui.transitions = []
-  })
-
-  emitter.on('DOMContentLoaded', function () {
-    var onresize = nanoraf(function () {
-      state.ui.scrollOffset = state.cache(Header, 'header').height
-    })
-    onresize()
-    window.addEventListener('resize', onresize)
   })
 
   var requests = 0

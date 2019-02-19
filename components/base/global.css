@@ -18,6 +18,8 @@
   --color-text-muted: 117, 117, 117;
   --color-text-muted-shaded: 80, 80, 80;
 
+  --theme-color: var(--default-color);
+
   --max-width: 2000px;
   --page-gutter: 1.125rem;
 
