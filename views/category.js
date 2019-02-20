@@ -137,7 +137,11 @@ function meta (state) {
     }
 
     if (doc.data.primary_color) {
-      props['theme-color'] = doc.data.primary_color
+      props['theme-color-primary'] = doc.data.primary_color
+    }
+
+    if (doc.data.secondary_color) {
+      props['theme-color-secondary'] = doc.data.secondary_color
     }
 
     if (doc.data.featured_image.url) {

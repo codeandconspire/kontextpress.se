@@ -57,7 +57,8 @@ function createView (view, meta) {
         var defaults = {
           title: doc ? asText(doc.data.title) : `${text`Loading`} ~ ${DEFAULT_TITLE}`,
           description: doc ? asText(doc.data.description) : null,
-          'theme-color': state.ui.isLoading ? state.meta['theme-color'] : '#000'
+          'theme-color-primary': state.ui.isLoading ? state.meta['theme-color-primary'] : '#000',
+          'theme-color-secondary': state.ui.isLoading ? state.meta['theme-color-secondary'] : '#ccc'
         }
 
         if (doc && doc.data.featured_image.url) {
@@ -78,11 +79,13 @@ function createView (view, meta) {
         var shortcuts = doc.data.shortcuts.map(link).filter(Boolean)
       }
 
-      var theme = state.meta['theme-color']
-      theme = (theme && hexToRgb(theme)) || 'var(--document-color)'
+      var primary = state.meta['theme-color-primary']
+      var secondary = state.meta['theme-color-secondary']
+      primary = (primary && hexToRgb(primary)) || 'var(--theme-color-primary)'
+      secondary = (secondary && hexToRgb(secondary)) || 'var(--theme-color-secondary)'
 
       return html`
-        <body class="View" id="view" style="--theme-background: ${theme};">
+        <body class="View" id="view" style="--theme-color-primary: ${primary}; --theme-color-secondary: ${secondary};">
           <script type="application/ld+json">${raw(JSON.stringify(linkedData(state)))}</script>
           ${state.cache(Header, 'header').render(state.href, categories, shortcuts)}
           ${children}

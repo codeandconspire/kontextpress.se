@@ -167,8 +167,13 @@ function meta (state) {
     }
 
     var category = doc.data.category
-    if (!category.isBroken && category.uid && category.data.primary_color) {
-      props['theme-color'] = category.data.primary_color
+    if (!category.isBroken && category.uid) {
+      if (category.data.primary_color) {
+        props['theme-color-primary'] = category.data.primary_color
+      }
+      if (category.data.secondary_color) {
+        props['theme-color-secondary'] = category.data.secondary_color
+      }
     }
 
     var image = doc.data.featured_image

@@ -1,12 +1,12 @@
 :root {
   /* Colors  */
 
-  --color-red: 167, 57, 36;
-  --color-red-light: 167, 57, 36;
-  --color-green: 2, 68, 39;
-  --color-green-light: 51, 192, 86;
-  --color-blue: 18, 62, 121;
-  --color-blue-light: 0, 147, 221;
+  --color-red-primary: 167, 57, 36;
+  --color-red-secondary: 167, 57, 36;
+  --color-green-primary: 2, 68, 39;
+  --color-green-secondary: 51, 192, 86;
+  --color-blue-primary: 18, 62, 121;
+  --color-blue-secondary: 0, 147, 221;
 
   /* Base styles */
 
@@ -22,10 +22,10 @@
 
   --document-min-width: 300px;
   --document-max-width: 1800px;
-  --document-margin: 1rem;
+  --document-margin: 0.75rem;
 
-  --theme-background: var(--document-color);
-  --theme-color: var(--theme-background);
+  --theme-color-primary: 0, 0, 0;
+  --theme-color-secondary: 100, 100, 100;
 
   --focus-ring-width: 2px;
   --focus-ring-color: var(--color-black);

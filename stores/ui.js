@@ -8,9 +8,9 @@ function ui (state, emitter) {
 
   if (typeof window !== 'undefined') {
     emitter.on('meta', function (props) {
-      var theme = props['theme-color']
-      if (theme) {
-        document.documentElement.style.setProperty('background-color', theme)
+      var background = props['theme-color-primary']
+      if (background) {
+        document.documentElement.style.setProperty('background-color', background)
       } else {
         document.documentElement.style.removeProperty('background-color')
       }
