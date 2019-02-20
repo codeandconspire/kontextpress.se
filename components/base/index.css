@@ -49,6 +49,10 @@
   }
 }
 
+::selection {
+  background: rgba(var(--theme-color-secondary), 0.3);
+}
+
 *,
 *::before,
 *::after {
