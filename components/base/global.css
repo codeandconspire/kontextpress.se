@@ -24,8 +24,8 @@
   --document-max-width: 1800px;
   --document-margin: 1rem;
 
-  --theme-background: var(--default-color);
-  --theme-color: var(--color-red-light);
+  --theme-background: var(--document-color);
+  --theme-color: var(--theme-background);
 
   --focus-ring-width: 2px;
   --focus-ring-color: var(--color-black);

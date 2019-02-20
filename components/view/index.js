@@ -57,7 +57,7 @@ function createView (view, meta) {
         var defaults = {
           title: doc ? asText(doc.data.title) : `${text`Loading`} ~ ${DEFAULT_TITLE}`,
           description: doc ? asText(doc.data.description) : null,
-          'theme-color': state.ui.isLoading ? state.meta['theme-color'] : '#fafafa'
+          'theme-color': state.ui.isLoading ? state.meta['theme-color'] : '#000'
         }
 
         if (doc && doc.data.featured_image.url) {
@@ -79,7 +79,7 @@ function createView (view, meta) {
       }
 
       var theme = state.meta['theme-color']
-      theme = (theme && hexToRgb(theme)) || 'var(--default-color)'
+      theme = (theme && hexToRgb(theme)) || 'var(--document-color)'
 
       return html`
         <body class="View" id="view" style="--theme-background: ${theme};">
