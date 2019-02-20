@@ -56,28 +56,6 @@
 .u-left { left: 0 !important; }
 
 /**
- * Aspect ratio
- */
-
-.u-aspect1-1,
-.u-aspect4-3,
-.u-aspect16-9 {
-  position: relative !important;
-}
-
-.u-aspect1-1::before,
-.u-aspect4-3::before,
-.u-aspect16-9::before {
-  content: "" !important;
-  display: block !important;
-  height: 0 !important;
-}
-
-.u-aspect1-1::before { padding-top: 100% !important; }
-.u-aspect4-3::before { padding-top: calc(100% * 3 / 4) !important; }
-.u-aspect16-9::before { padding-top: calc(100% * 9 / 16) !important; }
-
-/**
  * Cover offset parent
  */
 

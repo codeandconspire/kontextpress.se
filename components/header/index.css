@@ -1,12 +1,18 @@
 @import "../base";
 
 /* @define Header */
+:root {
+  --Header-size: 1;
+  --Header-height: 5rem;
+  --Header-displace: 2rem;
+}
+
 .Header {
   width: 100%;
   height: var(--Header-height);
   contain: size style;
   position: relative;
-  border-top: 6px solid rgb(var(--theme-background));
+  border-top: 6px solid rgb(var(--theme-color-primary));
 }
 
 @media (max-width: 999px) {
@@ -252,5 +258,25 @@
 
   .Header-item {
     margin-right: 1.25rem;
+  }
+}
+
+/**
+ * Increase dimensions wider viewports
+ */
+
+ @media (min-width: 700px) {
+  :root {
+    --Header-height: 7rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  :root {
+    --Header-height: 8rem;
+  }
+
+  .Header-logo {
+    font-size: 1.2em;
   }
 }

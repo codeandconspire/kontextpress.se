@@ -71,12 +71,15 @@ iframe {
 }
 
 /**
- * Improve alt text rendering for broken images
+ * 1. Improve alt text rendering for broken images
  */
 
 img {
-  font-size: 0.8rem;
-  color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  font-size: 0.8rem; /* 1 */
+  color: rgba(var(--loading-color)); /* 1 */
 }
 
 /**

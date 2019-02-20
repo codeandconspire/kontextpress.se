@@ -1,7 +1,7 @@
 @import "../global";
 
 .u-loading {
-  background: rgba(0, 0, 0, 0.04) !important;
+  background: rgba(var(--loading-color)) !important;
   display: inline !important;
   color: transparent !important;
   user-select: none !important;

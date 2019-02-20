@@ -51,11 +51,11 @@ function createView (view, meta) {
         let next = meta ? meta.call(self, state) : {}
 
         if (next && next.title && next.title !== DEFAULT_TITLE) {
-          next.title = `${next.title} ~ ${DEFAULT_TITLE}`
+          next.title = `${next.title} – ${DEFAULT_TITLE}`
         }
 
         var defaults = {
-          title: doc ? asText(doc.data.title) : `${text`Loading`} ~ ${DEFAULT_TITLE}`,
+          title: doc ? asText(doc.data.title) : `${text`Loading`} – ${DEFAULT_TITLE}`,
           description: doc ? asText(doc.data.description) : null,
           'theme-color-primary': state.ui.isLoading ? state.meta['theme-color-primary'] : '#000',
           'theme-color-secondary': state.ui.isLoading ? state.meta['theme-color-secondary'] : '#ccc'
@@ -71,7 +71,7 @@ function createView (view, meta) {
       } catch (err) {
         err.status = state.offline ? 503 : err.status || 500
         children = error(err)
-        emit('meta', { title: `${text`Oops`} ~ ${DEFAULT_TITLE}` })
+        emit('meta', { title: `${text`Oops`} – ${DEFAULT_TITLE}` })
       }
 
       if (doc) {

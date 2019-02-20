@@ -1,6 +1,10 @@
 @import "../base";
 
 /* @define Intro */
+:root {
+  --Intro-figure-aspect: calc(100% * 9/16);
+}
+
 .Intro {
   color: rgb(var(--current-color));
 }
@@ -11,17 +15,20 @@
 
 .Intro-tagline {
   display: inline-block;
-  margin-bottom: 2rem;
+  margin-bottom: 1.6rem;
   font-size: 0.875rem;
   text-transform: uppercase;
+  font-weight: 600;
+  color: rgb(var(--theme-color-primary));
 }
 
 .Intro-title {
-  max-width: 11em;
+  max-width: 13em;
   margin: 0;
-  font-size: 2.875rem;
+  font-size: 2.3rem;
   hyphens: auto;
   font-family: var(--heading-font-family);
+  line-height: 1;
 }
 
 .Intro--center .Intro-title {
@@ -31,12 +38,14 @@
 
 .Intro-body {
   margin-top: 1em;
-  max-width: 41em;
+  max-width: 40rem;
 }
 
 .Intro--center .Intro-body {
   margin-left: auto;
   margin-right: auto;
+  font-family: var(--heading-font-family);
+  font-size: 1.125rem;
 }
 
 .Intro p:not(:first-child) {
@@ -51,7 +60,7 @@
   font-weight: 600;
   color: rgb(var(--color-link));
   transition: color 50ms cubic-bezier(0,0,.2,1);
-  text-decoration: var(--high-contrast-underline, none);
+  text-decoration: underline;
 }
 
 .Intro a:hover {
@@ -66,6 +75,18 @@
   position: relative;
 }
 
+.Intro-aspect {
+  position: relative;
+  padding-bottom: var(--Intro-figure-aspect);
+  background: rgba(var(--loading-color));
+}
+
+.Intro-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .Intro-caption {
   width: 80%;
   max-width: 20rem;
@@ -74,7 +95,7 @@
   right: 0;
   bottom: 0;
   transform: translate(1em, -1em);
-  background-color: rgb(var(--theme-background));
+  background-color: rgb(var(--theme-color-primary));
 }
 
 .Intro-byline {
@@ -88,20 +109,49 @@
 }
 
 .Intro-thumbnail {
+  position: relative;
   margin-right: 1.5rem;
   display: block;
   width: 2.5rem;
   height: 2.5rem;
+  border-radius: 50%;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 350px) {
+  .Intro-title {
+    font-size: 2.875rem;
+  }
+}
+
+@media (min-width: 600px) {
   .Intro-title {
     max-width: 18em;
-    font-size: 4rem;
+    font-size: 3.5rem;
+    line-height: 1.05;
   }
 
   .Intro-body {
-    font-size: 1.1875rem;
+    font-size: 1.125rem;
+  }
+
+  .Intro--center .Intro-body {
+    font-size: 1.3rem;
+    max-width: 40rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .Intro-tagline {
+    margin-bottom: 2.1rem;
+  }
+
+  .Intro-title {
+    font-size: 4rem;
+  }
+
+  .Intro--center .Intro-body {
+    font-size: 1.5rem;
+    max-width: 60rem;
   }
 
   .Intro-caption {
