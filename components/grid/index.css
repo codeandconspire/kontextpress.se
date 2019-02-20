@@ -61,16 +61,16 @@
   }
 
   .Grid--carousel .Grid-cell {
-    flex-basis: calc(100% - (var(--page-gutter) * 2));
-    padding-left: var(--page-gutter);
+    flex-basis: calc(100% - (var(--document-margin) * 2));
+    padding-left: var(--document-margin);
     padding-right: 0;
     scroll-snap-align: start;
     margin-bottom: 0;
   }
 
   .Grid--carousel .Grid-cell:last-child {
-    flex-basis: calc(100% - var(--page-gutter));
-    padding-right: var(--page-gutter);
+    flex-basis: calc(100% - var(--document-margin));
+    padding-right: var(--document-margin);
   }
 }
 
@@ -81,7 +81,7 @@
 
 .Grid--divided .Grid-cell {
   margin: 0;
-  padding: calc(var(--page-gutter) * 2) 0;
+  padding: calc(var(--document-margin) * 2) 0;
   border-top: 1px solid rgb(var(--color-gray-light));
 }
 
@@ -93,7 +93,7 @@
   .Grid--divided .Grid-cell {
     flex-basis: auto;
     width: 50%;
-    padding: var(--page-gutter) 0;
+    padding: var(--document-margin) 0;
     border-top: 1px solid rgb(var(--color-gray-light));
     position: relative;
   }
@@ -103,8 +103,8 @@
     width: 1px;
     position: absolute;
     right: 0;
-    top: var(--page-gutter);
-    bottom: var(--page-gutter);
+    top: var(--document-margin);
+    bottom: var(--document-margin);
     background-color: rgb(var(--color-gray-light));
   }
 
@@ -114,11 +114,11 @@
   }
 
   .Grid--divided .Grid-cell:nth-child(2n+1) {
-    padding-right: var(--page-gutter);
+    padding-right: var(--document-margin);
   }
 
   .Grid--divided .Grid-cell:nth-child(2n+2) {
-    padding-left: var(--page-gutter);
+    padding-left: var(--document-margin);
   }
 }
 

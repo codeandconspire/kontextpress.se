@@ -2,14 +2,9 @@
 
 @import "../global";
 
-.u-loading,
-.u-loadingAdaptive {
+.u-loading {
   background: rgba(0, 0, 0, 0.04) !important;
   display: inline !important;
   color: transparent !important;
   user-select: none !important;
-}
-
-.u-loadingAdaptive {
-  background: rgba(255, 255, 255, 0.2) !important;
 }

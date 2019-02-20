@@ -26,11 +26,11 @@
   height: 100%; /* 3 */
   overflow-x: hidden; /* 2 */
   cursor: default; /* 4 */
-  font-family: var(--default-font-family);
-  background: rgb(var(--default-background-color)); /* 5 */
-  color: rgb(var(--default-color));
+  font-family: var(--document-font-family);
+  background: rgb(var(--document-background-color)); /* 5 */
+  color: rgb(var(--document-color));
   font-size: 100%;
-  line-height: var(--default-line-height);
+  line-height: var(--document-line-height);
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased; /* 6 */
   -moz-osx-font-smoothing: grayscale; /* 6 */
