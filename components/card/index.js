@@ -2,9 +2,7 @@ var assert = require('assert')
 var html = require('choo/html')
 var link = require('./link')
 var figure = require('./figure')
-var { luma, i18n, hexToRgb, className, snippet, pluck } = require('../base')
-
-var text = i18n(require('./lang.json'))
+var { luma, hexToRgb, className, snippet, pluck, loader } = require('../base')
 
 module.exports = card
 card.loading = loading
@@ -77,10 +75,10 @@ function byline (props) {
   }
 
   return html`
-    <div class="Card-byline">
+    <figure class="Card-byline">
       ${props.image ? html`<img class="Card-thumbnail" ${attrs} src="${props.image.src}">` : null}
-      ${props.text}
-    </div>
+      <figcaption>${props.text}</figcaption>
+    </figure>
   `
 }
 
@@ -90,11 +88,9 @@ function loading (props = {}) {
       ${figure.loading()}
       <div class="Card-content">
         <div class="Card-body">
-          ${props.date ? html`
-            <time class="Card-meta"><span class="u-loading">${text`LOADING_TEXT_MEDIUM`}</span></time>
-          ` : null}
-          <h3 class="Card-title"><span class="u-loading">${text`LOADING_TEXT_MEDIUM`}</span></h3>
-          <p class="Card-text"><span class="u-loading">${text`LOADING_TEXT_LONG`}</span></p>
+          ${props.date ? html`<time class="Card-meta">${loader(8)}</time>` : null}
+          <h3 class="Card-title">${loader(8)}</h3>
+          <p class="Card-text">${loader(24)}</p>
         </div>
       </div>
     </article>

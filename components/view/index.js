@@ -82,7 +82,7 @@ function createView (view, meta) {
       theme = (theme && hexToRgb(theme)) || 'var(--default-color)'
 
       return html`
-        <body class="View" id="view" style="--theme-color: ${theme};">
+        <body class="View" id="view" style="--theme-background: ${theme};">
           <script type="application/ld+json">${raw(JSON.stringify(linkedData(state)))}</script>
           ${state.cache(Header, 'header').render(state.href, categories, shortcuts)}
           ${children}

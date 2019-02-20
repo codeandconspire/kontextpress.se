@@ -9,20 +9,27 @@ var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
 var serialize = require('../components/text/serialize')
-var { asText, srcset, resolve } = require('../components/base')
+var { asText, srcset, resolve, i18n } = require('../components/base')
+
+var text = i18n()
 
 module.exports = view(home, meta)
 
 function home (state, emit) {
   return html`
     <main class="View-main">
-      ${state.prismic.getByUID('category', state.params.category, function (err, doc) {
+      ${state.prismic.getByUID('article', state.params.article, function (err, doc) {
         if (err) throw err
         if (!doc) {
           return html`
             <div class="u-container">
               <div class="View-spaceLarge">
-                ${intro.loading()}
+                ${intro.loading({
+                  align: 'center',
+                  tagline: true,
+                  byline: true,
+                  image: true
+                })}
               </div>
             </div>
           `
@@ -30,26 +37,49 @@ function home (state, emit) {
 
         var query = [
           Predicates.at('document.type', 'article'),
-          Predicates.at('my.article.category', doc.id)
+          Predicates.not('document.id', doc.id)
         ]
         var opts = {
-          pageSize: 6,
+          pageSize: 3,
           orderings: '[document.first_publication_date desc]'
+        }
+
+        var props = {
+          align: 'center',
+          title: asText(doc.data.title),
+          body: asElement(doc.data.description, resolve, serialize)
+        }
+
+        var category = doc.data.category
+        if (category.id && !category.isBroken) {
+          props.tagline = asText(category.data.title)
+          query.push(Predicates.at('my.article.category', category.id))
+        }
+
+        if (doc.data.image.url) {
+          let sources = srcset(doc.data.image.url, [400, 600, 900, [1800, 'q_50']])
+          props.image = Object.assign({
+            alt: doc.data.image_caption || doc.data.image.alt,
+            sizes: '(min-width: 900px) 900px, 100vw',
+            srcset: sources,
+            src: sources.split(' ')[0]
+          }, doc.data.image.dimensions)
         }
 
         return html`
           <div class="u-container">
             <header class="View-spaceLarge">
-              ${intro({
-                title: asText(doc.data.title),
-                body: asElement(doc.data.description, resolve, serialize)
-              })}
+              ${intro(props)}
             </header>
+            <div class="Text">
+              <hr class="u-spaceV8">
+              <h2>${text`Keep reading`}</h2>
+            </div>
             ${state.prismic.get(query, opts, function (err, response) {
               if (err) return null
               var cells = []
               if (!response) {
-                for (let i = 0; i < 6; i++) cells.push(card.loading())
+                for (let i = 0; i < 3; i++) cells.push(card.loading())
               } else {
                 cells = response.results.map(function (article) {
                   if (!article.data.author.id) return asCard(article)
@@ -128,7 +158,7 @@ function asCard (article, author) {
 }
 
 function meta (state) {
-  return state.prismic.getByUID('category', state.params.category, function (err, doc) {
+  return state.prismic.getByUID('article', state.params.article, function (err, doc) {
     if (err) throw err
     if (!doc) return null
     var props = {
@@ -136,14 +166,17 @@ function meta (state) {
       description: asText(doc.data.description)
     }
 
-    if (doc.data.primary_color) {
-      props['theme-color'] = doc.data.primary_color
+    var category = doc.data.category
+    if (!category.isBroken && category.uid && category.data.primary_color) {
+      props['theme-color'] = category.data.primary_color
     }
 
-    if (doc.data.featured_image.url) {
-      props['og:image'] = doc.data.featured_image.url
-      props['og:image:width'] = doc.data.featured_image.dimensions.width
-      props['og:image:heigh'] = doc.data.featured_image.dimensions.height
+    var image = doc.data.featured_image
+    if (!image.url) image = doc.data.image
+    if (image.url) {
+      props['og:image'] = image.url
+      props['og:image:width'] = image.dimensions.width
+      props['og:image:heigh'] = image.dimensions.height
     }
 
     return props

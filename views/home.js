@@ -8,6 +8,7 @@ var view = require('../components/view')
 var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
+var serialize = require('../components/text/serialize')
 var { asText, srcset, resolve } = require('../components/base')
 
 module.exports = view(home, meta)
@@ -25,12 +26,12 @@ function home (state, emit) {
 
         return html`
           <div class="u-container">
-            <div class="View-spaceLarge">
+            <header class="View-spaceLarge">
               ${doc ? intro({
                 title: asText(doc.data.title),
-                body: asElement(doc.data.description)
+                body: asElement(doc.data.description, resolve, serialize)
               }) : intro.loading()}
-            </div>
+            </header>
             ${state.prismic.get(query, opts, function (err, response) {
               if (err) return null
               var cells = []

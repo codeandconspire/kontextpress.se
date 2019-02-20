@@ -51,7 +51,7 @@
     "postcss-url": "^8.0.0",
     "prismic-element": "^1.0.0",
     "prismic-javascript": "^2.0.1",
-    "prismic-richtext": "^1.0.0",
+    "prismic-richtext": "^0.4.2",
     "smoothscroll-polyfill": "^0.4.3"
   }
 }

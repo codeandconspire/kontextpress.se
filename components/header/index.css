@@ -6,7 +6,7 @@
   height: var(--Header-height);
   contain: size style;
   position: relative;
-  border-top: 6px solid rgb(var(--theme-color));
+  border-top: 6px solid rgb(var(--theme-background));
 }
 
 @media (max-width: 999px) {

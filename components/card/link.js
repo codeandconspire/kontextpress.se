@@ -1,6 +1,6 @@
 var html = require('choo/html')
 var assert = require('assert')
-var { i18n, isSameDomain, filetype } = require('../base')
+var { i18n, isSameDomain, filetype, loader } = require('../base')
 
 var text = i18n(require('./lang.json'))
 
@@ -30,7 +30,7 @@ function link (opts = {}) {
 }
 
 function loading (opts = {}) {
-  return html`<div><span class="u-loading">${text`LOADING_TEXT_SHORT`}</span></div>`
+  return html`<div>${loader(4)}</div>`
 }
 
 function label (opts) {

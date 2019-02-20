@@ -21,6 +21,7 @@ app.use(require('choo-service-worker')('/sw.js'))
 
 app.route('/', require('./views/home'))
 app.route('/:category', require('./views/category'))
+app.route('/:category/:article', require('./views/article'))
 
 try {
   module.exports = app.mount('body')

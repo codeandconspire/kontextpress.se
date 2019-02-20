@@ -23,11 +23,14 @@ if (typeof window !== 'undefined') {
 exports.resolve = resolve
 function resolve (doc) {
   switch (doc.type) {
+    case 'webpage':
     case 'homepage': return '/'
     case 'category': return `/${doc.uid}`
     case 'article': {
-      var category = doc.data.category.uid
-      if (category) return `/${category}/${doc.uid}`
+      var category = doc.data.category
+      if (category.uid && !category.isBroken) {
+        return `/${category.uid}/${doc.uid}`
+      }
       return `/${doc.uid}`
     }
     case 'Web':

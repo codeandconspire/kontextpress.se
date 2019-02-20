@@ -91,6 +91,15 @@
 }
 
 /**
+ * Border radius
+ */
+
+.u-round {
+  overflow: hidden !important;
+  border-radius: 100% !important;
+}
+
+/**
  * Columns
  */
 
