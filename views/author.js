@@ -17,7 +17,7 @@ function author (state, emit) {
             <div class="u-container">
               <div class="View-spaceLarge">
                 ${intro.loading({
-                  align: 'center',
+                  center: true,
                   narrow: true,
                   image: true
                 })}
@@ -27,7 +27,7 @@ function author (state, emit) {
         }
 
         var props = {
-          align: 'center',
+          center: true,
           title: asText(doc.data.title),
           body: asElement(doc.data.description, resolve, serialize),
           narrow: true

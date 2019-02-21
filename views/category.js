@@ -11,9 +11,9 @@ var intro = require('../components/intro')
 var serialize = require('../components/text/serialize')
 var { asText, srcset, resolve } = require('../components/base')
 
-module.exports = view(home, meta)
+module.exports = view(category, meta)
 
-function home (state, emit) {
+function category (state, emit) {
   return html`
     <main class="View-main">
       ${state.prismic.getByUID('category', state.params.category, function (err, doc) {

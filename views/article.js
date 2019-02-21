@@ -25,7 +25,7 @@ function article (state, emit) {
             <div class="u-container">
               <div class="View-spaceLarge">
                 ${intro.loading({
-                  align: 'center',
+                  center: true,
                   tagline: true,
                   byline: true,
                   image: true
@@ -45,7 +45,7 @@ function article (state, emit) {
         }
 
         var props = {
-          align: 'center',
+          center: true,
           title: asText(doc.data.title),
           body: asElement(doc.data.description, resolve, serialize)
         }
