@@ -1,17 +1,9 @@
 var html = require('choo/html')
-var parse = require('date-fns/parse')
-var format = require('date-fns/format')
-var { sv } = require('date-fns/locale/sv')
 var asElement = require('prismic-element')
-var { Predicates } = require('prismic-javascript')
 var view = require('../components/view')
-var card = require('../components/card')
-var grid = require('../components/grid')
 var intro = require('../components/intro')
 var serialize = require('../components/text/serialize')
-var { asText, srcset, resolve, i18n } = require('../components/base')
-
-var text = i18n()
+var { asText, srcset, resolve } = require('../components/base')
 
 module.exports = view(author, meta)
 
