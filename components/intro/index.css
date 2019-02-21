@@ -9,6 +9,10 @@
   color: rgb(var(--current-color));
 }
 
+.Intro--narrow {
+  --Intro-figure-aspect: calc(100% * 20/15);
+}
+
 .Intro--center {
   text-align: center;
 }
@@ -68,8 +72,12 @@
   display: inline-block;
   width: 100%;
   margin-top: 2.2rem;
-  max-width: 910px;
+  max-width: 60rem;
   position: relative;
+}
+
+.Intro--narrow .Intro-figure {
+  max-width: 35rem;
 }
 
 .Intro-aspect {

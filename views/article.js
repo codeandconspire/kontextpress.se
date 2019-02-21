@@ -133,7 +133,7 @@ function asByline (author, article) {
 
   byline.text = asText(author.data.title)
   byline.link = {
-    href: '#'
+    href: resolve(author)
   }
 
   if (author.data.image.url) {

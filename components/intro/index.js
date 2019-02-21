@@ -23,7 +23,7 @@ function intro (opts = {}) {
   }
 
   return html`
-    <div class="Intro ${opts.align ? `Intro--${opts.align}` : ''}">
+    <div class="Intro ${opts.align ? `Intro--${opts.align}` : ''} ${opts.narrow ? `Intro--narrow` : ''}">
       ${opts.tagline ? html`<span class="Intro-tagline">${opts.tagline}</span>` : null}
       <h1 class="Intro-title">${opts.title}</h1>
       <div class="Intro-body">${body}</div>
@@ -41,7 +41,7 @@ function intro (opts = {}) {
 
 function loading (opts = {}) {
   return html`
-    <div class="Intro ${opts.align ? `Intro--${opts.align}` : ''} is-loading">
+    <div class="Intro ${opts.align ? `Intro--${opts.align}` : ''} ${opts.narrow ? `Intro--narrow` : ''} is-loading">
       ${opts.tagline ? html`<span class="Intro-tagline">${loader(4)}</span>` : null}
       <div class="Intro-title">${loader(8)}</div>
       <div class="Intro-body">${loader(60)}</div>
@@ -52,7 +52,7 @@ function loading (opts = {}) {
           </span>
           ${loader(10)}
         </div>
-      ` : loader(6)}
+      ` : null}
       ${opts.image ? html`
         <div class="Intro-figure">
           <div class="Intro-aspect"></div>
