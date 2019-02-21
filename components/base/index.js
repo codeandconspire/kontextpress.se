@@ -28,6 +28,7 @@ function resolve (doc) {
     case 'category': return `/${doc.uid}`
     case 'authors': return `/redaktionen`
     case 'author': return `/redaktionen/${doc.uid}`
+    case 'page': return `/${doc.uid}`
     case 'article': {
       var category = doc.data.category
       if (category.uid && !category.isBroken) {

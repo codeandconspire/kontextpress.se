@@ -20,7 +20,6 @@ app.use(require('choo-meta')({ origin: app.state.origin }))
 app.use(require('choo-service-worker')('/sw.js'))
 
 app.route('/', require('./views/home'))
-app.route('/:category/:article', require('./views/article'))
 app.route('/redaktionen', require('./views/authors'))
 app.route('/redaktionen/:author', require('./views/author'))
 app.route('/*', require('./views/catchall'))
