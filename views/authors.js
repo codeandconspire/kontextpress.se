@@ -22,7 +22,7 @@ function authors (state, emit) {
         <main class="View-main">
           ${grid({ size: { xs: '1of2', md: '1of3', xl: '1of4' } }, cells)}
           <div class="u-container">
-            <div class="View-spaceLarge">
+            <div class="View-pushDown">
               ${intro.loading()}
             </div>
           </div>
@@ -33,7 +33,7 @@ function authors (state, emit) {
     return html`
       <main class="View-main">
         <div class="u-container">
-          <header class="View-spaceLarge">
+          <header class="View-pushDown">
             ${intro({
               title: asText(doc.data.title),
               body: asElement(doc.data.description, resolve, serialize),

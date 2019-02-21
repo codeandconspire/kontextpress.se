@@ -50,7 +50,7 @@
 }
 
 ::selection {
-  background: rgba(var(--theme-color-secondary), 0.3);
+  background: rgba(var(--theme-color-primary), 0.3);
 }
 
 *,

@@ -21,7 +21,7 @@ function category (state, emit) {
         if (!doc) {
           return html`
             <div class="u-container">
-              <div class="View-spaceLarge">
+              <div class="View-pushDown">
                 ${intro.loading()}
               </div>
             </div>
@@ -39,7 +39,7 @@ function category (state, emit) {
 
         return html`
           <div class="u-container">
-            <header class="View-spaceLarge">
+            <header class="View-pushDown">
               ${intro({
                 title: asText(doc.data.title),
                 body: asElement(doc.data.description, resolve, serialize)

@@ -15,7 +15,7 @@ function author (state, emit) {
         if (!doc) {
           return html`
             <div class="u-container">
-              <div class="View-spaceLarge">
+              <div class="View-pushDown">
                 ${intro.loading({
                   center: true,
                   narrow: true,
@@ -45,7 +45,7 @@ function author (state, emit) {
 
         return html`
           <article class="u-container">
-            <header class="View-spaceLarge">
+            <header class="View-pushDown">
               ${intro(props)}
             </header>
             <div class="Text"></div>

@@ -26,7 +26,7 @@ function home (state, emit) {
 
         return html`
           <div class="u-container">
-            <header class="View-spaceLarge">
+            <header class="View-pushDown">
               ${doc ? intro({
                 title: asText(doc.data.title),
                 body: asElement(doc.data.description, resolve, serialize)

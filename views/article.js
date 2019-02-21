@@ -23,7 +23,7 @@ function article (state, emit) {
         if (!doc) {
           return html`
             <div class="u-container">
-              <div class="View-spaceLarge">
+              <div class="View-pushDown">
                 ${intro.loading({
                   center: true,
                   tagline: true,
@@ -81,7 +81,7 @@ function article (state, emit) {
 
         return html`
           <div class="u-container">
-            <header class="View-spaceLarge">
+            <header class="View-pushDown">
               ${intro(props)}
             </header>
             <div class="Text">

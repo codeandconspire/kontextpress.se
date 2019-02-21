@@ -104,42 +104,42 @@
  * Large
  */
 
-.View-spaceLarge {
+.View-pushDown {
   margin-bottom: 2rem;
 }
 
-.View-spaceLarge::before {
+.View-pushDown::before {
   content: "";
   height: 17vh;
   display: block;
   max-height: 7rem;
 }
 
-.View-space + .View-spaceLarge {
+.View-space + .View-pushDown {
   margin-top: -3rem;
 }
 
-.View-spaceSmall + .View-spaceLarge {
+.View-spaceSmall + .View-pushDown {
   margin-top: -2rem;
 }
 
 @media (min-width: 1000px) {
-  .View-space + .View-spaceLarge {
+  .View-space + .View-pushDown {
     margin-top: -4rem;
   }
 
-  .View-spaceSmall + .View-spaceLarge {
+  .View-spaceSmall + .View-pushDown {
     margin-top: -2.5em;
   }
 
-  .View-spaceLarge::before {
+  .View-pushDown::before {
     max-height: none;
     min-height: 10rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .View-space + .View-spaceLarge {
+  .View-space + .View-pushDown {
     margin-top: -5rem;
   }
 }
