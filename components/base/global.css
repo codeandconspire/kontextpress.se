@@ -1,12 +1,18 @@
 :root {
   /* Colors  */
 
-  --color-red-primary: 167, 57, 36;
+  /* --color-red-primary: 167, 57, 36;
   --color-red-secondary: 167, 57, 36;
   --color-green-primary: 2, 68, 39;
   --color-green-secondary: 51, 192, 86;
   --color-blue-primary: 18, 62, 121;
-  --color-blue-secondary: 0, 147, 221;
+  --color-blue-secondary: 0, 147, 221; */
+  --color-red-primary: 255, 30, 29;
+  --color-red-secondary: 254, 180, 175;
+  --color-green-primary: 0, 71, 36;
+  --color-green-secondary: 6, 200, 101;
+  --color-blue-primary: 2, 61, 126;
+  --color-blue-secondary: 149, 225, 225;
 
   /* Base styles */
 

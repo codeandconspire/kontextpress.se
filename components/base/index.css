@@ -79,7 +79,6 @@ img {
   max-width: 100%;
   height: auto;
   font-size: 0.8rem; /* 1 */
-  color: rgba(var(--loading-color)); /* 1 */
 }
 
 /**

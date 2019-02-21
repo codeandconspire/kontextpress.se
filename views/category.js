@@ -103,28 +103,34 @@ function asCard (article, author) {
   }
 
   if (author) {
-    props.byline = { text: asText(author.data.title) }
-
-    if (author.data.image.url) {
-      let transforms = 'r_max'
-      if (!author.data.image.thumbnail.url) transforms += ',c_thumb,g_face'
-      let sources = srcset(
-        author.data.image.thumbnail.url || author.data.image.url,
-        [30, 60, [90, 'q_50']],
-        { transforms, aspect: 1 }
-      )
-      props.byline.image = {
-        sizes: '30px',
-        srcset: sources,
-        src: sources.split(' ')[0],
-        alt: props.title,
-        width: 30,
-        height: 30
-      }
-    }
+    props.byline = asByline(author)
   }
 
   return card(props)
+}
+
+function asByline (author) {
+  var byline = { text: asText(author.data.title) }
+
+  if (author.data.image.url) {
+    let transforms = 'r_max'
+    if (!author.data.image.thumbnail.url) transforms += ',c_thumb,g_face'
+    let sources = srcset(
+      author.data.image.thumbnail.url || author.data.image.url,
+      [30, 60, [90, 'q_50']],
+      { transforms, aspect: 1 }
+    )
+    byline.image = {
+      sizes: '30px',
+      srcset: sources,
+      src: sources.split(' ')[0],
+      alt: byline.text,
+      width: 30,
+      height: 30
+    }
+  }
+
+  return byline
 }
 
 function meta (state) {

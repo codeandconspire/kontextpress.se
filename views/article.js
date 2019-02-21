@@ -13,9 +13,9 @@ var { asText, srcset, resolve, i18n } = require('../components/base')
 
 var text = i18n()
 
-module.exports = view(home, meta)
+module.exports = view(article, meta)
 
-function home (state, emit) {
+function article (state, emit) {
   return html`
     <main class="View-main">
       ${state.prismic.getByUID('article', state.params.article, function (err, doc) {
@@ -66,6 +66,19 @@ function home (state, emit) {
           }, doc.data.image.dimensions)
         }
 
+        props.byline = asByline(null, doc)
+
+        if (doc.data.author.id) {
+          state.prismic.getByID(doc.data.author.id, function (err, author) {
+            if (err || !author) return
+            props.byline = asByline(author, doc)
+          })
+        }
+
+        if (doc.data.guest_author) {
+          props.byline = asByline(doc.data.guest_author, doc)
+        }
+
         return html`
           <div class="u-container">
             <header class="View-spaceLarge">
@@ -97,6 +110,51 @@ function home (state, emit) {
       })}
     </main>
   `
+}
+
+function asByline (author, article) {
+  var date = parse(article.first_publication_date)
+  var byline = {
+    date: {
+      datetime: date,
+      text: format(date, 'D MMMM YYYY', { locale: sv }).toLowerCase()
+    }
+  }
+
+  if (!author) {
+    return byline
+  }
+
+  // handle guest authors
+  if (typeof author === 'string') {
+    byline.text = author
+    return byline
+  }
+
+  byline.text = asText(author.data.title)
+  byline.link = {
+    href: '#'
+  }
+
+  if (author.data.image.url) {
+    let transforms = 'r_max'
+    if (!author.data.image.thumbnail.url) transforms += ',c_thumb,g_face'
+    let sources = srcset(
+      author.data.image.thumbnail.url || author.data.image.url,
+      [30, 60, [90, 'q_50']],
+      { transforms, aspect: 1 }
+    )
+    byline.image = {
+      sizes: '30px',
+      srcset: sources,
+      src: sources.split(' ')[0],
+      alt: byline.text,
+      width: 40,
+      height: 40
+    }
+  }
+
+  return byline
 }
 
 // render article as card with author byline
@@ -140,16 +198,16 @@ function asCard (article, author) {
       if (!author.data.image.thumbnail.url) transforms += ',c_thumb,g_face'
       let sources = srcset(
         author.data.image.thumbnail.url || author.data.image.url,
-        [30, 60, [90, 'q_50']],
+        [40, 60, [90, 'q_50']],
         { transforms, aspect: 1 }
       )
       props.byline.image = {
-        sizes: '30px',
+        sizes: '40px',
         srcset: sources,
         src: sources.split(' ')[0],
         alt: props.title,
-        width: 30,
-        height: 30
+        width: 40,
+        height: 40
       }
     }
   }
