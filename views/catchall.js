@@ -6,7 +6,7 @@ function catchall (state, emit) {
   var view
   var wildcard = state.params.wildcard.split('/')
   if (wildcard.length > 1) {
-    view = require('../components/view/error')
+    view = require('./404')
     return view(state, emit)
   } else {
     wildcard = wildcard[0]
@@ -21,7 +21,8 @@ function catchall (state, emit) {
     // fallback to page
     return state.prismic.getByUID('page', wildcard, function (err, doc) {
       if (err) {
-        view = require('../components/view/error')
+        console.log(err)
+        view = require('./404')
       } else {
         view = require('./page')
       }
