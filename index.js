@@ -22,6 +22,7 @@ app.use(require('choo-service-worker')('/sw.js'))
 app.route('/', require('./views/home'))
 app.route('/:category', require('./views/category'))
 app.route('/:category/:article', require('./views/article'))
+app.route('/redaktionen', require('./views/authors'))
 app.route('/redaktionen/:author', require('./views/author'))
 
 try {

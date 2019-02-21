@@ -26,6 +26,7 @@ function resolve (doc) {
     case 'webpage':
     case 'homepage': return '/'
     case 'category': return `/${doc.uid}`
+    case 'authors': return `/redaktionen`
     case 'author': return `/redaktionen/${doc.uid}`
     case 'article': {
       var category = doc.data.category
@@ -197,6 +198,18 @@ function pluck (src, ...keys) {
     if (src[key]) obj[key] = src[key]
     return obj
   }, {})
+}
+
+// compose reduce middlewares that boils down list ot truthy values
+// (arr, ...fn) -> arr
+exports.reduce = reduce
+function reduce (list) {
+  var middleware = Array.prototype.slice.call(arguments, 1)
+  return list.reduce(function (result, initial, i, from) {
+    var val = middleware.reduce((val, fn) => val && fn(val, i, from), initial)
+    if (val) result.push(val)
+    return result
+  }, [])
 }
 
 // compose srcset attribute from url for given sizes
