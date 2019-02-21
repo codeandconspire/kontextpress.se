@@ -16,7 +16,7 @@ module.exports = view(category, meta)
 function category (state, emit) {
   return html`
     <main class="View-main">
-      ${state.prismic.getByUID('category', state.params.category, function (err, doc) {
+      ${state.prismic.getByUID('category', state.params.wildcard, function (err, doc) {
         if (err) throw err
         if (!doc) {
           return html`
@@ -134,7 +134,7 @@ function asByline (author) {
 }
 
 function meta (state) {
-  return state.prismic.getByUID('category', state.params.category, function (err, doc) {
+  return state.prismic.getByUID('category', state.params.wildcard, function (err, doc) {
     if (err) throw err
     if (!doc) return null
     var props = {

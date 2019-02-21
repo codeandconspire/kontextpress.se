@@ -56,7 +56,7 @@ function article (state, emit) {
           query.push(Predicates.at('my.article.category', category.id))
         }
 
-        if (doc.data.image.url) {
+        if (doc.data.image) {
           let sources = srcset(doc.data.image.url, [400, 600, 900, [1800, 'q_50']])
           props.image = Object.assign({
             alt: doc.data.image_caption || doc.data.image.alt,
