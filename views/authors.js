@@ -1,7 +1,4 @@
 var html = require('choo/html')
-var parse = require('date-fns/parse')
-var format = require('date-fns/format')
-var { sv } = require('date-fns/locale/sv')
 var asElement = require('prismic-element')
 var view = require('../components/view')
 var card = require('../components/card')
@@ -52,7 +49,7 @@ function authors (state, emit) {
     if (slice.slice_type !== 'resource_group') return null
     return html`
       <section>
-        <div class="View-space u-spaceB5">
+        <div class="u-spaceB5">
           <h2>${asText(slice.primary.heading)}</h2>
         </div>
         ${grid({ size: { xs: '1of2', md: '1of3', xl: '1of4' } }, slice.items.map(asCard))}
@@ -67,7 +64,7 @@ function asCard (item) {
   var role = item.author.data.role
   var email = item.author.data.email ? html`<a href="mailto:${item.author.data.email}">${item.author.data.email}</a>` : null
   var body = role || email
-  
+
   if (role && email) {
     body = html`<p>${role}<br /> ${email}</p>`
   }
