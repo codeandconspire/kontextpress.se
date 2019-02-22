@@ -5,6 +5,7 @@ var { sv } = require('date-fns/locale/sv')
 var asElement = require('prismic-element')
 var { Predicates } = require('prismic-javascript')
 var view = require('../components/view')
+var embed = require('../components/embed')
 var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
@@ -116,58 +117,73 @@ function article (state, emit) {
   // render slice as element
   // (obj, num) -> Element
   function asSlice (slice, index, list) {
+    console.log(slice.slice_type)
     switch (slice.slice_type) {
       case 'text': {
         if (!slice.primary.text.length) return null
         return html`
-          <div class="u-spaceV6">
-            <div class="Text Text--large">
-              ${asElement(slice.primary.text, resolve, serialize)}
-            </div>
+          <div class="Text">
+            ${asElement(slice.primary.text, resolve, serialize)}
           </div>
         `
       }
-      // case 'heading': {
-      //   if (!slice.primary.heading.length) return null
-      //   return html`
-      //     <div class="Text Text--large u-spaceB5 u-pushDown">
-      //       <h2>${asText(slice.primary.heading)}</h2>
-      //       ${slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null}
-      //     </div>
-      //   `
-      // }
-      // case 'quote': {
-      //   let blockquote = state.cache(Blockquote, `${state.params.slug}-${index}`)
-      //   return html`
-      //     <div class="u-spaceV5">
-      //       ${blockquote.render({
-      //         large: true,
-      //         content: asElement(slice.primary.text, resolve, serialize),
-      //         caption: asElement(slice.primary.cite, resolve, serialize)
-      //       })}
-      //     </div>
-      //   `
-      // }
-      // case 'image': {
-      //   if (!slice.primary.image.url) return null
-      //   let sources = srcset(slice.primary.image.url, [400, 600, 900, [1600, 'q_60'], [3000, 'q_50']])
-      //   let attrs = Object.assign({
-      //     sizes: '100vw',
-      //     srcset: sources,
-      //     src: sources.split(' ')[0],
-      //     alt: slice.primary.image.alt || ''
-      //   }, slice.primary.image.dimensions)
-      //   return html`
-      //     <figure class="Text Text--large u-sizeFull u-spaceV6">
-      //       <img ${attrs}>
-      //       ${slice.primary.image.copyright ? html`
-      //         <figcaption>
-      //           <small class="Text-muted">${slice.primary.image.copyright}</small>
-      //         </figcaption>
-      //       ` : null}
-      //     </figure>
-      //   `
-      // }
+      case 'quote': {
+        return html`
+          <div class="Text">
+            <figure class="Text-blockquote">
+              <blockquote>${asElement(slice.primary.text)}</blockquote>
+              ${slice.primary.cite ? html`<figcaption class="Text-label">${asElement(slice.primary.cite)}</figcaption>` : null}
+            </figure>
+          </div>
+        `
+      }
+      case 'image': {
+        if (!slice.primary.image.url) return null
+        let sources = srcset(slice.primary.image.url, [400, 600, 900, [1600, 'q_60'], [3000, 'q_50']])
+        let attrs = Object.assign({
+          sizes: '100vw',
+          srcset: sources,
+          src: sources.split(' ')[0],
+          alt: slice.primary.image.alt || ''
+        }, slice.primary.image.dimensions)
+        var caption = slice.primary.caption ? asElement(slice.primary.caption, resolve, serialize) : slice.primary.image.copyright
+        return html`
+          <figure class="Text">
+            <img ${attrs}>
+            ${caption ? html`
+              <figcaption>
+                <small class="Text-muted">${caption}</small>
+              </figcaption>
+            ` : null}
+          </figure>
+        `
+      }
+      case 'line': {
+        return html`
+          <div class="Text"><hr /></div>
+        `
+      }
+      case 'video': {
+        if (slice.primary.video.type !== 'video') return null
+        let children = video(slice.primary.video)
+        if (!children) return null
+        return html`
+          <div>
+            ${children}
+          </div>
+        `
+      }
+      case 'sound': {
+        console.log('Soundcloud:', slice)
+        if (slice.primary.sound.provider_name !== 'SoundCloud') return null
+        var params = '&visual=true&show_artwork=true&color=%231d1d1d&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false'
+        var uri = encodeURIComponent(slice.primary.sound.embed_url) + params
+        return html`
+          <div class="u-aspect4-3">
+            <iframe class="u-cover" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=${uri}"></iframe>
+          </div>
+        `
+      }
       // case 'author': {
       //   return html`
       //     <div class="u-spaceV6">
@@ -201,7 +217,7 @@ function article (state, emit) {
       //           return html`
       //             <details>
       //               <summary><h3>${asText(item.heading)}</h3></summary>
-      //               <div class="Text Text--large">
+      //               <div class="Text">
       //                 ${asElement(item.text)}
       //               </div>
       //             </details>
@@ -306,6 +322,24 @@ function article (state, emit) {
       default: return null
     }
   }
+}
+
+// map props to embed player
+// obj -> Element
+function video (props) {
+  var id = embed.id(props)
+  if (!id) return null
+
+  var provider = props.provider_name.toLowerCase()
+  return embed({
+    url: props.embed_url,
+    title: props.title,
+    src: `/media/${provider}/w_900/${id}`,
+    width: props.thumbnail_width,
+    height: props.thumbnail_height,
+    sizes: '100vw',
+    srcset: srcset(id, [400, 900, 1800, [2600, 'q_50'], [3600, 'q_30']], { type: provider })
+  })
 }
 
 function asByline (author, article) {

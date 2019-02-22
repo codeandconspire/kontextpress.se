@@ -1,6 +1,5 @@
 var html = require('choo/html')
 var { Elements } = require('prismic-richtext')
-var bookmark = require('../bookmark')
 var { srcset } = require('../base')
 var embed = require('../embed')
 
@@ -17,7 +16,6 @@ function serialize (type, node, content, children) {
     case Elements.embed: {
       let provider = node.oembed.provider_name.toLowerCase()
       let id = embed.id(node.oembed)
-      if (!id) return bookmark(node.oembed.meta)
 
       return embed({
         url: node.oembed.embed_url,

@@ -91,7 +91,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-
+  
 }
 
 .Embed-caption::before {
@@ -144,6 +144,8 @@
   font-size: 2rem;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
+  word-spacing: var(--heading-word-spacing);
+  text-transform: uppercase;
 }
 
 /**
