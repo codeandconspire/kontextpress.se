@@ -9,6 +9,7 @@ var embed = require('../components/embed')
 var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
+var conversation = require('../components/conversation')
 var serialize = require('../components/text/serialize')
 var { asText, srcset, resolve, i18n } = require('../components/base')
 
@@ -87,7 +88,7 @@ function article (state, emit) {
             </header>
             ${doc.data.body.map(asSlice)}
             
-            <div class="Text">
+            <div class="Text Text--article">
               <hr class="u-spaceV8">
               <h2>${text`Keep reading`}</h2>
             </div>
@@ -117,22 +118,21 @@ function article (state, emit) {
   // render slice as element
   // (obj, num) -> Element
   function asSlice (slice, index, list) {
-    console.log(slice.slice_type)
     switch (slice.slice_type) {
       case 'text': {
         if (!slice.primary.text.length) return null
         return html`
-          <div class="Text">
+          <div class="Text Text--article">
             ${asElement(slice.primary.text, resolve, serialize)}
           </div>
         `
       }
       case 'quote': {
         return html`
-          <div class="Text">
+          <div class="Text Text--article Text--wide">
             <figure class="Text-blockquote">
               <blockquote>${asElement(slice.primary.text)}</blockquote>
-              ${slice.primary.cite ? html`<figcaption class="Text-label">${asElement(slice.primary.cite)}</figcaption>` : null}
+              ${slice.primary.cite && slice.primary.cite[0].text !== '' ? html`<figcaption class="Text-cite">${asElement(slice.primary.cite)}</figcaption>` : null}
             </figure>
           </div>
         `
@@ -148,7 +148,7 @@ function article (state, emit) {
         }, slice.primary.image.dimensions)
         var caption = slice.primary.caption ? asElement(slice.primary.caption, resolve, serialize) : slice.primary.image.copyright
         return html`
-          <figure class="Text">
+          <figure class="Text Text--article Text--wide u-spaceV5">
             <img ${attrs}>
             ${caption ? html`
               <figcaption>
@@ -160,7 +160,7 @@ function article (state, emit) {
       }
       case 'line': {
         return html`
-          <div class="Text"><hr /></div>
+          <div class="Text Text--article"><hr /></div>
         `
       }
       case 'video': {
@@ -168,157 +168,54 @@ function article (state, emit) {
         let children = video(slice.primary.video)
         if (!children) return null
         return html`
-          <div>
+          <div class="Text Text--article Text--wide u-spaceV5">
             ${children}
           </div>
         `
       }
       case 'sound': {
-        console.log('Soundcloud:', slice)
         if (slice.primary.sound.provider_name !== 'SoundCloud') return null
         var params = '&visual=true&show_artwork=true&color=%231d1d1d&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false'
         var uri = encodeURIComponent(slice.primary.sound.embed_url) + params
         return html`
-          <div class="u-aspect4-3">
-            <iframe class="u-cover" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=${uri}"></iframe>
+          <div class="Text Text--article u-spaceV5">
+            <div class="u-aspect4-3">
+              <iframe class="u-cover" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=${uri}"></iframe>
+            </div>
           </div>
         `
       }
-      // case 'author': {
-      //   return html`
-      //     <div class="u-spaceV6">
-      //       ${byline({
-      //         heading: asText(slice.primary.heading),
-      //         body: asElement(slice.primary.text, resolve, reset),
-      //         image: slice.primary.image.url ? Object.assign({
-      //           src: srcset(
-      //             slice.primary.image.url,
-      //             [200, 'c_thumb'],
-      //             { aspect: 278 / 195 }
-      //           ).split(' ')[0],
-      //           sizes: '15rem',
-      //           srcset: srcset(
-      //             slice.primary.image.url,
-      //             [200, 400, [800, 'q_50,c_thumb']],
-      //             { transforms: 'c_thumb', aspect: 278 / 195 }
-      //           ),
-      //           alt: slice.primary.image.alt || ''
-      //         }, slice.primary.image.dimensions) : null
-      //       })}
-      //     </div>
-      //   `
-      // }
-      // case 'accordion': {
-      //   return html`
-      //     <section class="u-spaceV6">
-      //       <div class="Text u-sizeFull">
-      //         ${slice.items.map(function (item) {
-      //           if (!item.heading.length) return null
-      //           return html`
-      //             <details>
-      //               <summary><h3>${asText(item.heading)}</h3></summary>
-      //               <div class="Text">
-      //                 ${asElement(item.text)}
-      //               </div>
-      //             </details>
-      //           `
-      //         }).filter(Boolean)}
-      //       </div>
-      //     </section>
-      //   `
-      // }
-      // case 'team': {
-      //   if (!slice.items.length) return
-      //   let opts = { size: { lg: '1of4' } }
-      //   let hasImage = slice.items.find((item) => item.image.url)
-      //   if (hasImage) opts.size.xs = '1of2'
-      //   else opts.size.md = '1of2'
-      //   return grid(opts, slice.items.map(teamMember))
-      // }
-      // case 'newsletter': {
-      //   return html`
-      //     <div>
-      //       ${index !== 0 ? html`<hr class="u-invisible">` : null}
-      //       ${state.cache(Subscribe, `${state.params.slug}-${index}`).render({
-      //         action: state.mailchimp,
-      //         title: asText(slice.primary.heading),
-      //         body: slice.primary.text.length ? asElement(slice.primary.text, resolve, serialize) : null,
-      //         success: slice.primary.success_message.length ? asElement(slice.primary.success_message, resolve, serialize) : null,
-      //         ref: slice.primary.ref
-      //       })}
-      //       ${index < list.length - 1 ? html`<hr />` : null}
-      //     </div>
-      //   `
-      // }
-      // case 'link_blurb': {
-      //   let link = slice.primary.link
-      //   if (!link.id || link.isBroken) return null
-      //   if (link.type === 'page') {
-      //     link = state.prismic.getByUID('page', link.uid, function (err, doc) {
-      //       if (err) return null
-      //       return doc
-      //     })
-      //   }
-      //   if (!link) {
-      //     blurbs.push(card.loading())
-      //   } else {
-      //     blurbs.push(asCard({
-      //       title: link.data.title,
-      //       body: link.data.description,
-      //       image: link.data.featured_image,
-      //       color: slice.primary.color || link.data.theme,
-      //       link: {
-      //         href: resolve(link),
-      //         text: link.data.cta
-      //       }
-      //     }))
-      //   }
-      //   return blurbs
-      // }
-      // case 'file_blurb': {
-      //   let { primary } = slice
-      //   if (!primary.file.url || primary.file.isBroken) return null
-      //   blurbs.push(asCard({
-      //     file: true,
-      //     image: primary.image,
-      //     title: primary.title,
-      //     body: primary.text,
-      //     color: primary.color,
-      //     link: {
-      //       href: primary.file.url
-      //     }
-      //   }))
-      //   return blurbs
-      // }
-      // case 'any_blurb': {
-      //   let { primary } = slice
-      //   let { link } = primary
-      //   if ((!link.url && !link.id) || link.isBroken) return null
-      //   blurbs.push(asCard({
-      //     image: primary.image,
-      //     title: primary.title,
-      //     body: primary.text,
-      //     color: primary.color,
-      //     link: {
-      //       href: resolve(link),
-      //       external: link.target === '_blank'
-      //     }
-      //   }))
-      //   return blurbs
-      // }
-      // case 'button': {
-      //   if (!slice.primary.text && !slice.primary.link) return
-      //   return html`
-      //     <div class="u-spaceV5">
-      //       ${button({
-      //         primary: true,
-      //         external: slice.primary.link.link_type === 'Web',
-      //         href: slice.primary.link.url,
-      //         text: slice.primary.text
-      //       })}
-      //     </div>
-      //   `
-      // }
+      case 'comic': {
+        if (!slice.items.length) return null
+        var aligned = slice.primary.margins === 'Inga marginaler, klistra rutorna mot varandra'
+        return html`
+          <div class="Text Text--article Text--wide u-spaceV5">
+            ${grid({ aligned: aligned, size: { lg: '1of2', xl: '1of3' } }, slice.items.map(function (item) {
+              if (!item.item.url) return false
+              let sources = srcset(item.item.url, [400, 600, 900, [1800, 'q_50']])
+              let attrs = Object.assign({
+                sizes: '(min-width: 900px) 900px, 100vw',
+                srcset: sources,
+                class: 'u-spaceA0',
+                src: sources.split(' ')[0],
+                alt: item.item.alt || ''
+              }, item.item.dimensions)
+              return html` 
+                <div><img ${attrs} /></div>
+              `
+            }))}
+          </div>
+        `
+      }
+      case 'conversation': {
+        var messages = slice.items.map((item) => item.message)
+        if (!messages || !messages.length) return
+        return html`
+          <div class="Text Text--article">
+            ${conversation({messages: messages, rtl: slice.primary.start === 'Dig (högersidan)'})}
+          </div>
+        `
+      }
       default: return null
     }
   }

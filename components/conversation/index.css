@@ -1,0 +1,89 @@
+@import "../base";
+
+/* @define Intro */
+.Conversation {
+  margin: 2.5rem auto;
+}
+
+@media (min-width: 600px) {
+  .Conversation {
+    margin: 3.5rem 0; 
+  }
+}
+
+@media (min-width: 1000px) {
+  .Conversation {
+    font-size: 1.1875rem;
+  }
+}
+
+.Conversation-message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 1.2rem 0;
+}
+
+.Conversation-bubble {
+  max-width: 85%;
+  overflow: hidden;
+  padding: 0.6em 1em;
+  color: rgb(255, 255, 255);
+  background: rgb(var(--color-green-secondary));
+  border-radius: 1.1em;
+}
+
+.Conversation-bubble:last-child {
+  border-radius: 1.1em 1.1em 0 1.1em;
+}
+
+.Conversation-bubble + .Conversation-bubble {
+  margin-top: 1.1em;
+}
+
+.Conversation:not(.Conversation--rtl) .Conversation-message:nth-child(odd),
+.Conversation--rtl .Conversation-message:nth-child(even) {
+  align-items: flex-start;
+}
+
+.Conversation:not(.Conversation--rtl) .Conversation-message:nth-child(odd) .Conversation-bubble,
+.Conversation--rtl .Conversation-message:nth-child(even) .Conversation-bubble {
+  color: inherit;
+  background: rgb(233, 233, 233); 
+}
+
+.Conversation:not(.Conversation--rtl) .Conversation-message:nth-child(odd) .Conversation-bubble:last-child,
+.Conversation--rtl .Conversation-message:nth-child(even) .Conversation-bubble:last-child {
+  border-radius: 1.1em 1.1em 1.1em 0;
+}
+
+/**
+ * Content types
+ */
+
+.Conversation-bubble > * {
+  max-width: 25em;
+}
+
+.Conversation-bubble *:first-child {
+  margin-top: 0;
+}
+
+.Conversation-bubble *:last-child {
+  margin-bottom: 0;
+}
+
+.Conversation-bubble figure {
+  margin: -0.6rem -1.5rem !important;
+}
+
+.Conversation-bubble img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (min-width: 800px) {
+  .Conversation-bubble img {
+    width: 20rem;
+  }
+}

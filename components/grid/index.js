@@ -9,7 +9,7 @@ function grid (opts, children) {
   }
 
   return html`
-    <div class="Grid ${opts.carousel ? 'Grid--carousel' : ''}">
+    <div class="Grid ${opts.aligned ? 'Grid--aligned' : ''}">
       ${children.map(cell)}
     </div>
   `
@@ -35,5 +35,6 @@ function sizes (opts) {
   if (opts.sm) size += `u-sm-size${opts.sm} `
   if (opts.md) size += `u-md-size${opts.md} `
   if (opts.lg) size += `u-lg-size${opts.lg} `
+  if (opts.xl) size += `u-xl-size${opts.lg} `
   return size
 }

@@ -6,8 +6,16 @@
   font-family: var(--default-font-family);
   line-height: var(--default-line-height);
   font-size: 1rem;
-  max-width: 41rem;
+  max-width: var(--narrow-max-width);
   text-align: left;
+}
+
+.Text--wide {
+  max-width: var(--wide-max-width);
+}
+
+.Text--article {
+  margin: 0 auto;
 }
 
 .Text-muted {
@@ -19,8 +27,7 @@
 }
 
 @media (min-width: 1000px) {
-  .Text--large,
-  .Text-large {
+  .Text {
     font-size: 1.1875rem;
   }
 }
@@ -30,7 +37,7 @@
  * 1. Sorry: make links usable when used within interactive cards (Card)
  */
 
-.Text a {
+.Text a:not(.Embed-link) {
   position: relative; /* 1 */
   z-index: 2; /* 1 */
   font-weight: 600;
@@ -39,7 +46,7 @@
   text-decoration: var(--high-contrast-underline, none);
 }
 
-.Text a:hover {
+.Text a:not(.Embed-link):hover {
   color: rgb(var(--color-link-shaded));
 }
 
@@ -76,7 +83,7 @@
 
 .Text img {
   height: auto;
-  max-width: 100%;
+  max-width: var(--wide-max-width);
 }
 
 .Text pre {
@@ -85,6 +92,50 @@
   background: rgb(var(--color-gray-light));
   padding: 1em;
   text-align: left;
+}
+
+/**
+ * Blockquote
+ */
+
+.Text-blockquote {
+  margin: 3rem 0 2.5rem;
+  color: rgb(var(--theme-color-primary));
+  font-size: 1.8rem;
+  line-height: 1.15;
+  font-weight: normal;
+  font-family: var(--heading-font-family);
+  text-align: center;
+}
+
+.Text-cite {
+  display: inline-block;
+  font-size: 0.875rem;
+  margin-top: 1.4rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: var(--document-font-family);
+  color: rgb(var(--document-color));
+}
+
+.Text-blockquote p:first-child {
+  margin-top: 0;
+}
+
+.Text-blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 600px) {
+  .Text-blockquote {
+    font-size: 2.2rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .Text-blockquote {
+    font-size: 2.8rem;
+  }
 }
 
 /**
@@ -164,10 +215,9 @@
 .Text .Text-h2,
 .Text .Text-h3 {
   margin-bottom: 0.3em;
-  font-weight: 600;
+  font-weight: normal;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
-  word-spacing: var(--heading-word-spacing);
   hyphens: auto;
 }
 
@@ -186,15 +236,8 @@
 
 .Text h2,
 .Text .Text-h2 {
-  font-size: 2.5em;
+  font-size: 2.1em;
   line-height: 1.1;
-}
-
-@media (min-width: 500px) {
-  .Text h2,
-  .Text .Text-h2 {
-    font-size: 3rem;
-  }
 }
 
 .Text h3,
@@ -208,9 +251,9 @@
 .Text h6,
 .Text .Text-h5,
 .Text .Text-h6 {
+  font-size: 0.875rem;
+  text-transform: uppercase;
   font-weight: 600;
-  font-size: inherit;
-  line-height: inherit;
 }
 
 @media (min-width: 1200px) {

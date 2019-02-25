@@ -23,12 +23,14 @@ function embed (props) {
     <figure class="Embed">
       <a class="Embed-link" href="${props.url}" target="_blank" rel="noopener noreferrer" onclick=${onclick}>
         <span class="u-hiddenVisually">${text`Play ${props.title || ''}`}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89" class="Embed-play">
+          <g fill="none" fill-rule="evenodd">
+            <circle cx="44.5" cy="44.5" r="44.5" fill="rgb(var(--theme-color-primary))"/>
+            <path fill="#FFF" d="M36 31l24 14-24 14z"/>
+          </g>
+        </svg>
       </a>
       <img class="Embed-image" ${attrs} src="${src}">
-      <figcaption class="Embed-caption">
-        ${props.title ? html`<strong class="Embed-title">${props.title}</strong>` : null}
-        ${props.description ? html`<p class="u-spaceT1"><span class="Embed-description">${props.description}</span></p>` : null}
-      </figcaption>
     </figure>
   `
 

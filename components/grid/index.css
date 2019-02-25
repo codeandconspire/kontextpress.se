@@ -29,6 +29,10 @@
   margin-top: var(--Grid-gutter);
 }
 
+.Grid--aligned {
+  --Grid-gutter: 0;
+}
+
 /**
  * 1. Add support for truncated text within the grid
  */
@@ -44,82 +48,6 @@
 .Grid-cell > * {
   flex-basis: 100%;
   min-width: 0; /* 1 */
-}
-
-@media (max-width: 599px) {
-  .Grid--carousel {
-    width: 100%;
-    margin: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
-    flex-wrap: nowrap;
-    -webkit-overflow-scrolling: touch;
-    -webkit-scroll-snap-type: mandatory;
-    scroll-snap-type: x mandatory;
-    -webkit-scroll-snap-points-x: repeat(100%);
-    scroll-snap-points-x: repeat(100%);
-  }
-
-  .Grid--carousel .Grid-cell {
-    flex-basis: calc(100% - (var(--document-margin) * 2));
-    padding-left: var(--document-margin);
-    padding-right: 0;
-    scroll-snap-align: start;
-    margin-bottom: 0;
-  }
-
-  .Grid--carousel .Grid-cell:last-child {
-    flex-basis: calc(100% - var(--document-margin));
-    padding-right: var(--document-margin);
-  }
-}
-
-.Grid--divided {
-  width: 100%;
-  margin: 0;
-}
-
-.Grid--divided .Grid-cell {
-  margin: 0;
-  padding: calc(var(--document-margin) * 2) 0;
-  border-top: 1px solid rgb(var(--color-gray-light));
-}
-
-.Grid--divided .Grid-cell:first-child {
-  border-top: 0;
-}
-
-@media (min-width: 600px), print {
-  .Grid--divided .Grid-cell {
-    flex-basis: auto;
-    width: 50%;
-    padding: var(--document-margin) 0;
-    border-top: 1px solid rgb(var(--color-gray-light));
-    position: relative;
-  }
-
-  .Grid--divided .Grid-cell:nth-child(2n+1)::after {
-    content: "";
-    width: 1px;
-    position: absolute;
-    right: 0;
-    top: var(--document-margin);
-    bottom: var(--document-margin);
-    background-color: rgb(var(--color-gray-light));
-  }
-
-  .Grid--divided .Grid-cell:first-child,
-  .Grid--divided .Grid-cell:nth-child(2) {
-    border-top: 0;
-  }
-
-  .Grid--divided .Grid-cell:nth-child(2n+1) {
-    padding-right: var(--document-margin);
-  }
-
-  .Grid--divided .Grid-cell:nth-child(2n+2) {
-    padding-left: var(--document-margin);
-  }
 }
 
 .Grid-cell--appear {
