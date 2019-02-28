@@ -14,6 +14,10 @@
   max-width: var(--wide-max-width);
 }
 
+.Text--full {
+  max-width: none;
+}
+
 .Text--article {
   margin: 0 auto;
 }
@@ -225,7 +229,8 @@
 .Text h3,
 .Text .Text-h1,
 .Text .Text-h2,
-.Text .Text-h3 {
+.Text .Text-h3,
+.Text-section {
   margin-bottom: 0.3em;
   font-weight: normal;
   font-family: var(--heading-font-family);
@@ -284,5 +289,20 @@
   .Text .Text-h3 {
     font-size: 1.8em;
     line-height: 1.1;
+  }
+}
+
+.Text .Text-section {
+  padding-top: 3rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 4.5rem 0 1.625rem;
+  font-size: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .Text .Text-section {
+    padding-top: 3.75rem;
+    margin: 7rem 0 1.5rem; 
+    font-size: 2rem;
   }
 }

@@ -15,6 +15,8 @@ var { asText, srcset, resolve, i18n } = require('../components/base')
 
 var text = i18n()
 
+
+
 module.exports = view(article, meta)
 
 function article (state, emit) {
@@ -87,10 +89,10 @@ function article (state, emit) {
               ${intro(props)}
             </header>
             ${doc.data.body.map(asSlice)}
+
             
-            <div class="Text Text--article">
-              <hr class="u-spaceV8">
-              <h2>${text`Keep reading`}</h2>
+            <div class="Text Text--full">
+              <h2 class="Text-section">${text`Keep reading`}</h2>
             </div>
             ${state.prismic.get(query, opts, function (err, response) {
               if (err) return null
@@ -378,3 +380,38 @@ function meta (state) {
     return props
   })
 }
+
+function copy (event) {
+  var button = event.currentTarget
+  var input = document.getElementById(URL_ID)
+
+  // play nice with ios
+  if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+    let range = document.createRange()
+
+    input.contentEditable = true
+    input.readOnly = false
+    range.selectNodeContents(input)
+
+    // create selection
+    let selection = window.getSelection()
+    selection.removeAllRanges()
+    selection.addRange(range)
+    input.setSelectionRange(0, input.value.length)
+
+    // reapply default attrs
+    input.contentEditable = false
+    input.readOnly = true
+  } else {
+    input.select()
+  }
+
+  // execute copy
+  document.execCommand('Copy')
+  button.addEventListener('transitionend', function ontransitionend () {
+    button.removeEventListener('transitionend', ontransitionend)
+    window.setTimeout(() => button.classList.remove('is-active'), 1000)
+  })
+  button.classList.add('is-active')
+}
+

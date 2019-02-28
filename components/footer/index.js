@@ -1,6 +1,8 @@
 var html = require('choo/html')
 var Component = require('choo/component')
 
+var CAN_COPY = typeof window !== 'undefined' && 'execCommand' in document
+
 module.exports = class Footer extends Component {
   constructor (id, state, emit) {
     super(id)
@@ -34,9 +36,13 @@ module.exports = class Footer extends Component {
           <div class="Footer-col">
             <h2 class="Footer-title">Stöd oss</h2>
             <ul class="Footer-list">
-              <li class="Footer-item">Bankgiro: <span class="u-textNowrap">5555-3333</span></li>
-              <li class="Footer-item">Swish: <span class="u-textNowrap">123 456 00 00</span></li>
-              <li class="Footer-item"><a class="Footer-link" href="/stod-oss">Hur vi finanseras</a></li>
+
+                <ul class="Footer-list">
+                  <li class="Footer-item">Bankgiro: <span class="u-textNowrap">5347-1249</span></li>
+                  <li class="Footer-item">Swish: <span class="u-textNowrap">1236 2121 79</span></li>
+                  <li class="Footer-item"><a class="Footer-link" href="/stod-oss">Hur vi finanseras</a></li>
+                </ul>
+
             </ul>
           </div>
           <div class="Footer-col">
@@ -82,4 +88,42 @@ module.exports = class Footer extends Component {
       </footer>
     `
   }
+}
+
+function preventDefault (event) {
+  event.preventDefault()
+}
+
+function copy (event) {
+  var button = event.currentTarget
+  var input = document.getElementById(button)
+
+  // play nice with ios
+  if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+    let range = document.createRange()
+
+    input.contentEditable = true
+    input.readOnly = false
+    range.selectNodeContents(input)
+
+    // create selection
+    let selection = window.getSelection()
+    selection.removeAllRanges()
+    selection.addRange(range)
+    input.setSelectionRange(0, input.value.length)
+
+    // reapply default attrs
+    input.contentEditable = false
+    input.readOnly = true
+  } else {
+    input.select()
+  }
+
+  // execute copy
+  document.execCommand('Copy')
+  button.addEventListener('transitionend', function ontransitionend () {
+    button.removeEventListener('transitionend', ontransitionend)
+    window.setTimeout(() => button.classList.remove('is-active'), 1000)
+  })
+  button.classList.add('is-active')
 }
