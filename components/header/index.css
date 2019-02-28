@@ -1,282 +1,78 @@
 @import "../base";
 
 /* @define Header */
-:root {
-  --Header-size: 1;
-  --Header-height: 5rem;
-  --Header-displace: 2rem;
-}
-
 .Header {
-  width: 100%;
-  height: var(--Header-height);
-  contain: size style;
+  border-top: 4px solid rgb(var(--theme-color-secondary));
   position: relative;
-  border-top: 6px solid rgb(var(--theme-color-primary));
-}
-
-@media (max-width: 999px) {
-  .Header {
-    --focus-ring-color: 255, 255, 255;
-  }
-}
-
-.Header-content {
-  display: flex;
-  height: var(--Header-height);
-  position: relative;
-  flex: 1 0 100%;
-  align-items: center;
-  position: relative;
-  z-index: 1;
   background: #fff;
 }
 
+.Header-content {
+  padding: 0.85rem var(--document-margin);
+}
+
+.Header-logo {
+  display: inline-block;
+  padding: 0.3rem;
+  margin: -0.3rem;
+}
+
+.Header-figure {
+  width: 11rem;
+  height: auto;
+}
+
+.Header-menu {
+  padding: 0.5rem var(--document-margin);
+  border: solid rgb(229, 229, 229);
+  border-width: 1px 0;
+}
+
 .Header-nav {
-  flex: 1 0 auto;
-  padding: 0 2rem;
-  pointer-events: auto;
+
 }
 
 .Header-list {
-  list-style: none;
+
 }
 
-/**
- * The logo
- */
-
-.Header-logo {
-  box-sizing: content-box;
-  height: 1.875rem;
-  width: auto;
-  padding: 1.5rem 0;
-  z-index: 1;
-  vertical-align: top;
-  pointer-events: auto;
-  color: currentColor;
-}
-
-/**
- * Links
- */
-
-.Header-item.is-selected {
-  color: rgb(var(--color-link));
+:not(.Header-button) .Header-item {
+  display: inline-block;
+  margin-right: 0.65rem;
+  font-family: var(--heading-font-family);
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
 }
 
 .Header-text {
-  display: flex;
-  align-items: center;
-  font-size: 1.375rem;
-  line-height: var(--heading-line-height);
-  font-family: var(--heading-font-family);
-  white-space: nowrap;
-}
-
-/**
- * Navigation toggle and our juicy vegan burger
- */
-
-.Header-button {
-  display: inline-block;
-  padding: 0.6rem 0.7rem 0.5rem 0.9rem;
-  position: relative;
-  pointer-events: auto;
-  border-radius: 2px;
-  transition: background-color 180ms var(--ease-out);
-}
-
-.Header-button:hover {
-  background: rgba(0, 0, 0, 0.6);
-}
-
-.Header.is-open .Header-button:hover,
-:root:not([scripting-enabled]) .Header:target .Header-button:hover {
-  background: rgba(0, 0, 0, 0.05);
+  padding: 0.2rem;
+  margin: -0.2rem;
 }
 
 .Header-button {
-  display: flex;
-  align-items: center;
-  padding: 0.6rem 0.75rem 0.5rem 0.9rem;
+  margin: 0.65rem 0;
   position: absolute;
-  right: 0.35rem;
-  z-index: 1;
-  text-align: right;
-}
-
-.Header-button--noscript {
-  display: none;
-}
-
-:root:not([scripting-enabled]) .Header:target .Header-button--noscript {
-  display: flex;
-}
-
-.Header-burger {
-  width: 1.125rem;
-  height: 0.875rem;
-  margin: -0.1rem 0.4em 0 0;
-  position: relative;
-  pointer-events: auto;
-  transition: transform 250ms var(--ease-out);
-  will-change: transform;
-}
-
-.Header-burger::before,
-.Header-burger::after,
-.Header-beanPatty {
-  content: "";
-  position: absolute;
-  right: 0;
-  width: 100%;
-  height: 0.125rem;
-  background: currentColor;
-  transform-origin: top right;
-  transition: transform 250ms var(--ease-out), opacity 250ms var(--ease-out);
-  will-change: transform;
-}
-
-.Header-burger::before {
   top: 0;
-  width: 0.875rem;
+  right: var(--document-margin);
 }
 
-.Header-burger::after {
-  bottom: 0;
-  width: 0.75rem;
+.Header-button .Header-text {
+  display: block;
+  padding: 0.4rem 0.7rem;
+  margin: 0;
+  background: rgb(242, 242, 242);
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.75rem;
 }
 
-.Header-beanPatty {
-  top: 0.375rem;
-  transform-origin: center center;
+.Header-icon {
+  display: inline-block;
+  margin: 0 0.35rem 0.1rem -0.15rem;
+  width: 11px;
+  vertical-align: middle;
 }
 
-.Header.is-open .Header-burger,
-:root:not([scripting-enabled]) .Header:target .Header-burger {
-  transform: translateX(-0.3125rem);
-}
-
-.Header.is-open .Header-burger::before,
-:root:not([scripting-enabled]) .Header:target .Header-burger::before {
-  transform: rotate(-45deg) translate(0.0625rem, -0.0625rem) scaleX(1.49);
-}
-
-.Header.is-open .Header-burger::after,
-:root:not([scripting-enabled]) .Header:target .Header-burger::after {
-  transform: rotate(45deg) translate(0.125rem, 0rem) scaleX(1.74);
-}
-
-.Header.is-open .Header-beanPatty,
-:root:not([scripting-enabled]) .Header:target .Header-beanPatty {
-  transform: scaleX(0);
-  opacity: 0;
-}
-
-/**
- * Narrow viewports with vertical navigation. Note the max-width query.
- */
-
-@media (max-width: 999px) {
-  .Header-nav {
-    display: flex;
-    align-items: flex-end;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    visibility: hidden;
-    opacity: 0;
-    transform: translateY(var(--Header-displace));
-    transition: 300ms 100ms var(--ease-out);
-    transition-property: transform, opacity;
-    overflow: hidden;
-  }
-
-  .Header-list {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    height: 77%;
-    width: 100%;
-    padding: 0.9rem;
-  }
-
-  /**
-   * Link styles
-   */
-
-  .Header-text {
-    color: inherit;
-    font-size: 2rem;
-  }
-
-  /**
-   * Let's not mark current page in vertical nav, it's mostly confusing
-   */
-
-  .Header-item.is-selected,
-  .Header-item.is-selected:hover {
-    color: inherit;
-    background: none;
-  }
-}
-
-/**
- * Give the items in the vertical navigation a bit more space when possible.
- */
-
-@media (max-width: 999px) and (min-height: 500px) {
-  .Header-text {
-    font-size: 3rem;
-  }
-
-  .Header-list {
-    height: 82%;
-  }
-}
-
-/**
- * Horizontal navigation
- */
-
-@media (min-width: 1000px) {
-  .Header-button {
-    display: none;
-  }
-
-  .Header-nav {
-    flex: 1 0 auto;
-  }
-
-  .Header-list {
-    display: flex;
-    align-items: center;
-  }
-
-  .Header-item {
-    margin-right: 1.25rem;
-  }
-}
-
-/**
- * Increase dimensions wider viewports
- */
-
- @media (min-width: 700px) {
-  :root {
-    --Header-height: 7rem;
-  }
-}
-
-@media (min-width: 1000px) {
-  :root {
-    --Header-height: 8rem;
-  }
-
-  .Header-logo {
-    font-size: 1.2em;
-  }
+.Header-fill {
+  transition: fill 150ms var(--ease);
 }

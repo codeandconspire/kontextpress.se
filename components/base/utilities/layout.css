@@ -78,25 +78,57 @@
 /**
  * Centered page container
  */
-.u-container {
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--document-margin) !important;
-  padding-right: var(--document-margin) !important;
-  max-width: calc(var(--document-max-width) + (var(--document-margin) * 2)) !important
-}
 
-@supports (padding-left: constant(safe-area-inset-left)) {
-  .u-container {
-    padding-left: calc(var(--document-margin) + constant(safe-area-inset-left)) !important;
-    padding-right: calc(var(--document-margin) + constant(safe-area-inset-right)) !important;
-  }
-}
-
-@supports (padding-left: env(safe-area-inset-left)) {
-  .u-container {
-    padding-left: calc(var(--document-margin) + env(safe-area-inset-left)) !important;
-    padding-right: calc(var(--document-margin) + env(safe-area-inset-right)) !important;
-  }
-}
+ .u-container,
+ .u-md-container,
+ .u-lg-container,
+ .u-xl-container {
+   width: 100% !important;
+   margin-left: auto !important;
+   margin-right: auto !important;
+   padding-left: var(--page-gutter) !important;
+   padding-right: var(--page-gutter) !important;
+   max-width: calc(var(--max-width) + (var(--page-gutter) * 2)) !important
+ }
+ 
+ @supports (padding-left: constant(safe-area-inset-left)) {
+   .u-container,
+   .u-md-container,
+   .u-lg-container,
+   .u-xl-container {
+     padding-left: calc(var(--page-gutter) + constant(safe-area-inset-left)) !important;
+     padding-right: calc(var(--page-gutter) + constant(safe-area-inset-right)) !important;
+   }
+ }
+ 
+ @supports (padding-left: env(safe-area-inset-left)) {
+   .u-container,
+   .u-md-container,
+   .u-lg-container,
+   .u-xl-container {
+     padding-left: calc(var(--page-gutter) + env(safe-area-inset-left)) !important;
+     padding-right: calc(var(--page-gutter) + env(safe-area-inset-right)) !important;
+   }
+ }
+ 
+ @media (max-width: 599px) {
+   .u-md-container {
+     padding-left: 0 !important;
+     padding-right: 0 !important;
+   }
+ }
+ 
+ @media (max-width: 899px) {
+   .u-lg-container {
+     padding-left: 0 !important;
+     padding-right: 0 !important;
+   }
+ }
+ 
+ @media (max-width: 1199px) {
+   .u-xl-container {
+     padding-left: 0 !important;
+     padding-right: 0 !important;
+   }
+ }
+ 
