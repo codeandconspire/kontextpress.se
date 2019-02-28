@@ -48,8 +48,8 @@ module.exports = class Header extends Component {
                   </svg>${text`Support us`}
                 </a>
               </li>
-              <li class="${className('Header-text Header-item Header-end Header-hidden', { 'is-selected': state.href.indexOf('om') !== -1 })}">
-                <a href="/om" class="Header-text">${text`About us`}</a>
+              <li class="${className('Header-text Header-item Header-end Header-hidden', { 'is-selected': state.href.indexOf('om-oss') !== -1 })}">
+                <a href="/om-oss" class="Header-text">${text`About us`}</a>
               </li>
             </ul>
           </nav>
