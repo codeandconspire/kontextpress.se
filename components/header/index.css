@@ -5,6 +5,7 @@
   border-top: 4px solid rgb(var(--theme-color-secondary));
   position: relative;
   background: #fff;
+  transition: border-color 300ms var(--ease-out);
 }
 
 .Header-content {
@@ -36,7 +37,8 @@
 
 }
 
-:not(.Header-button) .Header-item {
+.Header-item,
+.Header-button {
   display: inline-block;
   margin-right: 0.65rem;
   font-family: var(--heading-font-family);
@@ -49,30 +51,104 @@
   margin: -0.2rem;
 }
 
-.Header-button {
-  margin: 0.65rem 0;
-  position: absolute;
-  top: 0;
-  right: var(--document-margin);
+.Header-hidden {
+  display: none;
 }
 
-.Header-button .Header-text {
-  display: block;
-  padding: 0.4rem 0.7rem;
-  margin: 0;
-  background: rgb(242, 242, 242);
-  border-radius: 4px;
-  font-weight: 500;
-  font-size: 0.75rem;
+@media (max-width: 599px) {
+  .Header-button {
+    margin: 0.65rem 0;
+    position: absolute;
+    top: 0;
+    right: var(--document-margin);
+    font-family: var(--document-font-family);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: auto;
+  }
+
+  .Header-button .Header-text {
+    display: block;
+    padding: 0.4rem 0.7rem 0.4rem 0.55rem;
+    margin: 0;
+    background: rgb(242, 242, 242);
+    border-radius: 4px;
+  }
 }
 
 .Header-icon {
   display: inline-block;
-  margin: 0 0.35rem 0.1rem -0.15rem;
+  margin: 0 0.35rem 0.1rem 0;
   width: 11px;
   vertical-align: middle;
 }
 
 .Header-fill {
-  transition: fill 150ms var(--ease);
+  transition: fill 300ms var(--ease-out);
+}
+
+@media (min-width: 600px) {
+  .Header {
+    background: none;
+  }
+
+  .Header-container {
+    display: flex;
+  }
+
+  .Header-content,
+  .Header-menu {
+    padding: 2rem 0;
+  }
+
+  .Header-menu {
+    flex: 1 0 auto;
+    padding-left: 1.7rem;
+    border: 0;
+  }
+
+  .Header-item,
+  .Header-button {
+    margin-right: 1rem;
+  }
+
+  .Header-button {
+    margin-right: 0;
+  }
+
+  .Header-end {
+    float: right;
+  }
+}
+
+@media (min-width: 800px) {
+  .Header-hidden {
+    display: block;
+  }
+}
+
+@media (min-width: 1000px) {
+  .Header-figure {
+    width: 13.4rem;
+  }
+
+  .Header-menu {
+    padding-left: 2.2rem;
+  }
+
+  .Header-item,
+  .Header-button {
+    margin-right: 1.7rem;
+    font-size: 1.375rem;
+    letter-spacing: 0;
+  }
+
+  .Header-button {
+    margin-right: 0;
+  }
+
+  .Header-icon {
+    width: 13px;
+    margin-right: 0.4rem;
+  }
 }
