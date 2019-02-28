@@ -128,7 +128,7 @@ function page (state, emit) {
 
         return html`
           <div class="u-constrained">
-            ${grid({ size: { md: '1of2' } }, blurbs)}
+            ${grid({ size: { md: '1of2' }, blurbs: true }, blurbs)}
           </div>
         `
       }

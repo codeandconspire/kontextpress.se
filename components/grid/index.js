@@ -9,7 +9,7 @@ function grid (opts, children) {
   }
 
   return html`
-    <div class="Grid ${opts.aligned ? 'Grid--aligned' : ''}">
+    <div class="Grid ${opts.aligned ? 'Grid--aligned' : ''} ${opts.blurbs ? 'Grid--blurbs' : ''}">
       ${children.map(cell)}
     </div>
   `

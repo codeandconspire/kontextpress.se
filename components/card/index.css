@@ -78,12 +78,13 @@
 }
 
 .Card-title {
-  display: inline;
   font-size: 1.5rem;
   line-height: 1.15;
   font-family: var(--heading-font-family);
   max-width: 22rem;
   letter-spacing: -0.01em;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .Card-text {

@@ -2,4 +2,52 @@
 
 /** @define Blurb */
 .Blurb {
+  position: relative;
+  background: #1D1D1D;
+  color: #fff;
+  transition: background-color 100ms var(--ease-out);
+}
+
+.Blurb:hover {
+  background: #000;
+}
+
+.Blurb-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+}
+
+.Blurb-link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.Blurb-icon {
+  width: 2.25rem;
+}
+
+@media (min-width: 800px) {
+  .Blurb-content {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .Blurb-content {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .Blurb-icon {
+    width: 3rem;
+  }
 }

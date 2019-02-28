@@ -33,6 +33,7 @@
   hyphens: auto;
   font-family: var(--heading-font-family);
   line-height: 1;
+  letter-spacing: -0.01em;
 }
 
 .Intro--center .Intro-title {
@@ -41,7 +42,7 @@
 }
 
 .Intro-body {
-  margin-top: 0.72222em;
+  margin-top: 1rem;
   max-width: 40rem;
 }
 
@@ -50,6 +51,7 @@
   margin-right: auto;
   font-family: var(--heading-font-family);
   font-size: 1.125rem;
+  letter-spacing: -0.005em;
 }
 
 .Intro p:not(:first-child) {
