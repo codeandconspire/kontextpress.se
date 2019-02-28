@@ -42,12 +42,13 @@ function home (state, emit) {
                   if (!article.data.author.id) return asCard(article)
                   return state.prismic.getByID(article.data.author.id, function (err, author) {
                     if (err || !author) return asCard(article)
-                    return asCard(article, author)
+                    // return asCard(article, author)
+                    return asCard(article)
                   })
                 })
               }
 
-              return grid({ size: { md: '1of3', sm: '1of2' } }, cells)
+              return grid({ size: { md: '1of2', lg: '1of3' } }, cells)
             })}
           </div>
         `
@@ -104,9 +105,9 @@ function asCard (article, author) {
         sizes: '30px',
         srcset: sources,
         src: sources.split(' ')[0],
-        alt: props.title,
-        width: 30,
-        height: 30
+        alt: props.byline.text,
+        width: 40,
+        height: 40
       }
     }
   }

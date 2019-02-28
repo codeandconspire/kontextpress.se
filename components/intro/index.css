@@ -125,14 +125,16 @@
 
 @media (min-width: 350px) {
   .Intro-title {
-    font-size: 2.875rem;
+    /*font-size: 2.875rem;*/
+    font-size: 3.35rem;
   }
 }
 
 @media (min-width: 600px) {
   .Intro-title {
     max-width: 18em;
-    font-size: 3.5rem;
+    /*font-size: 3.5rem;*/
+    font-size: 3.1rem;
     line-height: 1.05;
   }
 

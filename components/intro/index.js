@@ -74,16 +74,7 @@ function byline (props) {
     <div class="Intro-byline">
       ${props.image ? html`<img class="Intro-thumbnail" ${attrs} src="${props.image.src}">` : null}
       ${props.text ? html` 
-        <span>
-          ${props.link ? html`
-            <a href="${props.link.href}">${props.text}</a>
-          ` : html`
-            ${props.text}
-          `}
-          <span class="u-spaceH1">//</span>
-        </span>
-      ` : null}
-      <time class="u-inlineBlock" datetime="${JSON.stringify(props.date.datetime).replace(/"/g, '')}">${props.date.text}</time>
+        <span>${props.link ? html`<a href="${props.link.href}">${props.text}</a>` : props.text} <span class="u-spaceH1 u-notSelectable">//</span></span>` : null} <time class="u-inlineBlock" datetime="${JSON.stringify(props.date.datetime).replace(/"/g, '')}">${props.date.text}</time>
     </div>
   `
 }

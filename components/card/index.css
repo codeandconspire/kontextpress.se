@@ -22,12 +22,6 @@
   }
 }
 
-.Card--background {
-  --current-color: 255, 255, 255;
-  --current-background: 0, 0, 0;
-  justify-content: flex-end;
-}
-
 .Card--interactive::before {
   content: "";
   width: 100%;
@@ -37,9 +31,9 @@
   top: 0;
   z-index: -1;
   opacity: 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
   background-color: rgb(var(--Card-background-color, var(--current-background)));
-  transition: opacity 200ms var(--ease-out);
+  transition: opacity 150ms var(--ease-out);
   will-change: opacity;
 }
 
@@ -47,25 +41,22 @@
   opacity: 1;
 }
 
+.Card--interactive:active .Card-title {
+  opacity: 0.6;
+}
+
 .Card-content {
   display: flex;
   flex-direction: column;
   flex: 1 0 auto;
   align-items: flex-start;
-  padding: 1.6rem 2rem 0.8rem;
+  padding: 1.4rem 0.8rem 2rem;
 }
 
 @media (min-width: 400px) {
   .Card-content {
-    min-height: 17rem;
+    padding: 1.6rem 1.4rem 2.2rem;
   }
-}
-
-.Card--background .Card-content {
-  height: 100%;
-  flex: 0 0 auto;
-  min-height: auto;
-  background-image: var(--figure-gradient);
 }
 
 /**
@@ -78,15 +69,9 @@
   width: 100%;
 }
 
-.Card--background .Card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
 .Card-meta {
   display: block;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.7rem;
   color: rgba(var(--color-muted));
   font-size: 0.875rem;
   font-style: normal;
@@ -97,12 +82,13 @@
   font-size: 1.5rem;
   line-height: 1.15;
   font-family: var(--heading-font-family);
-  line-height: 1;
+  max-width: 22rem;
+  letter-spacing: -0.01em;
 }
 
 .Card-text {
-  font-size: 1rem;
-  margin-top: 0.3em;
+  margin: 0.5rem auto 0;
+  max-width: 22rem;
 }
 
 @media (min-width: 900px) {
@@ -113,14 +99,6 @@
   .Card-text {
     margin-top: 0.5em;
   }
-}
-
-.Card--fill.Card--dark {
-  --current-color: 255, 255, 255;
-}
-
-.Card--fill:not(.Card-dark) {
-  --current-color: var(--high-contrast-light, 255, 255, 255);
 }
 
 /**
@@ -141,16 +119,6 @@
   display: block;
   height: 0;
   padding-top: calc(100% * 9/14);
-}
-
-.Card-figure--background {
-  object-fit: cover;
-  max-height: none;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
 }
 
 .Card-caption {
@@ -193,7 +161,7 @@
   font-size: 0.875rem;
 }
 
-.Card:not(.Card--fill) .Card-byline {
+.Card .Card-byline {
   color: rgba(var(--color-muted));
 }
 
@@ -213,10 +181,4 @@
   position: absolute;
   left: 0;
   top: 0;
-}
-
-@media print {
-  .Card-link {
-    display: none;
-  }
 }

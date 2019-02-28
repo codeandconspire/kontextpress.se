@@ -30,6 +30,10 @@
   white-space: nowrap !important;
 }
 
+.u-notSelectable {
+  user-select: none !important;
+}
+
 /**
  * Prevent text from wrapping onto multiple lines and truncate with an ellipsis.
  * 1. Ensure that the node has a maximum width after which truncation can occur.

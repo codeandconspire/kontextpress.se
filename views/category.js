@@ -60,7 +60,7 @@ function category (state, emit) {
                 })
               }
 
-              return grid({ size: { md: '1of3', sm: '1of2' } }, cells)
+              return grid({ size: { md: '1of2', lg: '1of3' } }, cells)
             })}
           </div>
         `

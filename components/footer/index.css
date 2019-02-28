@@ -4,11 +4,13 @@
 .Footer {
   padding: 1.5rem 0 3rem;
   border-top: 1px solid rgb(229, 229, 229);
+  border-bottom: 4px solid rgb(var(--theme-color-secondary));
   margin-top: 2.5rem;
   font-size: 0.875rem;
   line-height: 1.8;
   text-align: center;
   background: #fff;
+  user-select: none;
 }
 
 .Footer-container {
@@ -101,13 +103,17 @@
   }
 
   .Footer-col:nth-child(even) {
-    padding-left: 0.5rem;
+    padding-left: 0.25rem;
+  }
+
+  .Footer-col:nth-child(odd) {
+    padding-right: 0.25rem;
   }
 }
 
 @media (min-width: 650px) {
   .Footer {
-    padding: 2.5rem 0 3.5rem;
+    padding: 2rem 0 3.5rem;
     margin-top: 3.5rem;
   }
 
@@ -116,7 +122,13 @@
   }
 
   .Footer-title {
+    margin-top: 3.5rem;
     margin-bottom: 0.5rem;
+  }
+
+  .Footer-col:nth-child(even),
+  .Footer-col:nth-child(odd) {
+    padding: 0;
   }
 }
 

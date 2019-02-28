@@ -6,6 +6,7 @@
   position: relative;
   background: #fff;
   transition: border-color 200ms var(--ease-out);
+  user-select: none;
 }
 
 .Header-content {
@@ -33,7 +34,7 @@
 .Header-item,
 .Header-button {
   display: inline-block;
-  margin-right: 0.65rem;
+  margin-right: 0.75rem;
   font-family: var(--heading-font-family);
   font-size: 1.25rem;
   letter-spacing: -0.02em;
@@ -45,10 +46,6 @@
 .Header-logo:active {
   opacity: 0.5;
   transition: none;
-}
-
-.Header-logo:active {
-  opacity: 0.6;
 }
 
 .Header-item.is-selected {
@@ -144,7 +141,7 @@
 
   .Header-logo {
     position: relative;
-    top: -0.1rem;
+    top: -0.2rem;
   }
 }
 
