@@ -8,6 +8,11 @@ var Footer = require('../footer')
 var Player = require('../embed/player')
 var { i18n, asText, resolve, hexToRgb } = require('../base')
 
+// Quick fix for enabling active states in iOS (forgot how it works…)
+if (typeof window !== 'undefined') {
+  document.addEventListener('touchstart', function () {}, false)
+}
+
 var text = i18n()
 
 var DEFAULT_TITLE = text`SITE_NAME`

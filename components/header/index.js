@@ -17,6 +17,11 @@ module.exports = class Header extends Component {
     return href !== this.local.href
   }
 
+  load (element) {
+    // Quick fix for enabling active states in iOS (forgot how it works…)
+    element.addEventListener('touchstart', function () {}, false)
+  }
+
   createElement (href, categories = []) {
     this.local.href = href.replace(/\/$/, '')
     var { state, id } = this.local

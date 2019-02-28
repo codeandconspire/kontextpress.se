@@ -12,6 +12,11 @@ module.exports = class Footer extends Component {
     return !this.local.doc && doc
   }
 
+  load (element) {
+    // Quick fix for enabling active states in iOS (forgot how it works…)
+    element.addEventListener('touchstart', function () {}, false)
+  }
+
   createElement (doc) {
     this.local.doc = doc
     if (!doc) return html`<footer class="Footer"></footer>`
