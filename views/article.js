@@ -132,13 +132,14 @@ function article (state, emit) {
           <div class="Text Text--article Text--wide">
             <figure class="Text-blockquote">
               <blockquote>${asElement(slice.primary.text)}</blockquote>
-              ${slice.primary.cite && slice.primary.cite[0].text !== '' ? html`<figcaption class="Text-cite">${asElement(slice.primary.cite)}</figcaption>` : null}
+              ${slice.primary.cite ? html`<figcaption class="Text-cite">${asElement(slice.primary.cite)}</figcaption>` : null}
             </figure>
           </div>
         `
       }
       case 'image': {
         if (!slice.primary.image.url) return null
+        var wide = slice.primary.width !== 'Spaltbredd'
         let sources = srcset(slice.primary.image.url, [400, 600, 900, [1600, 'q_60'], [3000, 'q_50']])
         let attrs = Object.assign({
           sizes: '100vw',
@@ -148,7 +149,7 @@ function article (state, emit) {
         }, slice.primary.image.dimensions)
         var caption = slice.primary.caption ? asElement(slice.primary.caption, resolve, serialize) : slice.primary.image.copyright
         return html`
-          <figure class="Text Text--article Text--wide u-spaceV5">
+          <figure class="Text Text--article ${wide ? 'Text--wide' : ''} Text--margin">
             <img ${attrs}>
             ${caption ? html`
               <figcaption>
@@ -168,7 +169,7 @@ function article (state, emit) {
         let children = video(slice.primary.video)
         if (!children) return null
         return html`
-          <div class="Text Text--article Text--wide u-spaceV5">
+          <div class="Text Text--article Text--wide Text--margin">
             ${children}
           </div>
         `
@@ -178,7 +179,7 @@ function article (state, emit) {
         var params = '&visual=true&show_artwork=true&color=%231d1d1d&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false'
         var uri = encodeURIComponent(slice.primary.sound.embed_url) + params
         return html`
-          <div class="Text Text--article u-spaceV5">
+          <div class="Text Text--article Text--margin">
             <div class="u-aspect4-3">
               <iframe class="u-cover" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=${uri}"></iframe>
             </div>
@@ -189,7 +190,7 @@ function article (state, emit) {
         if (!slice.items.length) return null
         var aligned = slice.primary.margins === 'Inga marginaler, klistra rutorna mot varandra'
         return html`
-          <div class="Text Text--article Text--wide u-spaceV5">
+          <div class="Text Text--article Text--wide Text--margin">
             ${grid({ aligned: aligned, size: { lg: '1of2', xl: '1of3' } }, slice.items.map(function (item) {
               if (!item.item.url) return false
               let sources = srcset(item.item.url, [400, 600, 900, [1800, 'q_50']])

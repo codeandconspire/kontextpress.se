@@ -97,7 +97,7 @@
 .Footer-section--4 {
   padding: 1.7rem 0 1.4rem;
   margin-top: 2rem;
-  border-top: 1px solid rgb(var(--color-gray-light));
+  border-top: 1px solid rgb(0, 0, 0);
   flex-basis: 100% !important;
   order: 1;
 }
@@ -151,18 +151,6 @@
   margin-left: 1.5rem;
 }
 
-.Footer-field {
-  width: 100%;
-  padding: 0.6rem 0.7rem;
-  border: 3px solid;
-  border-color: rgb(var(--high-contrast-dark, var(--color-gray-light)));
-  font-size: 1rem;
-  background: rgb(var(--high-contrast-dark, 255, 255, 255));
-  color: rgb(var(--high-contrast-light, var(--document-color)));
-  -webkit-appearance: none;
-  border-radius: 0;
-  user-select: text;
-}
 
 .Footer-field::placeholder {
   color: rgb(var(--high-contrast-light, var(--color-text-muted)));
@@ -184,7 +172,7 @@
   display: flex;
   width: 100%;
   padding: 1.7rem 0 1.8rem;
-  border-top: 1px solid rgb(var(--color-gray-light));
+  border-top: 1px solid rgb(0, 0, 0);
   margin: 0 0.5rem;
   align-items: flex-end;
   flex-wrap: wrap;
@@ -197,7 +185,7 @@
   margin-bottom: 1rem;
   flex: 0 0 auto;
   font-size: 0.9rem;
-  color: rgb(var(--color-text-muted));
+  color: rgba(var(--color-muted));
 }
 
 .Footer-credits .Footer-credit {

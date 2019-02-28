@@ -17,11 +17,13 @@ function authors (state, emit) {
       for (let i = 0; i < 3; i++) cells.push(card.loading())
       return html`
         <main class="View-main">
-          ${grid({ size: { xs: '1of2', md: '1of3', xl: '1of4' } }, cells)}
           <div class="u-container">
             <div class="View-pushDown">
-              ${intro.loading()}
+              ${intro.loading({center: true})}
             </div>
+          </div>
+          <div class="u-container">
+            ${grid({ size: { xs: '1of2', md: '1of3' } }, cells)}
           </div>
         </main>
       `
@@ -52,7 +54,7 @@ function authors (state, emit) {
         <div class="u-spaceB5">
           <h2>${asText(slice.primary.heading)}</h2>
         </div>
-        ${grid({ size: { xs: '1of2', md: '1of3', xl: '1of4' } }, slice.items.map(asCard))}
+        ${grid({ size: { xs: '1of2', md: '1of3' } }, slice.items.map(asCard))}
       </section>
     `
   }

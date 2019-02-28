@@ -19,7 +19,7 @@
 }
 
 .Text-muted {
-  color: rgb(var(--color-text-muted));
+  color: rgba(var(--color-muted));
 }
 
 .Text-small {
@@ -29,6 +29,11 @@
 @media (min-width: 1000px) {
   .Text {
     font-size: 1.1875rem;
+  }
+
+  .Text--margin {
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
   }
 }
 
@@ -68,17 +73,12 @@
 .Text p,
 .Text ul,
 .Text ol {
-  margin: 1.3em 0;
+  margin: 1.5em 0;
 }
 
 .Text img,
 .Text pre {
   margin: 1.5em 0;
-}
-
-.Text img + figcaption,
-.Text pre + figcaption {
-  margin-top: -1em;
 }
 
 .Text img {
@@ -89,7 +89,7 @@
 .Text pre {
   font-size: 0.75rem;
   overflow: auto;
-  background: rgb(var(--color-gray-light));
+  background: rgba(0, 0, 0, 0.1);
   padding: 1em;
   text-align: left;
 }
@@ -99,10 +99,10 @@
  */
 
 .Text-blockquote {
-  margin: 3rem 0 2.5rem;
+  margin: 2rem 0 2.5rem;
   color: rgb(var(--theme-color-primary));
-  font-size: 1.8rem;
-  line-height: 1.15;
+  font-size: 1.5rem;
+  line-height: 1.2;
   font-weight: normal;
   font-family: var(--heading-font-family);
   text-align: center;
@@ -118,6 +118,10 @@
   color: rgb(var(--document-color));
 }
 
+.Text-cite:empty {
+  display: none;
+}
+
 .Text-blockquote p:first-child {
   margin-top: 0;
 }
@@ -128,13 +132,15 @@
 
 @media (min-width: 600px) {
   .Text-blockquote {
-    font-size: 2.2rem;
+    font-size: 1.7rem;
   }
 }
 
 @media (min-width: 1000px) {
   .Text-blockquote {
-    font-size: 2.8rem;
+    font-size: 1.9rem;
+    max-width: 55rem;
+    margin: 3rem auto;
   }
 }
 
@@ -204,7 +210,7 @@
 .Text .Text-h4,
 .Text .Text-h5,
 .Text .Text-h6 {
-  margin: 1.3em 0 0;
+  margin: 1.5em 0 0;
   color: rgb(var(--current-color));
 }
 

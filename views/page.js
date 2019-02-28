@@ -14,6 +14,7 @@ function page (state, emit) {
         ${state.prismic.getByUID('page', state.params.wildcard, (err, doc) => {
           if (err) throw err
           if (!doc) {
+            
             return html`
               <div class="u-container">
                 <div class="View-pushDown">
@@ -41,7 +42,6 @@ function page (state, emit) {
               src: sources.split(' ')[0]
             }, doc.data.image.dimensions)
           }
-
           return html`
             <div class="u-container">
               <header class="View-pushDown">

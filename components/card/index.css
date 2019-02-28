@@ -52,19 +52,7 @@
   flex-direction: column;
   flex: 1 0 auto;
   align-items: flex-start;
-  padding: 1.2rem 1.2rem 0.2rem;
-}
-
-@media (min-width: 1000px) {
-  .Card-content {
-    padding-bottom: 1rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .Card-content {
-    padding: 2rem 2rem 0.8rem;
-  }
+  padding: 1.6rem 2rem 0.8rem;
 }
 
 @media (min-width: 400px) {
@@ -99,23 +87,17 @@
 .Card-meta {
   display: block;
   margin-bottom: 0.6rem;
-  color: rgb(var(--color-text-muted));
+  color: rgba(var(--color-muted));
   font-size: 0.875rem;
   font-style: normal;
 }
 
 .Card-title {
-  display: inline-block;
-  border-bottom: 2px solid transparent;
+  display: inline;
   font-size: 1.5rem;
   line-height: 1.15;
   font-family: var(--heading-font-family);
   line-height: 1;
-  transition: border-bottom-color 150ms var(--ease);
-}
-
-.Card--interactive:hover .Card-title {
-  border-bottom-color: currentColor;
 }
 
 .Card-text {
@@ -151,18 +133,14 @@
   position: relative;
   overflow: hidden;
   z-index: -1;
-  background-color: rgba(var(--color-gray-light), 0.6);
+  background-color: rgba(var(--loading-color));
 }
 
 .Card-figure::before {
   content: "";
   display: block;
   height: 0;
-  padding-top: calc(100% * 3/4);
-}
-
-.Card-figure.is-loading {
-  background-color: rgba(var(--color-gray-light), 0.6);
+  padding-top: calc(100% * 9/14);
 }
 
 .Card-figure--background {
@@ -216,7 +194,7 @@
 }
 
 .Card:not(.Card--fill) .Card-byline {
-  color: rgb(var(--color-text-muted));
+  color: rgba(var(--color-muted));
 }
 
 .Card-thumbnail {

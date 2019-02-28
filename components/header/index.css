@@ -88,12 +88,12 @@
 }
 
 .Header-button:hover {
-  background: rgba(var(--color-gray-light), 0.6);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .Header.is-open .Header-button:hover,
 :root:not([scripting-enabled]) .Header:target .Header-button:hover {
-  background: rgba(var(--color-gray-light), 0.05);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .Header-button {

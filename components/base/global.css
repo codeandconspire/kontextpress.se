@@ -14,6 +14,8 @@
   --color-blue-primary: 2, 61, 126;
   --color-blue-secondary: 149, 225, 225;
 
+  --color-muted: 0, 0, 0, 0.5;
+
   /* Base styles */
 
   --document-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -70,12 +72,12 @@
 
 @media (min-width: 1000px) {
   :root {
-    --document-margin: 2rem;
+    --document-margin: 3rem;
   }
 }
 
 @media (min-width: 1200px) {
   :root {
-    --document-margin: 3rem;
+    --document-margin: 5rem;
   }
 }

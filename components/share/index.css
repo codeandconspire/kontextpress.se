@@ -76,7 +76,7 @@
 }
 
 .Share-close:hover {
-  background: rgb(var(--color-gray-light));
+  background: rgb(0, 0, 0);
 }
 
 .Share-body {
@@ -196,7 +196,7 @@
   position: relative;
   font-size: 1.5rem;
   border-radius: 50%;
-  background: rgb(var(--color-gray-light));
+  background: rgb(0, 0, 0);
   color: rgb(var(--default-background-color));
   transition: transform 150ms var(--ease-out);
 }
@@ -277,7 +277,7 @@
   width: var(--Share-preview-thumbnail-size);
   float: left;
   height: auto;
-  background-color: rgb(var(--color-gray-light));
+  background-color: rgb(0, 0, 0);
 }
 
 .Share-title {
@@ -304,7 +304,7 @@
   max-width: 30ch;
   height: 3.5rem;
   border: 3px solid;
-  border-color: rgb(var(--color-gray-light));
+  border-color: rgb(0, 0, 0);
   padding: 0.875rem;
   margin: 1.5rem auto;
   position: relative;
@@ -327,7 +327,7 @@
   flex-grow: 1;
   width: 100%;
   border: 0;
-  color: rgb(var(--color-text-muted));
+  color: rgba(var(--color-muted));
   background: none;
   -webkit-appearance: none;
   border-radius: 0;
@@ -341,7 +341,7 @@
 
 .Share-fade {
   position: relative;
-  border-right: 1px solid rgb(var(--color-gray-light));
+  border-right: 1px solid rgb(0, 0, 0);
   pointer-events: none;
 }
 
