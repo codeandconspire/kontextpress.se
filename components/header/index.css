@@ -5,7 +5,7 @@
   border-top: 4px solid rgb(var(--theme-color-secondary));
   position: relative;
   background: #fff;
-  transition: border-color 300ms var(--ease-out);
+  transition: border-color 200ms var(--ease-out);
 }
 
 .Header-content {
@@ -16,6 +16,7 @@
   display: inline-block;
   padding: 0.3rem;
   margin: -0.3rem;
+  transition: opacity 200ms var(--ease-out);
 }
 
 .Header-figure {
@@ -23,18 +24,10 @@
   height: auto;
 }
 
-.Header-menu {
+.Header-nav {
   padding: 0.5rem var(--document-margin);
   border: solid rgb(229, 229, 229);
   border-width: 1px 0;
-}
-
-.Header-nav {
-
-}
-
-.Header-list {
-
 }
 
 .Header-item,
@@ -44,6 +37,22 @@
   font-family: var(--heading-font-family);
   font-size: 1.25rem;
   letter-spacing: -0.02em;
+  transition: opacity 200ms var(--ease-out);
+}
+
+.Header-item:active,
+.Header-button:active,
+.Header-logo:active {
+  opacity: 0.5;
+  transition: none;
+}
+
+.Header-logo:active {
+  opacity: 0.6;
+}
+
+.Header-item.is-selected {
+  opacity: 0.5;
 }
 
 .Header-text {
@@ -67,6 +76,15 @@
     letter-spacing: auto;
   }
 
+  .Header-button:active {
+    opacity: 1;
+  }
+
+  .Header-button .Header-text:active {
+    background: rgb(216, 216, 216);
+    opacity: 1;
+  }
+
   .Header-button .Header-text {
     display: block;
     padding: 0.4rem 0.7rem 0.4rem 0.55rem;
@@ -84,7 +102,7 @@
 }
 
 .Header-fill {
-  transition: fill 300ms var(--ease-out);
+  transition: fill 200ms var(--ease-out);
 }
 
 @media (min-width: 600px) {
@@ -97,11 +115,11 @@
   }
 
   .Header-content,
-  .Header-menu {
+  .Header-nav {
     padding: 2rem 0;
   }
 
-  .Header-menu {
+  .Header-nav {
     flex: 1 0 auto;
     padding-left: 1.7rem;
     border: 0;
@@ -114,6 +132,10 @@
 
   .Header-button {
     margin-right: 0;
+  }
+
+  .Header-button.is-selected {
+    opacity: 0.5;
   }
 
   .Header-end {
@@ -132,7 +154,7 @@
     width: 13.4rem;
   }
 
-  .Header-menu {
+  .Header-nav {
     padding-left: 2.2rem;
   }
 

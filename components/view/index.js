@@ -58,7 +58,7 @@ function createView (view, meta) {
           title: doc ? asText(doc.data.title) : `${text`Loading`} – ${DEFAULT_TITLE}`,
           description: doc ? asText(doc.data.description) : null,
           'theme-color-primary': state.ui.isLoading ? state.meta['theme-color-primary'] : '#000',
-          'theme-color-secondary': state.ui.isLoading ? state.meta['theme-color-secondary'] : '#ccc'
+          'theme-color-secondary': state.ui.isLoading ? state.meta['theme-color-secondary'] : '#000'
         }
 
         if (doc && doc.data.featured_image.url) {
@@ -76,7 +76,6 @@ function createView (view, meta) {
 
       if (doc) {
         var categories = doc.data.categories.map(link).filter(Boolean)
-        var shortcuts = doc.data.shortcuts.map(link).filter(Boolean)
       }
 
       var primary = state.meta['theme-color-primary']
@@ -87,7 +86,7 @@ function createView (view, meta) {
       return html`
         <body class="View" id="view" style="--theme-color-primary: ${primary}; --theme-color-secondary: ${secondary};">
           <script type="application/ld+json">${raw(JSON.stringify(linkedData(state)))}</script>
-          ${state.cache(Header, 'header').render(state.href, categories, shortcuts)}
+          ${state.cache(Header, 'header').render(state.href, categories)}
           ${children}
           ${state.cache(Footer, 'footer').render(doc)}
           ${Player.render()}

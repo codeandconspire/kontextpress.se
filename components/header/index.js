@@ -1,6 +1,6 @@
 var html = require('choo/html')
 var Component = require('choo/component')
-var { className, i18n, vh } = require('../base')
+var { className, i18n } = require('../base')
 
 var text = i18n(require('./lang.json'))
 
@@ -9,6 +9,7 @@ module.exports = class Header extends Component {
     super(id)
     this.local = state.components[id] = {
       id: id,
+      state: state
     }
   }
 
@@ -16,9 +17,9 @@ module.exports = class Header extends Component {
     return href !== this.local.href
   }
 
-  createElement (href, categories = [], shortcuts = []) {
+  createElement (href, categories = []) {
     this.local.href = href.replace(/\/$/, '')
-    var { id } = this.local
+    var { state, id } = this.local
 
     return html`
       <header class="Header" id="${id}">
@@ -33,27 +34,25 @@ module.exports = class Header extends Component {
             </a>
           </div>
 
-          <div class="Header-menu">
-            <nav class="Header-nav" id="${id}-navigation">
-              <ul class="Header-list">
-                ${categories.map((item) => html`
-                  <li class="${className('Header-item', { 'is-selected': item.selected })}">
-                    <a href="${item.href}" class="Header-text">${item.text}</a>
-                  </li>
-                `)}
-                <li class="Header-button Header-end">
-                  <a href="/stod-oss" class="Header-text">
-                    <svg class="Header-icon" role="presentation" area-hidden="true" viewBox="0 0 11 10">
-                      <path class="Header-fill" fill="rgb(var(--theme-color-secondary))" fill-rule="nonzero" d="M5.5 9.375a.542.542 0 0 1-.385-.157L.907 5.004a2.85 2.85 0 0 1 0-4.009 2.838 2.838 0 0 1 4.008 0l.585.585.585-.585a2.838 2.838 0 0 1 4.008 0 2.85 2.85 0 0 1 0 4.009L5.885 9.218a.542.542 0 0 1-.385.157z"/>
-                    </svg>${text`Support us`}
-                  </a>
+          <nav class="Header-nav" id="${id}-navigation">
+            <ul class="Header-list">
+              ${categories.map((item) => html`
+                <li class="${className('Header-item', { 'is-selected': item.selected })}">
+                  <a href="${item.href}" class="Header-text">${item.text}</a>
                 </li>
-                <li class="Header-item Header-end Header-hidden">
-                  <a href="/om" class="Header-text">${text`About us`}</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+              `)}
+              <li class="${className('Header-button Header-end', { 'is-selected': state.href.indexOf('stod-oss') !== -1 })}">
+                <a href="/stod-oss" class="Header-text">
+                  <svg class="Header-icon" role="presentation" area-hidden="true" viewBox="0 0 11 10">
+                    <path class="Header-fill" fill="rgb(var(--theme-color-secondary))" fill-rule="nonzero" d="M5.5 9.375a.542.542 0 0 1-.385-.157L.907 5.004a2.85 2.85 0 0 1 0-4.009 2.838 2.838 0 0 1 4.008 0l.585.585.585-.585a2.838 2.838 0 0 1 4.008 0 2.85 2.85 0 0 1 0 4.009L5.885 9.218a.542.542 0 0 1-.385.157z"/>
+                  </svg>${text`Support us`}
+                </a>
+              </li>
+              <li class="${className('Header-text Header-item Header-end Header-hidden', { 'is-selected': state.href.indexOf('om') !== -1 })}">
+                <a href="/om" class="Header-text">${text`About us`}</a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </header>
     `
