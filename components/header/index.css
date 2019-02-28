@@ -5,7 +5,7 @@
   border-top: 4px solid rgb(var(--theme-color-secondary));
   position: relative;
   background: #fff;
-  transition: border-color 200ms var(--ease-out);
+  transition: border-color 200ms var(--ease);
   user-select: none;
 }
 
@@ -99,7 +99,7 @@
 }
 
 .Header-fill {
-  transition: fill 200ms var(--ease-out);
+  transition: fill 200ms var(--ease);
 }
 
 @media (min-width: 600px) {

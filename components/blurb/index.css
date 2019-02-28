@@ -3,13 +3,17 @@
 /** @define Blurb */
 .Blurb {
   position: relative;
-  background: #1D1D1D;
+  background: rgb(20, 20, 20);
   color: #fff;
-  transition: background-color 100ms var(--ease-out);
+  transition: background-color 200ms var(--ease-out);
 }
 
 .Blurb:hover {
-  background: #000;
+  background: rgb(0, 0, 0);
+}
+
+.Blurb:active .Blurb-content {
+  opacity: 0.7;
 }
 
 .Blurb-content {
@@ -30,6 +34,12 @@
 
 .Blurb-icon {
   width: 2.25rem;
+  transition: transform 150ms var(--ease-out);
+}
+
+.Blurb:hover .Blurb-icon {
+  transform: translateX(1rem);
+  transition-timing-function: var(--ease-out);
 }
 
 @media (min-width: 800px) {

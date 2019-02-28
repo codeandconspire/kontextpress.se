@@ -43,6 +43,11 @@
   }
 }
 
+.Grid--aligned {
+  --Grid-gutter: 0;
+  --Grid-gutter-vertical: 0;
+}
+
 /* @define Grid */
 .Grid {
   display: flex;

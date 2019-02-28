@@ -52,11 +52,14 @@ function category (state, emit) {
                 for (let i = 0; i < 6; i++) cells.push(card.loading())
               } else {
                 cells = response.results.map(function (article) {
-                  if (!article.data.author.id) return asCard(article)
-                  return state.prismic.getByID(article.data.author.id, function (err, author) {
-                    if (err || !author) return asCard(article)
-                    return asCard(article, author)
-                  })
+                  if (article.data.author.id) {
+                    return state.prismic.getByID(article.data.author.id, function (err, author) {
+                      if (err || !author) return asCard(article)
+                      return asCard(article, author)
+                    })
+                  }
+
+                  return asCard(article, article.data.guest_author || null)
                 })
               }
 
@@ -103,7 +106,27 @@ function asCard (article, author) {
   }
 
   if (author) {
-    props.byline = asByline(author)
+    props.byline = {
+      text: (typeof author === 'string') ? author : asText(author.data.title)
+    }
+    
+    if (author.data && author.data.image && author.data.image.url) {
+      let transforms = 'r_max'
+      if (!author.data.image.thumbnail.url) transforms += ',c_thumb,g_face'
+      let sources = srcset(
+        author.data.image.thumbnail.url || author.data.image.url,
+        [150],
+        { transforms, aspect: 1 }
+      )
+      props.byline.image = {
+        sizes: '40px',
+        srcset: sources,
+        src: sources.split(' ')[0],
+        alt: props.byline.text,
+        width: 40,
+        height: 40
+      }
+    }
   }
 
   return card(props)
