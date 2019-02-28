@@ -150,12 +150,17 @@
 }
 
 @media (min-width: 1000px) {
+  .Header-content,
+  .Header-nav {
+    padding: 3rem 0;
+  }
+
   .Header-figure {
     width: 13.4rem;
   }
 
   .Header-nav {
-    padding-left: 2.2rem;
+    padding-left: 2.5rem;
   }
 
   .Header-item,
