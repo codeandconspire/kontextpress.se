@@ -55,7 +55,7 @@ function home (state, emit) {
 
               var cells = []
               if (!articles) {
-                for (let i = 0; i < 6; i++) cells.push(card.loading())
+                for (let i = 0; i < 1000; i++) cells.push(card.loading())
               } else {
                 cells = articles.map(function (article) {
                   if (article.data.author.id) {

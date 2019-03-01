@@ -73,7 +73,6 @@ module.exports = class Footer extends Component {
           <div class="Footer-col">
             <h2 class="Footer-title">Övrigt</h2>
             <ul class="Footer-list">
-              <li class="Footer-item"><a class="Footer-link" href="/teknik-och-design">Öppen källkod</a></li>
               <li class="Footer-item"><a class="Footer-link" href="/cookies">Om cookies</a></li>
             </ul>
           </div>

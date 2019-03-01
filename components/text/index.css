@@ -238,7 +238,6 @@
   font-weight: normal;
   font-family: var(--heading-font-family);
   line-height: var(--heading-line-height);
-  hyphens: auto;
   letter-spacing: -0.01em;
 }
 
