@@ -126,7 +126,6 @@
   max-height: 24rem;
   position: relative;
   overflow: hidden;
-  z-index: -1;
   background-color: rgba(var(--loading-color));
 }
 

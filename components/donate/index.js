@@ -10,7 +10,7 @@ module.exports = donate
 function donate (props) {
   return html`
     <div class="Donate u-narrow">
-      <h3 class="Donate-title"><span class="Donate-first">${text`Secure our future`}</span> <br/>${text`Make a difference`}</h2>
+      <h3 class="Donate-title"><span class="Donate-first">${text`Secure our future`}</span><br/>${text`Make a difference`}</h2>
       <p class="Donate-body">
         ${text`Send money to`}:
         ${CAN_COPY ? html`
