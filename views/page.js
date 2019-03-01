@@ -127,7 +127,7 @@ function page (state, emit) {
         })
 
         return html`
-          <div class="u-constrained">
+          <div class="u-wide">
             ${grid({ size: { md: '1of2' }, blurbs: true }, blurbs)}
           </div>
         `

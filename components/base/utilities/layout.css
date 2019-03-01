@@ -91,15 +91,22 @@
   max-width: calc(var(--document-total-width) + (var(--document-margin) * 2)) !important
 }
 
-.u-constrained {
+.u-wide {
   max-width: var(--wide-max-width);
-  margin: 4.5rem auto 2rem;
+}
+
+.u-narrow {
+  max-width: var(--narrow-max-width);
+  margin: 2rem auto 2rem;
 }
 
 @media (min-width: 600px) {
-  .u-constrained {
-    max-width: var(--wide-max-width);
+  .u-wide {
     margin: 7rem auto 4rem;
+  } 
+
+  .u-narrow {
+    margin: 3rem auto;
   } 
 }
  

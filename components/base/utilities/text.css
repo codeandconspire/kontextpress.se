@@ -37,12 +37,11 @@
 .u-textCopy {
   position: relative;
   white-space: nowrap;
-  text-decoration: underline;
+  font-weight: 600;
 }
 
 .u-textCopy.is-active {
   color: transparent;
-  text-decoration: none;
 }
 
 .u-textCopy.is-active::after {
