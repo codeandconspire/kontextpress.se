@@ -21,7 +21,7 @@ module.exports = view(article, meta)
 function article (state, emit) {
   return html`
     <main class="View-main">
-      ${state.prismic.getByUID('article', state.params.wildcard, function (err, doc) {
+      ${state.prismic.getByUID('article', state.params.article, function (err, doc) {
         if (err) throw err
         if (!doc) {
           return html`
@@ -89,7 +89,6 @@ function article (state, emit) {
             </header>
             ${doc.data.body.map(asSlice)}
             ${donate()}
-            
             <div class="Text Text--full">
               <h2 class="Text-section">${text`Keep reading`}</h2>
             </div>
@@ -109,6 +108,43 @@ function article (state, emit) {
 
                   return asCard(article, article.data.guest_author || null)
                 })
+
+                // if comming up short from category, add on other categories
+                if (cells.length < 3) {
+                  cells = state.prismic.getSingle('website', function (err, website) {
+                    if (err || !website) return cells
+
+                    var query = [
+                      Predicates.at('document.type', 'article'),
+                      Predicates.not('document.id', doc.id)
+                    ]
+                    var opts = {
+                      pageSize: 3 - cells.length,
+                      orderings: '[document.first_publication_date desc]'
+                    }
+
+                    // only fetch articles from the other main categories
+                    var categories = website.data.categories
+                      .filter((item) => item.link.id !== doc.data.category.id)
+                      .map((item) => item.link.id)
+                    query.push(Predicates.any('my.article.category', categories))
+
+                    return state.prismic.get(query, opts, function (err, response) {
+                      if (err || !response) return cells
+                      var extra = response.results.map(function (article) {
+                        if (article.data.author.id) {
+                          return state.prismic.getByID(article.data.author.id, function (err, author) {
+                            if (err || !author) return asCard(article)
+                            return asCard(article, author)
+                          })
+                        }
+
+                        return asCard(article, article.data.guest_author || null)
+                      })
+                      return cells.concat(extra)
+                    })
+                  })
+                }
               }
 
               return grid({ size: { md: '1of2', lg: '1of3' } }, cells)
@@ -205,7 +241,7 @@ function article (state, emit) {
                 src: sources.split(' ')[0],
                 alt: item.item.alt || ''
               }, item.item.dimensions)
-              return html` 
+              return html`
                 <div><img ${attrs} /></div>
               `
             }))}
@@ -350,7 +386,7 @@ function asCard (article, author) {
 }
 
 function meta (state) {
-  return state.prismic.getByUID('article', state.params.wildcard, function (err, doc) {
+  return state.prismic.getByUID('article', state.params.article, function (err, doc) {
     if (err) throw err
     if (!doc) return null
     var props = {

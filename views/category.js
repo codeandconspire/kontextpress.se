@@ -16,7 +16,7 @@ module.exports = view(category, meta)
 function category (state, emit) {
   return html`
     <main class="View-main">
-      ${state.prismic.getByUID('category', state.params.wildcard, function (err, doc) {
+      ${state.prismic.getByUID('category', state.params.category, function (err, doc) {
         if (err) throw err
         if (!doc) {
           return html`
@@ -33,7 +33,7 @@ function category (state, emit) {
           Predicates.at('my.article.category', doc.id)
         ]
         var opts = {
-          pageSize: 6,
+          pageSize: 100,
           orderings: '[document.first_publication_date desc]'
         }
 
@@ -109,7 +109,7 @@ function asCard (article, author) {
     props.byline = {
       text: (typeof author === 'string') ? author : asText(author.data.title)
     }
-    
+
     if (author.data && author.data.image && author.data.image.url) {
       let transforms = 'r_max'
       if (!author.data.image.thumbnail.url) transforms += ',c_thumb,g_face'
@@ -132,32 +132,8 @@ function asCard (article, author) {
   return card(props)
 }
 
-function asByline (author) {
-  var byline = { text: asText(author.data.title) }
-
-  if (author.data.image.url) {
-    let transforms = 'r_max'
-    if (!author.data.image.thumbnail.url) transforms += ',c_thumb,g_face'
-    let sources = srcset(
-      author.data.image.thumbnail.url || author.data.image.url,
-      [30, 60, [90, 'q_50']],
-      { transforms, aspect: 1 }
-    )
-    byline.image = {
-      sizes: '30px',
-      srcset: sources,
-      src: sources.split(' ')[0],
-      alt: byline.text,
-      width: 30,
-      height: 30
-    }
-  }
-
-  return byline
-}
-
 function meta (state) {
-  return state.prismic.getByUID('category', state.params.wildcard, function (err, doc) {
+  return state.prismic.getByUID('category', state.params.category, function (err, doc) {
     if (err) throw err
     if (!doc) return null
     var props = {

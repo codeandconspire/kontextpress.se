@@ -9,7 +9,9 @@ var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
 var serialize = require('../components/text/serialize')
-var { asText, srcset, resolve } = require('../components/base')
+var { asText, srcset, resolve, i18n } = require('../components/base')
+
+var text = i18n()
 
 module.exports = view(home, meta)
 
@@ -18,11 +20,6 @@ function home (state, emit) {
     <main class="View-main">
       ${state.prismic.getSingle('homepage', function (err, doc) {
         if (err) throw err
-        var query = Predicates.at('document.type', 'article')
-        var opts = {
-          pageSize: 6,
-          orderings: '[document.first_publication_date desc]'
-        }
 
         return html`
           <div class="u-container">
@@ -32,13 +29,35 @@ function home (state, emit) {
                 body: asElement(doc.data.description, resolve, serialize)
               }) : intro.loading()}
             </header>
-            ${state.prismic.get(query, opts, function (err, response) {
-              if (err) return null
+            ${state.prismic.getSingle('website', function (err, doc) {
+              if (err) return empty()
+
+              var query = [Predicates.at('document.type', 'article')]
+              var opts = {
+                pageSize: 6,
+                orderings: '[document.first_publication_date desc]'
+              }
+
+              if (doc) {
+                // only fetch articles from the main categories
+                let categories = doc.data.categories.map((item) => item.link.id)
+                query.push(Predicates.any('my.article.category', categories))
+              }
+
+              try {
+                var articles = doc ? state.prismic.get(query, opts, function (err, response) {
+                  if (err) throw err
+                  return response ? response.results : null
+                }) : null
+              } catch (err) {
+                return empty()
+              }
+
               var cells = []
-              if (!response) {
+              if (!articles) {
                 for (let i = 0; i < 6; i++) cells.push(card.loading())
               } else {
-                cells = response.results.map(function (article) {
+                cells = articles.map(function (article) {
                   if (article.data.author.id) {
                     return state.prismic.getByID(article.data.author.id, function (err, author) {
                       if (err || !author) return asCard(article)
@@ -57,6 +76,22 @@ function home (state, emit) {
       })}
     </main>
   `
+
+  // placeholder for missing content
+  // () -> Element
+  function empty () {
+    return html`
+      <div class="Text">
+        <p>${text`Something seems off. We couldn't get the content you requested. ${html`<a href="${state.href}" onclick=${reload}>${text`Try again`}</a>`} or navigate using the menu.`}</p>
+      </div>
+    `
+  }
+}
+
+// reload page
+// () -> void
+function reload () {
+  window.location.reload()
 }
 
 // render article as card with author byline
@@ -96,7 +131,7 @@ function asCard (article, author) {
     props.byline = {
       text: (typeof author === 'string') ? author : asText(author.data.title)
     }
-    
+
     if (author.data && author.data.image && author.data.image.url) {
       let transforms = 'r_max'
       if (!author.data.image.thumbnail.url) transforms += ',c_thumb,g_face'

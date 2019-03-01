@@ -13,7 +13,7 @@ module.exports = view(page, meta)
 function page (state, emit) {
   return html`
     <main class="View-main">
-      ${state.prismic.getByUID('page', state.params.wildcard, (err, doc) => {
+      ${state.prismic.getByUID('page', state.params.page, (err, doc) => {
         if (err) throw err
         if (!doc) {
           return html`
@@ -156,7 +156,7 @@ function video (props) {
 }
 
 function meta (state) {
-  return state.prismic.getByUID('page', state.params.wildcard, (err, doc) => {
+  return state.prismic.getByUID('page', state.params.page, (err, doc) => {
     if (err) throw err
     if (!doc) return null
     var props = {

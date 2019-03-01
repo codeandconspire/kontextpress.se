@@ -67,6 +67,22 @@ app.use(get('/robots.txt', function (ctx, next) {
   `
 }))
 
+// redirect invalid categories
+app.use(get('/:category/:article', async function (ctx, category, article, next) {
+  try {
+    var api = await Prismic.api(REPOSITORY, { req: ctx.req })
+    var doc = await api.getByUID('article', article)
+    if (!doc) return next()
+    if (doc.data.category && doc.data.category.uid && doc.data.category.uid !== category) {
+      ctx.redirect(resolve(doc))
+    } else {
+      return next()
+    }
+  } catch (err) {
+    return next()
+  }
+}))
+
 // set headers
 app.use(function (ctx, next) {
   if (!ctx.accepts('html')) return next()
