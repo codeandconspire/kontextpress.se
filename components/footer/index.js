@@ -31,7 +31,7 @@ module.exports = class Footer extends Component {
           <div class="Footer-col">
             <h2 class="Footer-title">Kontakt</h2>
             <ul class="Footer-list">
-              <li class="Footer-item"><a class="Footer-link u-textNowrap" href="mailto:hej@kontextpress.se">hej@kontextpress.se</a></li>
+              <li class="Footer-item"><a class="Footer-link u-textNowrap" href="mailto:info@kontextpress.se">info@kontextpress.se</a></li>
               <li class="Footer-item"><a class="Footer-link" href="/redaktionen">Kontakta redaktionen</a></li>
             </ul>
           </div>
@@ -56,7 +56,7 @@ module.exports = class Footer extends Component {
             </ul>
           </div>
           <div class="Footer-col">
-            <h2 class="Footer-title">Va uppdaterad</h2>
+            <h2 class="Footer-title">Var uppdaterad</h2>
             <ul class="Footer-list">
               <li class="Footer-item"><a class="Footer-link" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/kontextpress/">Följ på Instagram</a></li>
               <li class="Footer-item"><a class="Footer-link" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/kontextpress">Gilla på Facebook</a></li>
