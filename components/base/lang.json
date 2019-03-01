@@ -2,7 +2,6 @@
   "SITE_NAME": "Kontext",
   "Loading": "Laddar",
   "Oops": "Hoppsan!",
-  "try again": "försöka igen",
   "the homepage": "startsidan",
   "We apologize, an error has occured on our site. It may be temporary and you could %s or go back to %s.": "Nu gick något galet. Det kan vara bara tillfälligt, prova att %s eller gå tillbaka till %s.",
   "There is no page at this address. Try finding your way using the menu or from %s.": "Här var det visst tomt. Prova att hitta rätt via menyn eller från %s.",
@@ -25,7 +24,8 @@
   "Go to page": "Gå till sidan",
   "Copied!": "Kopierat!",
   "Click to copy": "Klicka för att kopiera",
-  "Want more of us?": "Vill du se mer av Kontext?",
+  "Secure our future": "Säkra Kontext journalistik!",
+  "Make a difference": "Varje krona räknas!",
   "Send money to": "Swisha till",
   "Try again": "Försök igen",
   "Something seems off. We couldn't get the content you requested. %s or navigate using the menu.": "Hoppsan, nu gick något fel. Vi kunde inte hitta innehållet som skall vara här. %s eller använd menyn."

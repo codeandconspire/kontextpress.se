@@ -39,6 +39,11 @@
   margin: 0.7em auto -1em;
 }
 
+.Donate-first {
+  position: relative;
+  z-index: 1;
+}
+
 @media (min-width: 800px) {
   .Donate {
     padding: 2.8rem 2rem;

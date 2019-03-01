@@ -301,6 +301,7 @@
 
 .Text .Text-section--simple {
   border: 0;
+  padding-top: 0;
 }
 
 @media (min-width: 900px) {
@@ -308,5 +309,9 @@
     padding-top: 3.75rem;
     margin: 7rem 0 1.5rem; 
     font-size: 2rem;
+  }
+
+  .Text .Text-section--simple {
+    padding-top: 0;
   }
 }

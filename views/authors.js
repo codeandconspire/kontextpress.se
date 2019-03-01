@@ -39,6 +39,11 @@ function authors (state, emit) {
               center: true
             })}
           </header>
+          ${doc.data.body ? html`
+            <div class="Text Text--article">
+              ${asElement(doc.data.body, resolve, serialize)}
+            </div>
+          ` : null}
           ${reduce(doc.data.slices, group)}
         </div>
       </main>
@@ -52,7 +57,7 @@ function authors (state, emit) {
     return html`
       <section>
         <div class="Text Text--full">
-          <h2 class="Text-section Text-section--simple ${index === 0 ? 'u-spaceT0' : ''}">${asText(slice.primary.heading)}</h2>
+          <h2 class="Text-section Text-section--simple">${asText(slice.primary.heading)}</h2>
         </div>
         ${grid({ size: { md: '1of2', lg: '1of3' } }, slice.items.map(asCard))}
       </section>
