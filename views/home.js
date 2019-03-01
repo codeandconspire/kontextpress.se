@@ -34,7 +34,7 @@ function home (state, emit) {
 
               var query = [Predicates.at('document.type', 'article')]
               var opts = {
-                pageSize: 6,
+                pageSize: 1000,
                 orderings: '[document.last_publication_date desc]'
               }
 
