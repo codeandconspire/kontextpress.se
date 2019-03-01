@@ -229,12 +229,12 @@ function article (state, emit) {
         if (!slice.items.length) return null
         var aligned = slice.primary.margins === 'Inga marginaler, klistra rutorna mot varandra'
         return html`
-          <div class="Text Text--article Text--wide Text--margin">
-            ${grid({ aligned: aligned, size: { lg: '1of2', xl: '1of3' } }, slice.items.map(function (item) {
+          <div class="Text Text--article Text--margin">
+            ${grid({ aligned: aligned }, slice.items.map(function (item) {
               if (!item.item.url) return false
-              let sources = srcset(item.item.url, [400, 600, 900, [1800, 'q_50']])
+              let sources = srcset(item.item.url, [400, 600, 900, [1600, 'q_60'], [2200, 'q_60']])
               let attrs = Object.assign({
-                sizes: '(min-width: 900px) 900px, 100vw',
+                sizes: '(min-width: 42rem) 42rem, 100vw',
                 srcset: sources,
                 class: 'u-spaceA0',
                 src: sources.split(' ')[0],
