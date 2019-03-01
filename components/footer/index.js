@@ -32,7 +32,7 @@ module.exports = class Footer extends Component {
             <h2 class="Footer-title">Kontakt</h2>
             <ul class="Footer-list">
               <li class="Footer-item"><a class="Footer-link u-textNowrap" href="mailto:hej@kontextpress.se">hej@kontextpress.se</a></li>
-              <li class="Footer-item"><a class="Footer-link" href="/kontakt">Fler kontaktvägar</a></li>
+              <li class="Footer-item"><a class="Footer-link" href="/redaktionen">Kontakta redaktionen</a></li>
             </ul>
           </div>
           <div class="Footer-col">
@@ -44,19 +44,19 @@ module.exports = class Footer extends Component {
                     <input class="u-hiddenVisually" id="bankgiro-footer" onkeydown=${preventDefault} readonly value="5347-1249" /></li>
                   <li class="Footer-item">Swish: <button title="${text`Click to copy`}" class="u-textCopy" onclick="${copy}" data-oncopy="${text`Copied!`}" data-input="swish-footer">1236 2121 79</button>
                     <input class="u-hiddenVisually" id="swish-footer" onkeydown=${preventDefault} readonly value="1236 2121 79" /></li>
-                  <li class="Footer-item"><a class="Footer-link" href="/stod-oss">Hur vi finanseras</a></li>
+                  <li class="Footer-item"><a class="Footer-link" href="/stod-oss">Vår finansering</a></li>
                 </ul>
               ` : html`
                 <ul class="Footer-list">
                   <li class="Footer-item">Bankgiro: <span class="u-textNowrap">5347-1249</span></li>
                   <li class="Footer-item">Swish: <span class="u-textNowrap">1236 2121 79</span></li>
-                  <li class="Footer-item"><a class="Footer-link" href="/stod-oss">Hur vi finanseras</a></li>
+                  <li class="Footer-item"><a class="Footer-link" href="/stod-oss">Vår finansering</a></li>
                 </ul>
               `}
             </ul>
           </div>
           <div class="Footer-col">
-            <h2 class="Footer-title">Missa inte</h2>
+            <h2 class="Footer-title">Va uppdaterad</h2>
             <ul class="Footer-list">
               <li class="Footer-item"><a class="Footer-link" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/kontextpress/">Följ på Instagram</a></li>
               <li class="Footer-item"><a class="Footer-link" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/kontextpress">Gilla på Facebook</a></li>
