@@ -30,7 +30,7 @@ function category (state, emit) {
               ${doc ? doc.data.featured_posts.map(function (item, index) {
                 if (!item.link.id || item.link.isBroken) return null
                 return html`
-                  <div class="${index === 0 ? 'u-spaceT4 u-spaceB8' : 'u-spaceV8'}">
+                  <div>
                     ${state.prismic.getByUID(item.link.type, item.link.uid, function (err, article) {
                       if (err) return null
                       if (!article) {
@@ -55,11 +55,7 @@ function category (state, emit) {
                     })}
                   </div>
                 `
-              }).filter(Boolean) : html`
-                <div class="u-spaceT4 u-spaceB8">
-                  ${card.loading({ format: 'horizontal' })}
-                </div>
-              `}
+              }).filter(Boolean) : card.loading({ format: 'horizontal' })}
             </div>
             ${list()}
           </div>

@@ -32,7 +32,7 @@ function home (state, emit) {
               ${doc ? doc.data.featured_posts.map(function (item, index) {
                 if (!item.link.id || item.link.isBroken) return null
                 return html`
-                  <div class="${index === 0 ? 'u-spaceT4 u-spaceB8' : 'u-spaceV8'}">
+                  <div>
                     ${state.prismic.getByUID(item.link.type, item.link.uid, function (err, article) {
                       if (err) return null
                       if (!article) {
