@@ -8,7 +8,6 @@ var view = require('../components/view')
 var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
-var serialize = require('../components/text/serialize')
 var { asText, srcset, resolve, i18n } = require('../components/base')
 
 var text = i18n()
@@ -26,7 +25,7 @@ function home (state, emit) {
             <header class="View-pushDown">
               ${doc ? intro({
                 title: asText(doc.data.title),
-                body: asElement(doc.data.description, resolve, serialize)
+                body: asElement(doc.data.description, resolve, state.serialize)
               }) : intro.loading()}
             </header>
             ${state.prismic.getSingle('website', function (err, doc) {

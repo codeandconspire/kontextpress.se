@@ -2,7 +2,6 @@ var html = require('choo/html')
 var asElement = require('prismic-element')
 var view = require('../components/view')
 var intro = require('../components/intro')
-var serialize = require('../components/text/serialize')
 var { asText, srcset, resolve } = require('../components/base')
 
 module.exports = view(author, meta)
@@ -34,10 +33,10 @@ function author (state, emit) {
         }
 
         if (doc.data.image.url) {
-          let sources = srcset(doc.data.image.url, [400, 600, 900, [1800, 'q_50']])
+          let sources = srcset(doc.data.image.url, [400, 600, 900, [1600, 'q_60'], [2200, 'q_60']])
           props.image = Object.assign({
             alt: doc.data.image_caption || doc.data.image.alt,
-            sizes: '(min-width: 900px) 900px, 100vw',
+            sizes: '(min-width: 65rem) 65rem, 100vw',
             srcset: sources,
             src: sources.split(' ')[0]
           }, doc.data.image.dimensions)
@@ -50,7 +49,7 @@ function author (state, emit) {
             </header>
             ${doc.data.body ? html`
               <div class="Text Text--article">
-                ${asElement(doc.data.body, resolve, serialize)}
+                ${asElement(doc.data.body, resolve, state.serialize)}
               </div>
             ` : null}
           </article>

@@ -8,7 +8,6 @@ var view = require('../components/view')
 var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
-var serialize = require('../components/text/serialize')
 var { asText, srcset, resolve } = require('../components/base')
 
 module.exports = view(category, meta)
@@ -42,7 +41,7 @@ function category (state, emit) {
             <header class="View-pushDown">
               ${intro({
                 title: asText(doc.data.title),
-                body: asElement(doc.data.description, resolve, serialize)
+                body: asElement(doc.data.description, resolve, state.serialize)
               })}
             </header>
             ${state.prismic.get(query, opts, function (err, response) {

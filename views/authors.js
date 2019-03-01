@@ -4,7 +4,6 @@ var view = require('../components/view')
 var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
-var serialize = require('../components/text/serialize')
 var { asText, reduce, srcset, resolve } = require('../components/base')
 
 module.exports = view(authors, meta)
@@ -35,13 +34,13 @@ function authors (state, emit) {
           <header class="View-pushDown">
             ${intro({
               title: asText(doc.data.title),
-              body: asElement(doc.data.description, resolve, serialize),
+              body: asElement(doc.data.description, resolve, state.serialize),
               center: true
             })}
           </header>
           ${doc.data.body ? html`
             <div class="Text Text--article">
-              ${asElement(doc.data.body, resolve, serialize)}
+              ${asElement(doc.data.body, resolve, state.serialize)}
             </div>
           ` : null}
           ${reduce(doc.data.slices, group)}

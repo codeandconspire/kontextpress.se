@@ -34,7 +34,7 @@ function serialize (type, node, content, children) {
       let src = node.url
       let attrs = { alt: node.alt || '' }
       if (!/\.svg$/.test(node.url)) {
-        attrs.sizes = '41em'
+        attrs.sizes = '42rem'
         attrs.srcset = srcset(node.url, sizes)
         src = srcset(node.url, [800]).split(' ')[0]
       }

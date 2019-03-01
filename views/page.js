@@ -5,7 +5,6 @@ var intro = require('../components/intro')
 var embed = require('../components/embed')
 var blurb = require('../components/blurb')
 var grid = require('../components/grid')
-var serialize = require('../components/text/serialize')
 var { asText, resolve, srcset } = require('../components/base')
 
 module.exports = view(page, meta)
@@ -31,14 +30,14 @@ function page (state, emit) {
         var props = {
           center: true,
           title: asText(doc.data.title),
-          body: asElement(doc.data.description, resolve, serialize)
+          body: asElement(doc.data.description, resolve, state.serialize)
         }
 
         if (doc.data.image) {
-          let sources = srcset(doc.data.image.url, [400, 600, 900, [1800, 'q_50']])
+          let sources = srcset(doc.data.image.url, [400, 600, 900, [1600, 'q_60'], [2200, 'q_60']])
           props.image = Object.assign({
             alt: doc.data.image_caption || doc.data.image.alt,
-            sizes: '(min-width: 900px) 900px, 100vw',
+            sizes: '(min-width: 65rem) 65rem, 100vw',
             srcset: sources,
             src: sources.split(' ')[0]
           }, doc.data.image.dimensions)
@@ -63,7 +62,7 @@ function page (state, emit) {
         if (!slice.primary.text.length) return null
         return html`
           <div class="Text Text--article">
-            ${asElement(slice.primary.text, resolve, serialize)}
+            ${asElement(slice.primary.text, resolve, state.serialize)}
           </div>
         `
       }
@@ -77,7 +76,7 @@ function page (state, emit) {
           src: sources.split(' ')[0],
           alt: slice.primary.image.alt || ''
         }, slice.primary.image.dimensions)
-        var caption = slice.primary.caption ? asElement(slice.primary.caption, resolve, serialize) : slice.primary.image.copyright
+        var caption = slice.primary.caption ? asElement(slice.primary.caption, resolve, state.serialize) : slice.primary.image.copyright
         return html`
           <figure class="Text Text--article ${wide ? 'Text--wide' : ''} Text--margin">
             <img ${attrs}>
