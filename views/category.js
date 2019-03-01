@@ -34,7 +34,7 @@ function category (state, emit) {
         ]
         var opts = {
           pageSize: 100,
-          orderings: '[document.first_publication_date desc]'
+          orderings: '[document.last_publication_date desc]'
         }
 
         return html`
@@ -75,7 +75,7 @@ function category (state, emit) {
 // render article as card with author byline
 // (obj, obj?) -> Element
 function asCard (article, author) {
-  var date = parse(article.first_publication_date)
+  var date = parse(article.last_publication_date)
   var props = {
     title: asText(article.data.title),
     body: asText(article.data.description),

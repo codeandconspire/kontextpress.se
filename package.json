@@ -24,7 +24,7 @@
     ]
   },
   "now": {
-    "alias": "nya.kontextpress.se",
+    "alias": "www.kontextpress.se",
     "env": {
       "NODE_ENV": "production",
       "CLOUDINARY_KEY": "@cloudinary-key",
