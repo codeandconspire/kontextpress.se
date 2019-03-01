@@ -35,29 +35,22 @@
 }
 
 .u-textCopy {
+  position: relative;
   white-space: nowrap;
+  text-decoration: underline;
 }
 
-.u-textCopyInput {
-  white-space: nowrap;
+.u-textCopy.is-active {
+  color: transparent;
+  text-decoration: none;
 }
 
-.Share-button::after {
+.u-textCopy.is-active::after {
   content: attr(data-oncopy);
   position: absolute;
-  left: 50%;
-  top: 0;
-  height: 3.5rem;
-  line-height: 3.5rem;
-  text-indent: 0;
-  color: rgb(var(--color-link));
-  transform: translate(-50%, -3.5rem);
-}
-
-@supports (text-decoration-style: dotted) {
-  .u-textCopy {
-    text-decoration-style: dotted;
-  }
+  left: 0;
+  font-weight: 600;
+  color: rgb(var(--document-color));
 }
 
 /**

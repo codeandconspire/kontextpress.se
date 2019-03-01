@@ -1,5 +1,8 @@
 var html = require('choo/html')
 var Component = require('choo/component')
+var { i18n } = require('../base')
+
+var text = i18n()
 
 var CAN_COPY = typeof window !== 'undefined' && 'execCommand' in document
 
@@ -36,13 +39,21 @@ module.exports = class Footer extends Component {
           <div class="Footer-col">
             <h2 class="Footer-title">Stöd oss</h2>
             <ul class="Footer-list">
-
+              ${CAN_COPY ? html`
+                <ul class="Footer-list">
+                  <li class="Footer-item">Bankgiro: <button title="${text`Click to copy`}" class="u-textCopy" onclick="${copy}" data-oncopy="${text`Copied!`}" data-input="bankgiro-footer">5347-1249</button>
+                    <input class="u-hiddenVisually" id="bankgiro-footer" onkeydown=${preventDefault} readonly value="5347-1249" /></li>
+                  <li class="Footer-item">Swish: <button title="${text`Click to copy`}" class="u-textCopy" onclick="${copy}" data-oncopy="${text`Copied!`}" data-input="swish-footer">1236 2121 79</button>
+                    <input class="u-hiddenVisually" id="swish-footer" onkeydown=${preventDefault} readonly value="1236 2121 79" /></li>
+                  <li class="Footer-item"><a class="Footer-link" href="/stod-oss">Hur vi finanseras</a></li>
+                </ul>
+              ` : html`
                 <ul class="Footer-list">
                   <li class="Footer-item">Bankgiro: <span class="u-textNowrap">5347-1249</span></li>
                   <li class="Footer-item">Swish: <span class="u-textNowrap">1236 2121 79</span></li>
                   <li class="Footer-item"><a class="Footer-link" href="/stod-oss">Hur vi finanseras</a></li>
                 </ul>
-
+              `}
             </ul>
           </div>
           <div class="Footer-col">
@@ -96,7 +107,7 @@ function preventDefault (event) {
 
 function copy (event) {
   var button = event.currentTarget
-  var input = document.getElementById(button)
+  var input = document.getElementById(button.dataset.input)
 
   // play nice with ios
   if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
@@ -121,9 +132,6 @@ function copy (event) {
 
   // execute copy
   document.execCommand('Copy')
-  button.addEventListener('transitionend', function ontransitionend () {
-    button.removeEventListener('transitionend', ontransitionend)
-    window.setTimeout(() => button.classList.remove('is-active'), 1000)
-  })
+  window.setTimeout(() => button.classList.remove('is-active'), 1000)
   button.classList.add('is-active')
 }

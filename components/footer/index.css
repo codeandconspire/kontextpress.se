@@ -10,7 +10,6 @@
   line-height: 1.8;
   text-align: center;
   background: #fff;
-  user-select: none;
   transition: border-color 200ms var(--ease);
 }
 
@@ -26,6 +25,7 @@
 .Footer-title {
   font-weight: 600;
   margin-top: 3rem;
+  user-select: none;
 }
 
 .Footer-link {
@@ -43,24 +43,14 @@
   text-decoration: underline;
 }
 
-.Footer-meta {
-  /* display: flex; */
-  flex: 1 1 100%;
-  margin-top: 3rem;
-  color: rgb(127, 127, 127);
-}
-
-.Footer-meta > * {
-  margin-bottom: 2rem;
-}
-
 .Footer-logo {
-  margin: 5rem 0 4rem;
+  margin: 5rem 0 3.5rem;
   padding: 0.5rem 0;
   width: 100%;
   cursor: default;
   color: rgb(var(--theme-color-primary));
   transition: color 200ms var(--ease);
+  user-select: none;
 }
 
 .Footer-figure {
@@ -89,14 +79,14 @@
 }
 
 .Footer-cc {
-  color: rgb(150, 150, 150);
+  color: rgb(162, 162, 162);
   display: inline-block;
   vertical-align: middle;
-  margin: -0.6rem 0 0 0;
+  margin: -0.5rem 0 0;
 }
 
 .Footer-credit .Footer-figure {
-  width: 6rem;
+  width: 5rem;
   margin-left: 0.7rem;
 }
 
