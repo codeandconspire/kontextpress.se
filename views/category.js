@@ -1,7 +1,7 @@
 var html = require('choo/html')
 var parse = require('date-fns/parse')
+var sv = require('date-fns/locale/sv')
 var format = require('date-fns/format')
-var { sv } = require('date-fns/locale/sv')
 var asElement = require('prismic-element')
 var { Predicates } = require('prismic-javascript')
 var view = require('../components/view')
@@ -17,55 +17,89 @@ function category (state, emit) {
     <main class="View-main">
       ${state.prismic.getByUID('category', state.params.category, function (err, doc) {
         if (err) throw err
-        if (!doc) {
-          return html`
-            <div class="u-container">
-              <div class="View-pushDown">
-                ${intro.loading()}
-              </div>
-            </div>
-          `
-        }
-
-        var query = [
-          Predicates.at('document.type', 'article'),
-          Predicates.at('my.article.category', doc.id)
-        ]
-        var opts = {
-          pageSize: 100,
-          orderings: '[document.last_publication_date desc]'
-        }
 
         return html`
           <div class="u-container">
             <header class="View-pushDown">
-              ${intro({
+              ${doc ? intro({
                 title: asText(doc.data.title),
                 body: asElement(doc.data.description, resolve, state.serialize)
-              })}
+              }) : intro.loading()}
             </header>
-            ${state.prismic.get(query, opts, function (err, response) {
-              if (err) return null
-              var cells = []
-              if (!response) {
-                for (let i = 0; i < 6; i++) cells.push(card.loading())
-              } else {
-                cells = response.results.map(function (article) {
-                  if (article.data.author.id) {
-                    return state.prismic.getByID(article.data.author.id, function (err, author) {
-                      if (err || !author) return asCard(article)
-                      return asCard(article, author)
-                    })
-                  }
+            <div class="u-nbfs u-spaceB8">
+              ${doc ? doc.data.featured_posts.map(function (item, index) {
+                if (!item.link.id || item.link.isBroken) return null
+                return html`
+                  <div class="${index === 0 ? 'u-spaceT4 u-spaceB8' : 'u-spaceV8'}">
+                    ${state.prismic.getByUID(item.link.type, item.link.uid, function (err, article) {
+                      if (err) return null
+                      if (!article) {
+                        return card.loading({
+                          format: 'horizontal',
+                          reverse: Boolean(index % 2)
+                        })
+                      }
 
-                  return asCard(article, article.data.guest_author || null)
-                })
-              }
+                      var author = article.data.author
+                      if (!author.id || author.isBroken) {
+                        author = article.data.guest_author
+                      }
 
-              return grid({ size: { md: '1of2', lg: '1of3' } }, cells)
-            })}
+                      return asCard(article, {
+                        author: author,
+                        color: article.data.category.data.secondary_color,
+                        type: article.data.type,
+                        format: 'horizontal',
+                        reverse: Boolean(index % 2)
+                      })
+                    })}
+                  </div>
+                `
+              }).filter(Boolean) : html`
+                <div class="u-spaceT4 u-spaceB8">
+                  ${card.loading({ format: 'horizontal' })}
+                </div>
+              `}
+            </div>
+            ${list()}
           </div>
         `
+
+        function list () {
+          var cells = []
+
+          if (!doc) {
+            for (let i = 0; i < 6; i++) cells.push(card.loading())
+          } else {
+            var query = [Predicates.at('document.type', 'article')]
+            var opts = {
+              pageSize: 100,
+              orderings: '[document.last_publication_date desc]'
+            }
+
+            // prevent duplicate featured posts
+            doc.data.featured_posts
+              .map((item) => item.link.id)
+              .forEach((id) => query.push(Predicates.not('document.id', id)))
+
+            // only fetch posts in this category
+            query.push(Predicates.at('my.article.category', doc.id))
+
+            cells = state.prismic.get(query, opts, function (err, response) {
+              if (err) return null
+              if (!response) return cells
+              return response.results.map(function (article) {
+                var author = article.data.author
+                if (!author.id || author.isBroken) {
+                  author = article.data.guest_author
+                }
+                return asCard(article, author)
+              })
+            })
+          }
+
+          return grid({ size: { md: '1of2', lg: '1of3' } }, cells)
+        }
       })}
     </main>
   `
@@ -73,9 +107,13 @@ function category (state, emit) {
 
 // render article as card with author byline
 // (obj, obj?) -> Element
-function asCard (article, author) {
+function asCard (article, opts = {}) {
   var date = parse(article.last_publication_date)
   var props = {
+    type: opts.type,
+    format: opts.format,
+    reverse: opts.reverse,
+    color: opts.color,
     title: asText(article.data.title),
     body: asText(article.data.description),
     date: {
@@ -104,6 +142,7 @@ function asCard (article, author) {
     }, image.dimensions)
   }
 
+  var author = opts.author
   if (author) {
     props.byline = {
       text: (typeof author === 'string') ? author : asText(author.data.title)

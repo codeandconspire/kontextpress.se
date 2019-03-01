@@ -8,8 +8,8 @@ module.exports = card
 card.loading = loading
 
 function card (props = {}, slot) {
-  var fill = props.color || null
-  assert(!fill || /^#/.test(fill), 'Card: props.color should be hex string color code')
+  var color = props.color || null
+  assert(!color || /^#/.test(color), 'Card: props.color should be hex string color code')
 
   var body = props.body
   if (body) {
@@ -25,19 +25,26 @@ function card (props = {}, slot) {
 
   if (props.link) {
     props.link.block = true
-    if (fill) props.link.silent = true
-    if (fill) props.link.inherit = true
+    if (color && props.format !== 'horizontal') {
+      props.link.silent = true
+      props.link.inherit = true
+    }
   }
 
+  var hasBackground = props.format !== 'horizontal' && (color || props.background)
   var attrs = {
     class: className('Card', {
+      [`Card--${props.format}`]: props.format,
+      'Card--reverse': props.reverse,
       'Card--interactive': props.link,
-      'Card--dark': props.background || (fill && luma(fill) < 185),
-      'Card--fill': fill || props.background,
+      'Card--dark': props.background || (color && luma(color) < 185),
+      'Card--fill': hasBackground,
       'Card--background': props.background
     })
   }
-  if (fill) attrs.style = `--Card-background-color: ${hexToRgb(fill)}`
+  if (color) {
+    attrs.style = `--Card-theme-color: ${hexToRgb(color)}`
+  }
 
   var cover = null
   if (slot) {
@@ -49,14 +56,18 @@ function card (props = {}, slot) {
   return html`
     <article ${attrs}>
       ${cover}
-      <div class="Card-content ${fill ? 'u-hoverTriggerTarget' : ''}">
+      <div class="Card-content ${hasBackground ? 'u-hoverTriggerTarget' : ''}">
         <div class="Card-body">
           ${props.date && props.date.text ? html`
             <time class="Card-meta" datetime="${JSON.stringify(props.date.datetime).replace(/"/g, '')}">
               ${props.date.text}
             </time>
           ` : null}
-          <h3 class="Card-title">${props.title}</h3>
+          <h3 class="Card-title">
+            ${props.type ? html`
+              <span><span class="Card-type">${props.type}:</span> ${props.title}</span>
+            ` : props.title}
+          </h3>
           ${body}
           ${props.byline ? byline(props.byline) : null}
         </div>
@@ -84,7 +95,7 @@ function byline (props) {
 
 function loading (props = {}) {
   return html`
-    <article class="Card">
+    <article class="${className('Card', { [`Card--${props.format}`]: props.format, 'Card--reverse': props.reverse })}">
       ${figure.loading()}
       <div class="Card-content">
         <div class="Card-body">

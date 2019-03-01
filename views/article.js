@@ -1,7 +1,7 @@
 var html = require('choo/html')
 var parse = require('date-fns/parse')
+var sv = require('date-fns/locale/sv')
 var format = require('date-fns/format')
-var { sv } = require('date-fns/locale/sv')
 var asElement = require('prismic-element')
 var { Predicates } = require('prismic-javascript')
 var view = require('../components/view')
@@ -70,14 +70,10 @@ function article (state, emit) {
 
         props.byline = asByline(null, doc)
 
-        if (doc.data.author.id) {
-          state.prismic.getByID(doc.data.author.id, function (err, author) {
-            if (err || !author) return
-            props.byline = asByline(author, doc)
-          })
-        }
-
-        if (doc.data.guest_author) {
+        var author = doc.data.author
+        if (author.id && !author.isBroken) {
+          props.byline = asByline(author, doc)
+        } else if (doc.data.guest_author) {
           props.byline = asByline(doc.data.guest_author, doc)
         }
 
@@ -98,14 +94,11 @@ function article (state, emit) {
                 for (let i = 0; i < 3; i++) cells.push(card.loading())
               } else {
                 cells = response.results.map(function (article) {
-                  if (article.data.author.id) {
-                    return state.prismic.getByID(article.data.author.id, function (err, author) {
-                      if (err || !author) return asCard(article)
-                      return asCard(article, author)
-                    })
+                  var author = article.data.author
+                  if (!author.id || author.isBroken) {
+                    author = article.data.guest_author
                   }
-
-                  return asCard(article, article.data.guest_author || null)
+                  return asCard(article, author)
                 })
 
                 // if comming up short from category, add on other categories
@@ -131,14 +124,11 @@ function article (state, emit) {
                     return state.prismic.get(query, opts, function (err, response) {
                       if (err || !response) return cells
                       var extra = response.results.map(function (article) {
-                        if (article.data.author.id) {
-                          return state.prismic.getByID(article.data.author.id, function (err, author) {
-                            if (err || !author) return asCard(article)
-                            return asCard(article, author)
-                          })
+                        var author = article.data.author
+                        if (!author.id || author.isBroken) {
+                          author = article.data.guest_author
                         }
-
-                        return asCard(article, article.data.guest_author || null)
+                        return asCard(article, author)
                       })
                       return cells.concat(extra)
                     })

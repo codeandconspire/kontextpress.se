@@ -28,5 +28,9 @@ function caption (content) {
 }
 
 function loading (props = {}) {
-  return html`<div class="Card-figure is-loading"></div>`
+  return html`
+    <div class="Card-figure is-loading">
+      <div class="Card-image"></div>
+    </div>
+  `
 }

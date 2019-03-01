@@ -26,7 +26,7 @@ function navigation (state, emitter) {
     if (type === Elements.hyperlink) {
       if (element.data.type === 'article') {
         element = state.prismic.getByUID('article', element.data.uid, function (err, doc) {
-          if (err && !doc) return element
+          if (err || !doc) return element
           return Object.assign({}, element, { data: doc })
         })
         return serializeHyperlink(element, children)

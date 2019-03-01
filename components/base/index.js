@@ -23,7 +23,7 @@ if (typeof window !== 'undefined') {
 exports.resolve = resolve
 function resolve (doc) {
   switch (doc.type) {
-    case 'webpage':
+    case 'website':
     case 'homepage': return '/'
     case 'category': return `/${doc.uid}`
     case 'authors': return `/redaktionen`

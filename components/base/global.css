@@ -40,6 +40,7 @@
   --theme-color-secondary: 0, 0, 0;
 
   --loading-color: 0, 0, 0, 0.06;
+  --loading-color-solid: 235, 235, 235;
 
   --focus-ring-width: 2px;
   --focus-ring-color: var(--color-black);

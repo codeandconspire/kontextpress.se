@@ -1,9 +1,5 @@
 @import "../base";
 
-:root {
-  --Card-background-color: 255, 255, 255;
-}
-
 /* @define Card */
 .Card {
   display: flex;
@@ -32,17 +28,30 @@
   z-index: -1;
   opacity: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-  background-color: rgb(var(--Card-background-color, var(--current-background)));
+  background-color: #fff;
   transition: opacity 150ms var(--ease-out);
   will-change: opacity;
 }
 
-.Card--interactive:hover::before {
+.Card--interactive:not(.Card--horizontal):hover::before {
   opacity: 1;
 }
 
-.Card--interactive:active .Card-title {
+.Card--interactive:not(.Card--horizontal):active .Card-title {
   opacity: 0.6;
+}
+
+.Card--horizontal {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: left;
+}
+
+@media (min-width: 800px) {
+  .Card--horizontal {
+    flex-wrap: nowrap;
+  }
 }
 
 .Card-content {
@@ -59,6 +68,23 @@
   }
 }
 
+.Card--horizontal .Card-content {
+  flex: 1 1 100%;
+  justify-content: center;
+}
+
+@media (min-width: 800px) {
+  .Card--horizontal .Card-content {
+    flex: 1 1 50%;
+    padding-right: 0;
+  }
+
+  .Card--reverse .Card-content {
+    padding-left: 0;
+    order: -1;
+  }
+}
+
 /**
  * 1. Get a z-index to put ontop of hover shading
  */
@@ -67,6 +93,10 @@
   flex-grow: 1;
   position: relative; /* 1 */
   width: 100%;
+}
+
+.Card--horizontal .Card-body {
+  flex-grow: 0;
 }
 
 .Card-body a {
@@ -102,9 +132,45 @@
   margin-right: auto;
 }
 
+.Card--horizontal .Card-title {
+  max-width: 32rem;
+  margin-left: 0;
+  margin-right: 0;
+  font-size: 2.875rem;
+}
+
+@media (min-width: 800px) {
+  .Card--horizontal .Card-title {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .Card--horizontal .Card-title {
+    font-size: 2.4rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .Card--horizontal .Card-title {
+    font-size: 2.875rem;
+  }
+}
+
+.Card-type {
+  color: rgb(var(--Card-theme-color));
+}
+
 .Card-text {
   margin: 0.5rem auto 0;
   max-width: 22rem;
+}
+
+.Card--horizontal .Card-text {
+  max-width: 32rem;
+  margin-left: 0;
+  margin-right: 0;
+  font-size: 1.125rem;
 }
 
 @media (min-width: 900px) {
@@ -136,6 +202,41 @@
   padding-top: calc(100% * 9/14);
 }
 
+.Card--horizontal .Card-figure {
+  flex: 1 1 100%;
+  background-color: transparent;
+}
+
+@media (min-width: 800px) {
+  .Card--horizontal .Card-figure {
+    flex: 1 1 50%;
+    margin-right: 2.5rem;
+  }
+}
+
+.Card--horizontal .Card-figure::after {
+  content: "";
+  width: 100%;
+  height: 70%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  z-index: -1;
+  transform: translateY(-50%);
+  background-color: rgb(var(--Card-theme-color, 20, 20, 20));
+  transition: transform 275ms var(--ease-out);
+  transform-origin: center;
+  will-change: transform;
+}
+
+.Card--horizontal .Card-figure.is-loading::after {
+  background-color: transparent;
+}
+
+.Card--interactive.Card--horizontal:hover .Card-figure::after {
+  transform: translateY(-50%) scaleY(1.075);
+}
+
 .Card-caption {
   position: absolute;
   top: 0.5rem;
@@ -154,7 +255,7 @@
 }
 
 @supports (object-fit: cover) {
-  .Card-image {
+  .Card:not(.Card--horizontal) .Card-image {
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -162,6 +263,17 @@
     top: 0;
     transform: none;
   }
+}
+
+.Card--horizontal .Card-image {
+  width: auto;
+  min-width: auto;
+  max-width: 100%;
+}
+
+.Card--horizontal .Card-figure.is-loading .Card-image {
+  width: 70%;
+  background-color: rgba(var(--loading-color-solid));
 }
 
 /**
@@ -174,6 +286,10 @@
   align-items: center;
   margin: 1.2rem 0 -0.6rem;
   font-size: 0.875rem;
+}
+
+.Card--horizontal .Card-byline {
+  justify-content: flex-start;
 }
 
 .Card .Card-byline {
