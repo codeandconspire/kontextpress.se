@@ -118,6 +118,10 @@ textarea,
   touch-action: manipulation; /* 2 */
 }
 
+input {
+  font-size: 1rem;
+}
+
 /**
  * Reset a few styles
  */

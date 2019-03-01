@@ -1,0 +1,8 @@
+{
+  "name": "Kontext",
+  "short_name": "Kontext",
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "#fafafa",
+  "theme_color": "#ffffff"
+}

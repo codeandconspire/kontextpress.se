@@ -31,7 +31,6 @@ module.exports = class Footer extends Component {
           <div class="Footer-col">
             <h2 class="Footer-title">Kontakt</h2>
             <ul class="Footer-list">
-              <li class="Footer-item"><a class="Footer-link u-textNowrap" href="tel:+46735819750">+46 735 819 750</a></li>
               <li class="Footer-item"><a class="Footer-link u-textNowrap" href="mailto:hej@kontextpress.se">hej@kontextpress.se</a></li>
               <li class="Footer-item"><a class="Footer-link" href="/kontakt">Fler kontaktvägar</a></li>
             </ul>
