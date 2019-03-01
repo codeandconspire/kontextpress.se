@@ -69,6 +69,21 @@
   width: 100%;
 }
 
+.Card-body a {
+  position: relative;
+  z-index: 1;
+  transition: opacity 200ms var(--ease-out);
+}
+
+.Card-body a:hover {
+  text-decoration: underline;
+}
+
+.Card-body a:active {
+  opacity: 0.5;
+  transition: none;
+}
+
 .Card-meta {
   display: block;
   margin-bottom: 0.7rem;

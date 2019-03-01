@@ -14,10 +14,10 @@ function card (props = {}, slot) {
   var body = props.body
   if (body) {
     if (typeof window === 'undefined') {
-      if (Array.isArray(body) || body[0] === '<') html`<div class="Card-text Text">${body}</div>`
+      if (Array.isArray(body) || body[0] === '<') html`<div class="Card-text">${body}</div>`
       else body = html`<p class="Card-text">${snippet(body, props.truncate || 170)}</p>`
     } else if (Array.isArray(body) || body instanceof window.Element) {
-      body = html`<div class="Card-text Text">${body}</div>`
+      body = html`<div class="Card-text">${body}</div>`
     } else {
       body = html`<p class="Card-text">${snippet(body, props.truncate || 170)}</p>`
     }

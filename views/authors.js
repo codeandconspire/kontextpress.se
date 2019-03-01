@@ -47,14 +47,14 @@ function authors (state, emit) {
 
   // render collection of resources
   // obj -> Element
-  function group (slice) {
+  function group (slice, index) {
     if (slice.slice_type !== 'resource_group') return null
     return html`
       <section>
-        <div class="u-spaceB5">
-          <h2>${asText(slice.primary.heading)}</h2>
+        <div class="Text Text--full">
+          <h2 class="Text-section Text-section--simple ${index === 0 ? 'u-spaceT0' : ''}">${asText(slice.primary.heading)}</h2>
         </div>
-        ${grid({ size: { xs: '1of2', md: '1of3' } }, slice.items.map(asCard))}
+        ${grid({ size: { md: '1of2', lg: '1of3' } }, slice.items.map(asCard))}
       </section>
     `
   }

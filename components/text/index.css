@@ -299,6 +299,10 @@
   font-size: 1.5rem;
 }
 
+.Text .Text-section--simple {
+  border: 0;
+}
+
 @media (min-width: 900px) {
   .Text .Text-section {
     padding-top: 3.75rem;
