@@ -29,7 +29,7 @@ function author (state, emit) {
         var props = {
           center: true,
           title: asText(doc.data.title),
-          body: asElement(doc.data.description, resolve, serialize),
+          body: doc.data.email ? html`<a href="mailto:${doc.data.email}">${doc.data.email}</a>` : null,
           narrow: true
         }
 
@@ -48,7 +48,11 @@ function author (state, emit) {
             <header class="View-pushDown">
               ${intro(props)}
             </header>
-            <div class="Text"></div>
+            ${doc.data.body ? html`
+              <div class="Text Text--article">
+                ${asElement(doc.data.body, resolve, serialize)}
+              </div>
+            ` : null}
           </article>
         `
       })}

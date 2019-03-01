@@ -69,8 +69,11 @@
 }
 
 .Intro a {
-  text-decoration: underline;
   transition: opacity 200ms var(--ease-out), color 100ms var(--ease-out);
+}
+
+.Intro a:hover {
+  text-decoration: underline;
 }
 
 .Intro a:active {
