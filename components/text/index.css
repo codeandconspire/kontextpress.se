@@ -53,9 +53,12 @@
  */
 
 .Text a:not(.Embed-link) {
-  font-weight: 600;
   text-decoration: underline;
-  transition: opacity 200ms var(--ease-out);
+  transition: opacity 200ms var(--ease-out), color 200ms var(--ease-out);
+  color: rgb(var(--theme-color-secondary));
+}
+
+.Text a:not(.Embed-link):hover {
   color: rgb(var(--theme-color-primary));
 }
 
