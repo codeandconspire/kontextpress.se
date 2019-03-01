@@ -231,7 +231,7 @@ function srcset (uri, sizes, opts = {}) {
   return sizes.map(function (size) {
     var transform = transforms
     if (Array.isArray(size)) {
-      transform = size[1]
+      transform = size[1] + ',' + transforms
       if (!/c_/.test(transform)) transform += ',c_fill'
       if (!/f_/.test(transform)) transform += ',f_auto'
       if (!/q_/.test(transform)) transform += ',q_auto'

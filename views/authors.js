@@ -85,7 +85,7 @@ function asCard (item) {
     let sources = srcset(
       image.url,
       [400, 600, [800, 'q_70'], [1600, 'q_50']],
-      { transforms: 'c_thumb' }
+      { transforms: 'c_thumb,g_north', aspect: 9 / 14 }
     )
 
     props.image = Object.assign({
