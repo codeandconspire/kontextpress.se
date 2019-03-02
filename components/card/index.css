@@ -37,6 +37,12 @@
   opacity: 1;
 }
 
+@media (max-width: 599px) {
+  .Card--interactive:not(.Card--horizontal)::before {
+    opacity: 1;
+  }
+}
+
 .Card--interactive:active .Card-title {
   opacity: 0.6;
 }
