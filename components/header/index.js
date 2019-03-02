@@ -39,18 +39,18 @@ module.exports = class Header extends Component {
             <ul class="Header-list">
               ${categories.map((item) => html`
                 <li class="${className('Header-item', { 'is-selected': item.selected })}">
-                  <a href="${item.href}" class="Header-text">${item.text}</a>
+                  <a href="${item.href}" class="Header-link"><span class="Header-text">${item.text}</span></a>
                 </li>
               `)}
               <li class="${className('Header-button Header-end', { 'is-selected': state.href.indexOf('stod-oss') !== -1 })}">
-                <a href="/stod-oss" class="Header-text">
+                <a href="/stod-oss" class="Header-link">
                   <svg class="Header-icon" role="presentation" area-hidden="true" viewBox="0 0 11 10">
                     <path class="Header-fill" fill="rgb(var(--theme-color-secondary))" fill-rule="nonzero" d="M5.5 9.375a.542.542 0 0 1-.385-.157L.907 5.004a2.85 2.85 0 0 1 0-4.009 2.838 2.838 0 0 1 4.008 0l.585.585.585-.585a2.838 2.838 0 0 1 4.008 0 2.85 2.85 0 0 1 0 4.009L5.885 9.218a.542.542 0 0 1-.385.157z"/>
-                  </svg>${text`Support us`}
+                  </svg><span class="Header-text">${text`Support us`}</span>
                 </a>
               </li>
-              <li class="${className('Header-text Header-item Header-end Header-hidden', { 'is-selected': state.href.indexOf('om-oss') !== -1 })}">
-                <a href="/om-oss" class="Header-text">${text`About us`}</a>
+              <li class="${className('Header-item Header-end Header-hidden', { 'is-selected': state.href.indexOf('om-oss') !== -1 })}">
+                <a href="/om-oss" class="Header-link"><span class="Header-text">${text`About us`}</span></a>
               </li>
             </ul>
           </nav>

@@ -26,7 +26,7 @@
 }
 
 .Header-nav {
-  padding: 0.5rem var(--document-margin);
+  padding: 0 var(--document-margin);
   border: solid rgb(229, 229, 229);
   border-width: 1px 0;
 }
@@ -48,13 +48,19 @@
   transition: none;
 }
 
-.Header-item.is-selected {
-  opacity: 0.5;
+.Header-link {
+  padding: 0.4rem;
+  margin: -0.4rem;
 }
 
 .Header-text {
-  padding: 0.4rem;
-  margin: -0.4rem;
+  display: inline-block;
+  border-bottom: 2px solid transparent;
+  padding: 0.5rem 0 calc(0.4rem - 2px);
+}
+
+.Header-item.is-selected .Header-text {
+  border-color: rgb(var(--theme-color-secondary));
 }
 
 .Header-hidden {
@@ -77,17 +83,22 @@
     opacity: 1;
   }
 
-  .Header-button .Header-text:active {
+  .Header-button .Header-link:active {
     background: rgb(216, 216, 216);
     opacity: 1;
   }
 
-  .Header-button .Header-text {
+  .Header-button .Header-link {
     display: block;
     padding: 0.4rem 0.7rem 0.4rem 0.55rem;
     margin: 0;
     background: rgb(242, 242, 242);
     border-radius: 4px;
+  }
+
+  .Header-button .Header-text {
+    padding: 0;
+    border: 0;
   }
 }
 
@@ -118,7 +129,7 @@
 
   .Header-nav {
     flex: 1 0 auto;
-    padding-left: 1.7rem;
+    padding-left: 1.2rem;
     border: 0;
   }
 
@@ -131,17 +142,30 @@
     margin-right: 0;
   }
 
-  .Header-button.is-selected {
-    opacity: 0.5;
-  }
-
   .Header-end {
     float: right;
   }
 
-  .Header-logo {
+  .Header-text {
+    padding: 0;
+    border: 0;
+  }
+
+  .Header-item .Header-text::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    display: inline-block;
+    vertical-align: middle;
+    background: rgba(var(--theme-color-secondary), 0);
+    border-radius: 50%;
+    margin-right: 0.4rem;
     position: relative;
-    top: -0.2rem;
+    top: -1px;
+  }
+
+  .Header-item.is-selected .Header-text::before {
+    background: rgba(var(--theme-color-secondary), 1);
   }
 }
 
@@ -155,6 +179,11 @@
   .Header-content,
   .Header-nav {
     padding: 3rem 0;
+  }
+
+  .Header-logo {
+    position: relative;
+    top: -0.1rem;
   }
 
   .Header-figure {
@@ -179,5 +208,6 @@
   .Header-icon {
     width: 13px;
     margin-right: 0.4rem;
+    margin-bottom: 0.2rem;
   }
 }

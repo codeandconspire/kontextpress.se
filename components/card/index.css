@@ -297,7 +297,7 @@
   z-index: -1;
   transform: translateY(-50%);
   background-color: rgb(var(--Card-theme-color, 20, 20, 20));
-  transition: transform 275ms var(--ease-out);
+  transition: transform 220ms var(--ease-out);
   transform-origin: center;
   will-change: transform;
 }
@@ -307,7 +307,7 @@
 }
 
 .Card--interactive.Card--horizontal:hover .Card-figure::after {
-  transform: translateY(-50%) scaleY(1.075);
+  transform: translateY(-50%) scaleY(1.07);
 }
 
 .Card-caption {
