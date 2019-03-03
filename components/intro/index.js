@@ -34,10 +34,12 @@ function intro (opts = {}) {
       ` : null}
       ${img ? html`
         <figure class="Intro-figure">
-          <div class="Intro-aspect" style="${aspect}">
-            <img class="Intro-image" ${img}>
-          </div>
-          ${img.caption ? html`<figcaption class="Intro-figcaption">${img.caption}</figcaption>` : null}
+          <a class="Intro-imageLink" href="${img.original}">
+            <div class="Intro-aspect" style="${aspect}">
+              <img class="Intro-image" ${img}>
+            </div>
+            ${img.caption ? html`<figcaption class="Intro-figcaption">${img.caption}</figcaption>` : null}
+          </a>
         </figure>
       ` : null}
     </div>

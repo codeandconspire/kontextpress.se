@@ -88,6 +88,14 @@
   position: relative;
 }
 
+.Intro-imageLink {
+  display: block;
+}
+
+.Intro .Intro-imageLink:active {
+  opacity: 1;
+}
+
 .Intro--narrow .Intro-figure {
   max-width: 35rem;
 }

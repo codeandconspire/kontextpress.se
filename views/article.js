@@ -66,7 +66,8 @@ function article (state, emit) {
             caption: asText(doc.data.image_caption),
             sizes: '(min-width: 65rem) 65rem, 100vw',
             srcset: sources,
-            src: sources.split(' ')[0]
+            src: sources.split(' ')[0],
+            original: doc.data.image.url
           }, doc.data.image.dimensions)
         }
 

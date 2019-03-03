@@ -38,7 +38,8 @@ function author (state, emit) {
             alt: doc.data.image_caption || doc.data.image.alt,
             sizes: '(min-width: 65rem) 65rem, 100vw',
             srcset: sources,
-            src: sources.split(' ')[0]
+            src: sources.split(' ')[0],
+            original: doc.data.image.url
           }, doc.data.image.dimensions)
         }
 
