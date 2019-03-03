@@ -31,7 +31,7 @@
 }
 
 .Byline--multiple .Byline-thumbnail + .Byline-thumbnail {
-  border: 2px solid rgb(var(--document-background));
+  border: 2px solid #fafafa;
   box-sizing: content-box;
   margin: -2px -2px -2px -0.6rem;
 }
