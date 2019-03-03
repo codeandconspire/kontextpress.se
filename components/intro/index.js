@@ -38,8 +38,8 @@ function intro (opts = {}) {
             <div class="Intro-aspect" style="${aspect}">
               <img class="Intro-image" ${img}>
             </div>
-            ${img.caption ? html`<figcaption class="Intro-figcaption">${img.caption}</figcaption>` : null}
           </a>
+          ${img.caption ? html`<figcaption class="Intro-figcaption">${img.caption}</figcaption>` : null}
         </figure>
       ` : null}
     </div>

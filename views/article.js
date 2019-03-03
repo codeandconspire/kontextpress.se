@@ -63,7 +63,7 @@ function article (state, emit) {
           let sources = srcset(doc.data.image.url, [400, 600, 900, [1600, 'q_60'], [2200, 'q_60']])
           props.image = Object.assign({
             alt: doc.data.image_caption || doc.data.image.alt,
-            caption: asText(doc.data.image_caption),
+            caption: doc.data.image_caption,
             sizes: '(min-width: 65rem) 65rem, 100vw',
             srcset: sources,
             src: sources.split(' ')[0],
