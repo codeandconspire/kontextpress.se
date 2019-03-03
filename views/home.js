@@ -41,11 +41,6 @@ function home (state, emit) {
                     })
                   }
 
-                  var author = article.data.author
-                  if (!author.id || author.isBroken) {
-                    author = article.data.guest_author
-                  }
-
                   return asCard(article, {
                     color: article.data.category.data.secondary_color,
                     type: article.data.type,

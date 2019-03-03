@@ -39,11 +39,6 @@ function category (state, emit) {
                     })
                   }
 
-                  var author = article.data.author
-                  if (!author.id || author.isBroken) {
-                    author = article.data.guest_author
-                  }
-
                   return asCard(article, {
                     color: article.data.category.data.secondary_color,
                     type: article.data.type,
@@ -81,11 +76,7 @@ function category (state, emit) {
               if (err) return null
               if (!response) return cells
               return response.results.map(function (article) {
-                var author = article.data.author
-                if (!author.id || author.isBroken) {
-                  author = article.data.guest_author
-                }
-                return asCard(article, author)
+                return asCard(article)
               })
             })
           }
