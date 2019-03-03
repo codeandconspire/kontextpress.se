@@ -6,7 +6,7 @@ var text = i18n()
 var CAN_COPY = typeof window !== 'undefined' && 'execCommand' in document
 
 module.exports = donate
-''
+
 function donate (props) {
   return html`
     <div class="Donate u-narrow">

@@ -2,7 +2,7 @@ var assert = require('assert')
 var html = require('choo/html')
 var link = require('./link')
 var figure = require('./figure')
-var { luma, hexToRgb, className, snippet, pluck, loader } = require('../base')
+var { luma, hexToRgb, className, snippet, loader } = require('../base')
 
 module.exports = card
 card.loading = loading
