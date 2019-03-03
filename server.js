@@ -13,7 +13,10 @@ var imageproxy = require('./lib/cloudinary-proxy')
 
 var REPOSITORY = 'https://kontext.cdn.prismic.io/api/v2'
 
-var app = jalla('index.js', { sw: 'sw.js' })
+var app = jalla('index.js', {
+  sw: 'sw.js',
+  serve: process.env.NODE_ENV === 'production'
+})
 
 // proxy cloudinary on-demand-transform API
 app.use(get('/media/:type/:transform/:uri(.+)', async function (ctx, type, transform, uri) {
