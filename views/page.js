@@ -76,15 +76,11 @@ function page (state, emit) {
           src: sources.split(' ')[0],
           alt: slice.primary.image.alt || ''
         }, slice.primary.image.dimensions)
-        var caption = slice.primary.caption ? asElement(slice.primary.caption, resolve, state.serialize) : slice.primary.image.copyright
+        var caption = slice.primary.caption ? asText(slice.primary.caption) : slice.primary.image.copyright
         return html`
           <figure class="Text Text--article ${wide ? 'Text--wide' : ''} Text--margin">
             <img ${attrs}>
-            ${caption ? html`
-              <figcaption>
-                <small class="Text-muted">${caption}</small>
-              </figcaption>
-            ` : null}
+            ${caption ? html`<figcaption class="Text-caption">${caption}</figcaption>` : null}
           </figure>
         `
       }

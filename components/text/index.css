@@ -106,6 +106,11 @@
   text-align: left;
 }
 
+.Text-caption {
+  font-size: 0.875rem;
+  color: rgba(var(--color-muted));
+}
+
 /**
  * Blockquote
  */
@@ -304,6 +309,7 @@
 .Text .Text-section--simple {
   border: 0;
   padding-top: 0;
+  margin-top: 3rem;
 }
 
 @media (min-width: 900px) {
@@ -315,5 +321,6 @@
 
   .Text .Text-section--simple {
     padding-top: 0;
+    margin-top: 5rem;
   }
 }

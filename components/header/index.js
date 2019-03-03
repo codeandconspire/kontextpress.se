@@ -45,7 +45,7 @@ module.exports = class Header extends Component {
               <li class="${className('Header-button Header-end', { 'is-selected': state.href.indexOf('stod-oss') !== -1 })}">
                 <a href="/stod-oss" class="Header-link">
                   <svg class="Header-icon" role="presentation" area-hidden="true" viewBox="0 0 11 10">
-                    <path class="Header-fill" fill="rgb(var(--theme-color-secondary))" fill-rule="nonzero" d="M5.5 9.375a.542.542 0 0 1-.385-.157L.907 5.004a2.85 2.85 0 0 1 0-4.009 2.838 2.838 0 0 1 4.008 0l.585.585.585-.585a2.838 2.838 0 0 1 4.008 0 2.85 2.85 0 0 1 0 4.009L5.885 9.218a.542.542 0 0 1-.385.157z"/>
+                    <path class="Header-fill" fill="currentColor" fill-rule="nonzero" d="M5.5 9.375a.542.542 0 0 1-.385-.157L.907 5.004a2.85 2.85 0 0 1 0-4.009 2.838 2.838 0 0 1 4.008 0l.585.585.585-.585a2.838 2.838 0 0 1 4.008 0 2.85 2.85 0 0 1 0 4.009L5.885 9.218a.542.542 0 0 1-.385.157z"/>
                   </svg><span class="Header-text">${text`Support us`}</span>
                 </a>
               </li>

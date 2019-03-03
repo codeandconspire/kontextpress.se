@@ -96,6 +96,7 @@
   position: relative;
   padding-bottom: var(--Intro-figure-aspect);
   background: rgba(var(--loading-color));
+  overflow: hidden;
 }
 
 .Intro-image {
@@ -133,6 +134,16 @@
 
 .Intro--center .Intro-thumbnail {
   margin: 0 auto 1rem;
+}
+
+.Intro-meta {
+  margin-top: 1.4rem;
+}
+
+.Intro-figcaption {
+  font-size: 0.875rem;
+  margin: 0.5rem 0 -0.5rem;
+  color: rgba(var(--color-muted));
 }
 
 @media (min-width: 350px) {

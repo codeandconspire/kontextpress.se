@@ -1,0 +1,65 @@
+@import "../base";
+
+/* @define Byline */
+.Byline {
+  display: inline-block;
+  text-align: left;
+  margin: -0.68rem 0 -0.68rem;
+  /* width: 100%; */
+}
+
+.Byline-figure {
+  margin: 0.68rem 0.68rem 0.6rem 0;
+  position: relative;
+  top: -0.1rem;
+}
+
+.Byline-figure:empty {
+  display: none;
+}
+
+.Byline {
+  text-align: center;
+}
+
+.Byline-thumbnail {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(var(--loading-color));
+}
+
+.Byline--multiple .Byline-thumbnail + .Byline-thumbnail {
+  border: 2px solid rgb(var(--document-background));
+  box-sizing: content-box;
+  margin: -2px -2px -2px -0.6rem;
+}
+
+.Byline-divider {
+  display: none;
+  margin: 0 0.3rem;
+}
+
+.Byline-content {
+  display: block;
+}
+
+.Byline-divider {
+  display: inline-block;
+}
+
+.Byline-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.Byline-text {
+
+}
+
+.Byline-person {
+
+}

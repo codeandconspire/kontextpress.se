@@ -8,6 +8,7 @@ var view = require('../components/view')
 var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
+var byline = require('../components/byline')
 var { asText, srcset, resolve } = require('../components/base')
 
 module.exports = view(category, meta)
@@ -26,35 +27,30 @@ function category (state, emit) {
                 body: asElement(doc.data.description, resolve, state.serialize)
               }) : intro.loading()}
             </header>
-            <div class="u-nbfs u-spaceB8">
+            <div>
               ${doc ? doc.data.featured_posts.map(function (item, index) {
                 if (!item.link.id || item.link.isBroken) return null
-                return html`
-                  <div>
-                    ${state.prismic.getByUID(item.link.type, item.link.uid, function (err, article) {
-                      if (err) return null
-                      if (!article) {
-                        return card.loading({
-                          format: 'horizontal',
-                          reverse: Boolean(index % 2)
-                        })
-                      }
+                return state.prismic.getByUID(item.link.type, item.link.uid, function (err, article) {
+                  if (err) return null
+                  if (!article) {
+                    return card.loading({
+                      format: 'horizontal',
+                      reverse: Boolean(index % 2)
+                    })
+                  }
 
-                      var author = article.data.author
-                      if (!author.id || author.isBroken) {
-                        author = article.data.guest_author
-                      }
+                  var author = article.data.author
+                  if (!author.id || author.isBroken) {
+                    author = article.data.guest_author
+                  }
 
-                      return asCard(article, {
-                        author: author,
-                        color: article.data.category.data.secondary_color,
-                        type: article.data.type,
-                        format: 'horizontal',
-                        reverse: Boolean(index % 2)
-                      })
-                    })}
-                  </div>
-                `
+                  return asCard(article, {
+                    color: article.data.category.data.secondary_color,
+                    type: article.data.type,
+                    format: 'horizontal',
+                    reverse: Boolean(index % 2)
+                  })
+                })
               }).filter(Boolean) : card.loading({ format: 'horizontal' })}
             </div>
             ${list()}
@@ -101,28 +97,77 @@ function category (state, emit) {
   `
 }
 
+function asByline (doc, showDate) {
+  var time = parse(doc.first_publication_date)
+  var props = {
+    date: showDate ? {
+      datetime: time,
+      text: format(time, 'D MMMM YYYY', { locale: sv }).toLowerCase()
+    } : false,
+    authors: []
+  }
+
+  if (doc.data.authors && doc.data.authors.length) {
+    props.authors = doc.data.authors.map(function (author) {
+      if (!author.item.id || author.item.isBroken) return
+      var result = {}
+      result.text = asText(author.item.data.title)
+      result.link = {
+        href: resolve(author.item)
+      }
+
+      if (author.item.data.image.url) {
+        let transforms = 'r_max'
+        if (!author.item.data.image.thumbnail.url) transforms += ',c_thumb,g_face'
+        let sources = srcset(
+          author.item.data.image.thumbnail.url || author.item.data.image.url,
+          [150],
+          { transforms, aspect: 1 }
+        )
+        result.image = {
+          sizes: '40px',
+          srcset: sources,
+          src: sources.split(' ')[0],
+          alt: author.item.text,
+          width: 40,
+          height: 40
+        }
+      }
+
+      return result
+    })
+
+    if (doc.data.guest_author) {
+      props.authors.push({ text: doc.data.guest_author })
+    }
+  }
+
+  return byline(props)
+}
+
 // render article as card with author byline
 // (obj, obj?) -> Element
-function asCard (article, opts = {}) {
-  var date = parse(article.last_publication_date)
+function asCard (doc, opts = {}) {
+  var date = parse(doc.last_publication_date)
   var props = {
     type: opts.type,
     format: opts.format,
     reverse: opts.reverse,
     color: opts.color,
-    title: asText(article.data.title),
-    body: asText(article.data.description),
+    title: asText(doc.data.title),
+    body: asText(doc.data.description),
+    byline: asByline(doc),
     date: {
       datetime: date,
       text: format(date, 'D MMMM YYYY', { locale: sv }).toLowerCase()
     },
     link: {
-      href: resolve(article)
+      href: resolve(doc)
     }
   }
 
-  var image = article.data.featured_image
-  if (!image.url) image = article.data.image
+  var image = doc.data.featured_image
+  if (!image.url) image = doc.data.image
   if (image.url) {
     let sources = srcset(
       image.url,
@@ -134,33 +179,8 @@ function asCard (article, opts = {}) {
       sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw',
       srcset: sources,
       src: sources.split(' ')[0],
-      alt: article.data.image_caption || ''
+      alt: doc.data.image_caption || ''
     }, image.dimensions)
-  }
-
-  var author = opts.author
-  if (author) {
-    props.byline = {
-      text: (typeof author === 'string') ? author : asText(author.data.title)
-    }
-
-    if (author.data && author.data.image && author.data.image.url) {
-      let transforms = 'r_max'
-      if (!author.data.image.thumbnail.url) transforms += ',c_thumb,g_face'
-      let sources = srcset(
-        author.data.image.thumbnail.url || author.data.image.url,
-        [150],
-        { transforms, aspect: 1 }
-      )
-      props.byline.image = {
-        sizes: '40px',
-        srcset: sources,
-        src: sources.split(' ')[0],
-        alt: props.byline.text,
-        width: 40,
-        height: 40
-      }
-    }
   }
 
   return card(props)

@@ -69,27 +69,15 @@ function card (props = {}, slot) {
             ` : props.title}
           </h3>
           ${body}
-          ${props.byline ? byline(props.byline) : null}
+          ${props.byline ? html`
+            <div class="Card-footer">
+              ${props.byline}
+            </div>
+          ` : null}
         </div>
         ${props.link ? link(Object.assign({ inherit: props.background }, props.link)) : null}
       </div>
     </article>
-  `
-}
-
-// render byline
-// obj -> Element
-function byline (props) {
-  if (props.image) {
-    var attrs = pluck(props.image, 'width', 'height', 'srcset', 'sizes', 'alt')
-    attrs.alt = attrs.alt || ''
-  }
-
-  return html`
-    <figure class="Card-byline">
-      ${props.image ? html`<img class="Card-thumbnail" ${attrs} src="${props.image.src}">` : null}
-      <figcaption>${props.text}</figcaption>
-    </figure>
   `
 }
 

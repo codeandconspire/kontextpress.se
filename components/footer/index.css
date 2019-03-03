@@ -79,7 +79,7 @@
 }
 
 .Footer-cc {
-  color: rgb(162, 162, 162);
+  color: rgb(150, 150, 150);
   display: inline-block;
   vertical-align: middle;
   margin: -0.5rem 0 0;
@@ -127,7 +127,7 @@
 
 @media (min-width: 1000px) {
   .Footer {
-    padding: 3rem 0 3rem;
+    padding: 2rem 0 3rem;
     margin-top: 7rem;
     font-size: 0.9375rem;
   }
@@ -157,6 +157,7 @@
 
   .Footer-move .Footer-list {
     display: inline-block;
+    white-space: nowrap;
   }
 
   .Footer-credit {

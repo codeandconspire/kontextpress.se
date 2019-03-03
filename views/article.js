@@ -8,6 +8,7 @@ var view = require('../components/view')
 var embed = require('../components/embed')
 var card = require('../components/card')
 var grid = require('../components/grid')
+var byline = require('../components/byline')
 var intro = require('../components/intro')
 var conversation = require('../components/conversation')
 var donate = require('../components/donate')
@@ -62,20 +63,14 @@ function article (state, emit) {
           let sources = srcset(doc.data.image.url, [400, 600, 900, [1600, 'q_60'], [2200, 'q_60']])
           props.image = Object.assign({
             alt: doc.data.image_caption || doc.data.image.alt,
+            caption: asText(doc.data.image_caption),
             sizes: '(min-width: 65rem) 65rem, 100vw',
             srcset: sources,
             src: sources.split(' ')[0]
           }, doc.data.image.dimensions)
         }
 
-        props.byline = asByline(null, doc)
-
-        var author = doc.data.author
-        if (author.id && !author.isBroken) {
-          props.byline = asByline(author, doc)
-        } else if (doc.data.guest_author) {
-          props.byline = asByline(doc.data.guest_author, doc)
-        }
+        props.byline = asByline(doc, true)
 
         return html`
           <div class="u-container">
@@ -94,11 +89,7 @@ function article (state, emit) {
                 for (let i = 0; i < 3; i++) cells.push(card.loading())
               } else {
                 cells = response.results.map(function (article) {
-                  var author = article.data.author
-                  if (!author.id || author.isBroken) {
-                    author = article.data.guest_author
-                  }
-                  return asCard(article, author)
+                  return asCard(article)
                 })
 
                 // if comming up short from category, add on other categories
@@ -124,11 +115,7 @@ function article (state, emit) {
                     return state.prismic.get(query, opts, function (err, response) {
                       if (err || !response) return cells
                       var extra = response.results.map(function (article) {
-                        var author = article.data.author
-                        if (!author.id || author.isBroken) {
-                          author = article.data.guest_author
-                        }
-                        return asCard(article, author)
+                        return asCard(article)
                       })
                       return cells.concat(extra)
                     })
@@ -176,15 +163,11 @@ function article (state, emit) {
           src: sources.split(' ')[0],
           alt: slice.primary.image.alt || ''
         }, slice.primary.image.dimensions)
-        var caption = slice.primary.caption ? asElement(slice.primary.caption, resolve, state.serialize) : slice.primary.image.copyright
+        var caption = slice.primary.caption ? asText(slice.primary.caption) : slice.primary.image.copyright
         return html`
           <figure class="Text Text--article ${wide ? 'Text--wide' : ''} Text--margin">
             <img ${attrs}>
-            ${caption ? html`
-              <figcaption>
-                <small class="Text-muted">${caption}</small>
-              </figcaption>
-            ` : null}
+            ${caption ? html`<figcaption class="Text-caption">${caption}</figcaption>` : null}
           </figure>
         `
       }
@@ -269,69 +252,73 @@ function video (props) {
   })
 }
 
-function asByline (author, article) {
-  var date = parse(article.last_publication_date)
-  var byline = {
-    date: {
-      datetime: date,
-      text: format(date, 'D MMMM YYYY', { locale: sv }).toLowerCase()
+function asByline (doc, showDate) {
+  var time = parse(doc.first_publication_date)
+  var props = {
+    date: showDate ? {
+      datetime: time,
+      text: format(time, 'D MMMM YYYY', { locale: sv }).toLowerCase()
+    } : false,
+    authors: []
+  }
+
+  if (doc.data.authors && doc.data.authors.length) {
+    props.authors = doc.data.authors.map(function (author) {
+      if (!author.item.id || author.item.isBroken) return
+      var result = {}
+      result.text = asText(author.item.data.title)
+      result.link = {
+        href: resolve(author.item)
+      }
+
+      if (author.item.data.image.url) {
+        let transforms = 'r_max'
+        if (!author.item.data.image.thumbnail.url) transforms += ',c_thumb,g_face'
+        let sources = srcset(
+          author.item.data.image.thumbnail.url || author.item.data.image.url,
+          [150],
+          { transforms, aspect: 1 }
+        )
+        result.image = {
+          sizes: '40px',
+          srcset: sources,
+          src: sources.split(' ')[0],
+          alt: author.item.text,
+          width: 40,
+          height: 40
+        }
+      }
+
+      return result
+    })
+
+    if (doc.data.guest_author) {
+      props.authors.push({ text: doc.data.guest_author })
     }
   }
 
-  if (!author) {
-    return byline
-  }
-
-  // handle guest authors
-  if (typeof author === 'string') {
-    byline.text = author
-    return byline
-  }
-
-  byline.text = asText(author.data.title)
-  byline.link = {
-    href: resolve(author)
-  }
-
-  if (author.data.image.url) {
-    let transforms = 'r_max'
-    if (!author.data.image.thumbnail.url) transforms += ',c_thumb,g_face'
-    let sources = srcset(
-      author.data.image.thumbnail.url || author.data.image.url,
-      [150],
-      { transforms, aspect: 1 }
-    )
-    byline.image = {
-      sizes: '40px',
-      srcset: sources,
-      src: sources.split(' ')[0],
-      alt: byline.text,
-      width: 40,
-      height: 40
-    }
-  }
-
-  return byline
+  return byline(props)
 }
 
 // render article as card with author byline
 // (obj, obj?) -> Element
-function asCard (article, author) {
-  var date = parse(article.last_publication_date)
+function asCard (doc) {
+  var date = parse(doc.last_publication_date)
   var props = {
-    title: asText(article.data.title),
-    body: asText(article.data.description),
+    title: asText(doc.data.title),
+    body: asText(doc.data.description),
+    byline: asByline(doc),
     date: {
       datetime: date,
       text: format(date, 'D MMMM YYYY', { locale: sv }).toLowerCase()
     },
     link: {
-      href: resolve(article)
+      href: resolve(doc)
     }
   }
 
-  var image = article.data.featured_image
-  if (!image.url) image = article.data.image
+  var image = doc.data.featured_image
+  if (!image.url) image = doc.data.image
   if (image.url) {
     let sources = srcset(
       image.url,
@@ -343,32 +330,8 @@ function asCard (article, author) {
       sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw',
       srcset: sources,
       src: sources.split(' ')[0],
-      alt: article.data.image_caption || ''
+      alt: doc.data.image_caption || ''
     }, image.dimensions)
-  }
-
-  if (author) {
-    props.byline = {
-      text: (typeof author === 'string') ? author : asText(author.data.title)
-    }
-
-    if (author.data && author.data.image && author.data.image.url) {
-      let transforms = 'r_max'
-      if (!author.data.image.thumbnail.url) transforms += ',c_thumb,g_face'
-      let sources = srcset(
-        author.data.image.thumbnail.url || author.data.image.url,
-        [150],
-        { transforms, aspect: 1 }
-      )
-      props.byline.image = {
-        sizes: '40px',
-        srcset: sources,
-        src: sources.split(' ')[0],
-        alt: props.byline.text,
-        width: 40,
-        height: 40
-      }
-    }
   }
 
   return card(props)
