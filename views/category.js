@@ -61,7 +61,7 @@ function category (state, emit) {
             var query = [Predicates.at('document.type', 'article')]
             var opts = {
               pageSize: 100,
-              orderings: '[document.last_publication_date desc]'
+              orderings: '[document.first_publication_date desc]'
             }
 
             // prevent duplicate featured posts
@@ -139,7 +139,7 @@ function asByline (doc, showDate) {
 // render article as card with author byline
 // (obj, obj?) -> Element
 function asCard (doc, opts = {}) {
-  var date = parse(doc.last_publication_date)
+  var date = parse(doc.first_publication_date)
   var props = {
     type: opts.type,
     format: opts.format,

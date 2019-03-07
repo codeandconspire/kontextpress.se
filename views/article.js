@@ -44,7 +44,7 @@ function article (state, emit) {
         ]
         var opts = {
           pageSize: 3,
-          orderings: '[document.last_publication_date desc]'
+          orderings: '[document.first_publication_date desc]'
         }
 
         var props = {
@@ -104,7 +104,7 @@ function article (state, emit) {
                     ]
                     var opts = {
                       pageSize: 3 - cells.length,
-                      orderings: '[document.last_publication_date desc]'
+                      orderings: '[document.first_publication_date desc]'
                     }
 
                     // only fetch articles from the other main categories
@@ -304,7 +304,7 @@ function asByline (doc, showDate) {
 // render article as card with author byline
 // (obj, obj?) -> Element
 function asCard (doc) {
-  var date = parse(doc.last_publication_date)
+  var date = parse(doc.first_publication_date)
   var props = {
     title: asText(doc.data.title),
     body: asText(doc.data.description),

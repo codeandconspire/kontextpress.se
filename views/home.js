@@ -60,8 +60,8 @@ function home (state, emit) {
               if (doc) {
                 var query = [Predicates.at('document.type', 'article')]
                 var opts = {
-                  pageSize: 6,
-                  orderings: '[document.last_publication_date desc]'
+                  pageSize: 1000,
+                  orderings: '[document.first_publication_date desc]'
                 }
 
                 if (website) {
@@ -170,7 +170,7 @@ function asByline (doc, showDate) {
 // render article as card with author byline
 // (obj, obj?) -> Element
 function asCard (doc, opts = {}) {
-  var date = parse(doc.last_publication_date)
+  var date = parse(doc.first_publication_date)
   var props = {
     type: opts.type,
     format: opts.format,
