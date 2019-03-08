@@ -239,6 +239,7 @@ function srcset (uri, sizes, opts = {}) {
     }
     if (opts.aspect) transform += `,h_${Math.floor(size * opts.aspect)}`
 
+    transform = transform.replace(/\s/g, '')
     return `/media/${type}/${transform},w_${size}/${uri} ${size}w`
   }).join(',')
 }
