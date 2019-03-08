@@ -211,6 +211,14 @@ function article (state, emit) {
           </div>
         `
       }
+      case 'libsyn': {
+        if (!slice.primary.episode) return null
+        return html`
+          <div class="u-narrow">
+            <iframe style="border: none; height: 94px; border: 2px solid rgb(var(--theme-color-primary))" src="//html5-player.libsyn.com/embed/episode/id/${slice.primary.episode}/height/90/theme/custom/thumbnail/yes/direction/forward/render-playlist/no/custom-color/000000/" height="400" width="100%" scrolling="no" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" oallowfullscreen="" msallowfullscreen=""></iframe></div>
+          </div>
+        `
+      }
       case 'comic': {
         if (!slice.items.length) return null
         var aligned = slice.primary.margins === 'Inga marginaler, klistra rutorna mot varandra'
