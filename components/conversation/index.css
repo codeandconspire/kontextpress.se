@@ -29,7 +29,7 @@
   overflow: hidden;
   padding: 0.6em 1em;
   color: rgb(255, 255, 255);
-  background: rgb(var(--color-green-secondary));
+  background: rgb(var(--theme-color-secondary));
   border-radius: 1.1em;
 }
 
@@ -38,7 +38,7 @@
 }
 
 .Conversation-bubble + .Conversation-bubble {
-  margin-top: 1.1em;
+  margin-top: 0.2em;
 }
 
 .Conversation:not(.Conversation--rtl) .Conversation-message:nth-child(odd),

@@ -179,7 +179,7 @@ function article (state, emit) {
         return html`
           <figure class="Text Text--article ${wide ? 'Text--wide' : ''} Text--margin">
             <img ${attrs}>
-            ${caption ? html`<figcaption class="Text-caption">${caption}</figcaption>` : null}
+            ${caption ? html`<figcaption class="Text-caption u-textCenter">${caption}</figcaption>` : null}
           </figure>
         `
       }
