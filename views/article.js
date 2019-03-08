@@ -79,6 +79,7 @@ function article (state, emit) {
               ${intro(props)}
             </header>
             ${doc.data.body.map(asSlice)}
+            <div class="u-narrow"><hr class="u-sizeFull"></div>
             ${donate()}
             <div class="Text Text--full">
               <h2 class="Text-section">${text`Keep reading`}</h2>
