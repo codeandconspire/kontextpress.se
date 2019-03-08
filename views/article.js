@@ -157,6 +157,7 @@ function article (state, emit) {
       case 'image': {
         if (!slice.primary.image.url) return null
         var wide = slice.primary.width !== 'Spaltbredd'
+        var tiny = slice.primary.width === 'Liten'
         let attrs
 
         if (!/\.gif$/.test(slice.primary.image.url)) {
@@ -177,7 +178,7 @@ function article (state, emit) {
         var caption = slice.primary.caption ? asText(slice.primary.caption) : slice.primary.image.copyright
 
         return html`
-          <figure class="Text Text--article ${wide ? 'Text--wide' : ''} Text--margin">
+          <figure class="Text Text--article ${wide ? 'Text--wide' : ''} ${tiny ? 'Text--tiny' : ''} Text--margin">
             <img ${attrs}>
             ${caption ? html`<figcaption class="Text-caption u-textCenter">${caption}</figcaption>` : null}
           </figure>
