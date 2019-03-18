@@ -60,7 +60,7 @@ function home (state, emit) {
               if (doc) {
                 var query = [Predicates.at('document.type', 'article')]
                 var opts = {
-                  pageSize: 1000,
+                  pageSize: 100,
                   orderings: '[document.first_publication_date desc]'
                 }
 
