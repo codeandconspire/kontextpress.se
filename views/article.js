@@ -12,7 +12,7 @@ var byline = require('../components/byline')
 var intro = require('../components/intro')
 var conversation = require('../components/conversation')
 var donate = require('../components/donate')
-var { asText, srcset, resolve, i18n } = require('../components/base')
+var { asText, srcset, resolve, i18n, HTTPError } = require('../components/base')
 
 var text = i18n()
 
@@ -22,7 +22,7 @@ function article (state, emit) {
   return html`
     <main class="View-main">
       ${state.prismic.getByUID('article', state.params.article, function (err, doc) {
-        if (err) throw err
+        if (err) throw HTTPError(404, err)
         if (!doc) {
           return html`
             <div class="u-container">

@@ -5,7 +5,7 @@ var intro = require('../components/intro')
 var embed = require('../components/embed')
 var blurb = require('../components/blurb')
 var grid = require('../components/grid')
-var { asText, resolve, srcset } = require('../components/base')
+var { asText, resolve, srcset, HTTPError } = require('../components/base')
 
 module.exports = view(page, meta)
 
@@ -13,7 +13,7 @@ function page (state, emit) {
   return html`
     <main class="View-main">
       ${state.prismic.getByUID('page', state.params.page, (err, doc) => {
-        if (err) throw err
+        if (err) throw HTTPError(404, err)
         if (!doc) {
           return html`
             <div class="u-container">

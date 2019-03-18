@@ -9,7 +9,7 @@ var card = require('../components/card')
 var grid = require('../components/grid')
 var byline = require('../components/byline')
 var intro = require('../components/intro')
-var { asText, srcset, resolve, i18n } = require('../components/base')
+var { asText, srcset, resolve, i18n, HTTPError } = require('../components/base')
 
 var text = i18n()
 
@@ -19,7 +19,7 @@ function home (state, emit) {
   return html`
     <main class="View-main">
       ${state.prismic.getSingle('homepage', function (err, doc) {
-        if (err) throw err
+        if (err) throw HTTPError(404, err)
 
         return html`
           <div class="u-container">

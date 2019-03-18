@@ -6,7 +6,7 @@ var error = require('./error')
 var Header = require('../header')
 var Footer = require('../footer')
 var Player = require('../embed/player')
-var { i18n, asText, resolve, hexToRgb } = require('../base')
+var { i18n, asText, resolve, hexToRgb, HTTPError } = require('../base')
 
 // Quick fix for enabling active states in iOS (forgot how it works…)
 if (typeof window !== 'undefined') {
@@ -51,7 +51,7 @@ function createView (view, meta) {
     return state.prismic.getSingle('website', function (err, doc) {
       var children
       try {
-        if (err) throw err
+        if (err) throw HTTPError(500, err)
         children = view.call(self, state, emit)
         let next = meta ? meta.call(self, state) : {}
 

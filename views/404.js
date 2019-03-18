@@ -1,9 +1,8 @@
 var view = require('../components/view')
+var { HTTPError } = require('../components/base')
 
 module.exports = view(notfound)
 
 function notfound (state, emit) {
-  var err = new Error('Page does not exist')
-  err.status = 404
-  throw err
+  throw HTTPError(404, new Error('Page does not exist'))
 }

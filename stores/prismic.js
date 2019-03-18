@@ -205,11 +205,8 @@ function first (callback) {
     if (err) return callback(err)
     if (!response) return callback(null)
     if (!response.results || !response.results.length) {
-      err = new Error(
-        response.results ? 'Document not found' : 'An error occured'
-      )
-      err.status = response.status || 404
-      return callback(err)
+      var message = response.results ? 'Document not found' : 'An error occured'
+      return callback(new Error(message))
     }
     return callback(null, response.results[0])
   }

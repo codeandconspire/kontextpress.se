@@ -303,3 +303,32 @@ function loader (length, light = false) {
   }, '')
   return html`<span class="u-loading${light ? 'Light' : ''}">${content}</span>`
 }
+
+// custom error with HTTP status code
+// (num, Error?) -> HTTPError
+exports.HTTPError = HTTPError
+function HTTPError (status, err) {
+  if (!(this instanceof HTTPError)) return new HTTPError(status, err)
+  if (!err || typeof err === 'string') err = new Error(err)
+  err.status = status
+  Object.setPrototypeOf(err, Object.getPrototypeOf(this))
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(err, HTTPError)
+  }
+  return err
+}
+
+HTTPError.prototype = Object.create(Error.prototype, {
+  constructor: {
+    value: Error,
+    enumerable: false,
+    writable: true,
+    configurable: true
+  }
+})
+
+if (Object.setPrototypeOf) {
+  Object.setPrototypeOf(HTTPError, Error)
+} else {
+  HTTPError.__proto__ = Error // eslint-disable-line no-proto
+}

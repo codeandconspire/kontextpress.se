@@ -1,6 +1,6 @@
 module.exports = catchall
 
-// custom waterfall routing category -> page -> throw 404
+// custom waterfall routing category -> page -> 404
 // (obj, fn) -> Element
 function catchall (state, emit) {
   var segments = state.params.wildcard.split('/')

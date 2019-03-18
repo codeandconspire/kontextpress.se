@@ -4,13 +4,13 @@ var view = require('../components/view')
 var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
-var { asText, reduce, srcset, resolve } = require('../components/base')
+var { asText, reduce, srcset, resolve, HTTPError } = require('../components/base')
 
 module.exports = view(authors, meta)
 
 function authors (state, emit) {
   return state.prismic.getSingle('authors', function (err, doc) {
-    if (err) throw err
+    if (err) throw HTTPError(404, err)
     if (!doc) {
       let cells = []
       for (let i = 0; i < 3; i++) cells.push(card.loading())

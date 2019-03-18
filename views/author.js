@@ -2,7 +2,7 @@ var html = require('choo/html')
 var asElement = require('prismic-element')
 var view = require('../components/view')
 var intro = require('../components/intro')
-var { asText, srcset, resolve } = require('../components/base')
+var { asText, srcset, resolve, HTTPError } = require('../components/base')
 
 module.exports = view(author, meta)
 
@@ -10,7 +10,7 @@ function author (state, emit) {
   return html`
     <main class="View-main">
       ${state.prismic.getByUID('author', state.params.author, function (err, doc) {
-        if (err) throw err
+        if (err) throw HTTPError(404, err)
         if (!doc) {
           return html`
             <div class="u-container">

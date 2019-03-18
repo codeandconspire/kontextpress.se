@@ -9,7 +9,7 @@ var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
 var byline = require('../components/byline')
-var { asText, srcset, resolve } = require('../components/base')
+var { asText, srcset, resolve, HTTPError } = require('../components/base')
 
 module.exports = view(category, meta)
 
@@ -17,7 +17,10 @@ function category (state, emit) {
   return html`
     <main class="View-main">
       ${state.prismic.getByUID('category', state.params.category, function (err, doc) {
-        if (err) throw err
+        if (err) {
+          if (state.prefetch) throw err
+          throw HTTPError(404, err)
+        }
 
         return html`
           <div class="u-container">
