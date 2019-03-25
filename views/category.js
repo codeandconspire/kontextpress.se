@@ -189,18 +189,14 @@ function meta (state) {
       description: asText(doc.data.description)
     }
 
-    if (doc.data.primary_color) {
-      props['theme-color-primary'] = doc.data.primary_color
-    }
-
-    if (doc.data.secondary_color) {
-      props['theme-color-secondary'] = doc.data.secondary_color
-    }
-
-    if (doc.data.featured_image.url) {
-      props['og:image'] = doc.data.featured_image.url
-      props['og:image:width'] = doc.data.featured_image.dimensions.width
-      props['og:image:heigh'] = doc.data.featured_image.dimensions.height
+    var image = doc.data.featured_image
+    if (!image.url) image = doc.data.image
+    if (image.url) {
+      Object.assign(props, {
+        'og:image': image.url,
+        'og:image:width': image.dimensions.width,
+        'og:image:height': image.dimensions.height
+      })
     }
 
     return props

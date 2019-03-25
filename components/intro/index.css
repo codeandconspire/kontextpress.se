@@ -29,7 +29,7 @@
 .Intro-title {
   max-width: 13em;
   margin: 0;
-  font-size: 2.1rem;
+  font-size: 2rem;
   font-family: var(--heading-font-family);
   line-height: 1;
   letter-spacing: -0.01em;
@@ -103,7 +103,6 @@
 .Intro-aspect {
   position: relative;
   padding-bottom: var(--Intro-figure-aspect);
-  background: rgba(var(--loading-color));
   overflow: hidden;
 }
 
@@ -121,7 +120,6 @@
   right: 0;
   bottom: 0;
   transform: translate(1em, -1em);
-  background-color: rgb(var(--theme-color-primary));
 }
 
 .Intro-byline {
@@ -155,6 +153,12 @@
 }
 
 @media (min-width: 350px) {
+  .Intro-title {
+    font-size: 2.175rem;
+  }
+}
+
+@media (min-width: 450px) {
   .Intro-title {
     font-size: 2.875rem;
   }
