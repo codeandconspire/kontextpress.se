@@ -79,7 +79,7 @@ module.exports = class Footer extends Component {
           <div class="Footer-col Footer-move">
             <h2 class="Footer-title">Ansvarig utgivare</h2>
             <ul class="Footer-list">
-              <li class="Footer-item"><a class="Footer-link" href="/mireya">Mireya Echeverría Quezada</a></li>
+              <li class="Footer-item"><a class="Footer-link" href="/redaktionen/mireya">Mireya Echeverría Quezada</a></li>
             </ul>
           </div>
           <a class="Footer-logo" href="/" rel="home" title="Till startsidan">
