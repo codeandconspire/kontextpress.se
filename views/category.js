@@ -190,8 +190,8 @@ function meta (state) {
     }
 
     var image = doc.data.featured_image
-    if (!image.url) image = doc.data.image
-    if (image.url) {
+    if (!image || !image.url) image = doc.data.image
+    if (image && image.url) {
       Object.assign(props, {
         'og:image': image.url,
         'og:image:width': image.dimensions.width,
