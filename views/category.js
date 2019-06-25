@@ -189,6 +189,13 @@ function meta (state) {
       description: asText(doc.data.description)
     }
 
+    if (doc.data.primary_color) {
+      props['theme-color-primary'] = doc.data.primary_color
+    }
+    if (doc.data.secondary_color) {
+      props['theme-color-secondary'] = doc.data.secondary_color
+    }
+
     var image = doc.data.featured_image
     if (!image || !image.url) image = doc.data.image
     if (image && image.url) {
