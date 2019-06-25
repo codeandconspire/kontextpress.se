@@ -13,6 +13,8 @@ var { asText, srcset, resolve, i18n, HTTPError } = require('../components/base')
 
 var text = i18n()
 
+var PAGE_SIZE = 15
+
 module.exports = view(home, meta)
 
 function home (state, emit) {
@@ -58,9 +60,12 @@ function home (state, emit) {
               if (err) return empty()
 
               if (doc) {
+                var page = +state.query.sida
+                var hasMore = true
+                if (isNaN(page)) page = 1
                 var query = [Predicates.at('document.type', 'article')]
                 var opts = {
-                  pageSize: 100,
+                  pageSize: PAGE_SIZE,
                   orderings: '[document.first_publication_date desc]'
                 }
 
@@ -76,10 +81,21 @@ function home (state, emit) {
                   .forEach((id) => query.push(Predicates.not('document.id', id)))
 
                 try {
-                  var articles = website ? state.prismic.get(query, opts, function (err, response) {
-                    if (err) throw err
-                    return response ? response.results : null
-                  }) : null
+                  var articles = null
+
+                  if (website) {
+                    articles = []
+
+                    for (let i = 1; i <= page; i++) {
+                      articles.push(...state.prismic.get(query, Object.assign({ page: i }, opts), function (err, response) {
+                        if (err) throw err
+                        if (response) {
+                          hasMore = hasMore && response.results_size === PAGE_SIZE
+                        }
+                        return response ? response.results : []
+                      }))
+                    }
+                  }
                 } catch (err) {
                   return empty()
                 }
@@ -87,15 +103,23 @@ function home (state, emit) {
 
               var cells = []
               if (!articles) {
-                for (let i = 0; i < 1000; i++) cells.push(card.loading())
+                for (let i = 0; i < PAGE_SIZE; i++) cells.push(card.loading())
               } else {
                 cells = articles.map(function (article) {
                   return asCard(article)
                 })
               }
 
-              return grid({ size: { md: '1of2', lg: '1of3' } }, cells)
+              return html`
+                ${grid({ size: { md: '1of2', lg: '1of3' } }, cells)}
+                ${hasMore ? html`
+                  <div class="u-textCenter">
+                    <a class="View-pagination" href="${state.href}?sida=${page + 1}">${text`Show more`}</a>
+                  </div>
+                ` : null}
+              `
             })}
+
           </div>
         `
       })}

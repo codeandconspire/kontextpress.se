@@ -84,3 +84,37 @@
     min-height: 10rem;
   }
 }
+
+/**
+ * Pagination button
+ */
+
+.View-pagination,
+.View-pagination:hover,
+.View-pagination:active {
+  display: inline-block;
+  padding: 0.4rem 0.7rem;
+  margin: 2.9rem 0 0rem;
+  font-family: var(--document-font-family);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: none;
+  text-align: center;
+  background: rgb(var(--theme-color-secondary));
+  color: #fff;
+  border-radius: 4px;
+  transition: background 200ms var(--ease);
+}
+
+.View-pagination:active {
+  opacity: 0.7;
+}
+
+@media (min-width: 600px) {
+  .View-pagination,
+  .View-pagination:hover,
+  .View-pagination:active {
+    padding: 0.8rem 3.8rem;
+    margin: 3.1rem 0 1.6rem;
+  }
+}

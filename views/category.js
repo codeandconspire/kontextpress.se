@@ -9,7 +9,10 @@ var card = require('../components/card')
 var grid = require('../components/grid')
 var intro = require('../components/intro')
 var byline = require('../components/byline')
-var { asText, srcset, resolve, HTTPError } = require('../components/base')
+var { asText, srcset, resolve, i18n, HTTPError } = require('../components/base')
+
+var text = i18n()
+var PAGE_SIZE = 15
 
 module.exports = view(category, meta)
 
@@ -59,11 +62,14 @@ function category (state, emit) {
           var cells = []
 
           if (!doc) {
-            for (let i = 0; i < 6; i++) cells.push(card.loading())
+            for (let i = 0; i < PAGE_SIZE; i++) cells.push(card.loading())
           } else {
+            var page = +state.query.sida
+            var hasMore = true
+            if (isNaN(page)) page = 1
             var query = [Predicates.at('document.type', 'article')]
             var opts = {
-              pageSize: 100,
+              pageSize: PAGE_SIZE,
               orderings: '[document.first_publication_date desc]'
             }
 
@@ -75,16 +81,26 @@ function category (state, emit) {
             // only fetch posts in this category
             query.push(Predicates.at('my.article.category', doc.id))
 
-            cells = state.prismic.get(query, opts, function (err, response) {
-              if (err) return null
-              if (!response) return cells
-              return response.results.map(function (article) {
-                return asCard(article)
-              })
-            })
+            for (let i = 1; i <= page; i++) {
+              cells.push(...state.prismic.get(query, Object.assign({ page: i }, opts), function (err, response) {
+                if (err) throw err
+                if (!response) return []
+                hasMore = hasMore && response.results_size === PAGE_SIZE
+                return response.results.map(function (article) {
+                  return asCard(article)
+                })
+              }))
+            }
           }
 
-          return grid({ size: { md: '1of2', lg: '1of3' } }, cells)
+          return html`
+            ${grid({ size: { md: '1of2', lg: '1of3' } }, cells)}
+            ${hasMore ? html`
+              <div class="u-textCenter">
+                <a class="View-pagination" href="${state.href}?sida=${page + 1}">${text`Show more`}</a>
+              </div>
+            ` : null}
+          `
         }
       })}
     </main>
