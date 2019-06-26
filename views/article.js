@@ -30,7 +30,6 @@ function article (state, emit) {
                 ${intro.loading({
                   center: true,
                   tagline: true,
-                  byline: true,
                   image: true
                 })}
               </div>
