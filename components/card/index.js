@@ -8,7 +8,7 @@ module.exports = card
 card.loading = loading
 
 function card (props = {}, slot) {
-  var color = '#ff0000'
+  var color = props.color || null
   assert(!color || /^#/.test(color), 'Card: props.color should be hex string color code')
 
   var body = props.body
