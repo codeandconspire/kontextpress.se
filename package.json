@@ -6,6 +6,7 @@
   "scripts": {
     "build": "jalla build index.js --sw sw.js",
     "start": "node server.js",
+    "purge": "node -r dotenv/config -e \"require('./lib/purge')(console.log)\"",
     "deploy": "npx now --scope codeandconspire && npx now alias --scope codeandconspire",
     "test": "standard"
   },
