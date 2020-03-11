@@ -158,22 +158,14 @@ function article (state, emit) {
         if (!slice.primary.image.url) return null
         var wide = slice.primary.width !== 'Spaltbredd'
         var tiny = slice.primary.width === 'Liten'
-        let attrs
 
-        if (!/\.gif$/.test(slice.primary.image.url)) {
-          let sources = srcset(slice.primary.image.url, [400, 600, 900, [1600, 'q_60'], [3000, 'q_50']])
-          attrs = Object.assign({
-            sizes: '100vw',
-            srcset: sources,
-            src: sources.split(' ')[0],
-            alt: slice.primary.image.alt || ''
-          }, slice.primary.image.dimensions)
-        } else {
-          attrs = Object.assign({
-            src: slice.primary.image.url,
-            alt: slice.primary.image.alt || ''
-          }, slice.primary.image.dimensions)
-        }
+        let sources = srcset(slice.primary.image.url, [400, 600, 900, [1600, 'q_60'], [3000, 'q_50']])
+        let attrs = Object.assign({
+          sizes: '100vw',
+          srcset: sources,
+          src: sources.split(' ')[0],
+          alt: slice.primary.image.alt || ''
+        }, slice.primary.image.dimensions)
 
         var caption = slice.primary.caption ? asText(slice.primary.caption) : slice.primary.image.copyright
 

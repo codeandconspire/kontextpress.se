@@ -23,6 +23,15 @@ function prismicStore (opts) {
       cache.clear()
     }
 
+    // expose clear via event
+    emitter.on('prismic:clear', function () {
+      cache.clear()
+      // reinitialize api to account for new preview cookie
+      init = Prismic.getApi(opts.repository, Object.assign({
+        req: state.req
+      }, opts))
+    })
+
     // parse SSR-provided initial state
     if (state.prismic) {
       assert(typeof state.prismic === 'object', 'choo-prismic: state.prismic should be type object')
@@ -67,10 +76,17 @@ function prismicStore (opts) {
       var cached = cache.get(key)
 
       var result
-      if (!cached) result = callback(null)
-      else if (cached instanceof Error) return callback(cached)
-      else if (cached instanceof Promise) return callback(null, null)
-      else if (cached) return callback(null, cached)
+      if (!cached) {
+        result = callback(null)
+      } else if (cached instanceof Error) {
+        return callback(cached)
+      } else if (cached instanceof Promise) {
+        // issue render if a non-prefetch request caught up to a prefetch
+        if (cached._prefetch && !prefetch) cached.then(render, render)
+        return callback(null, null)
+      } else if (cached) {
+        return callback(null, cached)
+      }
 
       // perform query
       var request = init.then(function (api) {
@@ -81,13 +97,13 @@ function prismicStore (opts) {
         }).then(function (response) {
           cache.set(key, response)
           emitter.emit('prismic:response', response)
-          if (!prefetch) emitter.emit('render')
+          if (!prefetch) render()
           return response
         })
       }).catch(function (err) {
         cache.set(key, err)
         emitter.emit('prismic:error', err)
-        if (!prefetch) emitter.emit('render')
+        if (!prefetch) render()
         // forward error to transform or just throw it
         if (typeof transform === 'function') {
           try {
@@ -107,7 +123,16 @@ function prismicStore (opts) {
       // defer to callback to allow for nested queries
       if (state.prefetch) queue(chain(request, callback))
 
+      // tag request as beeing a prefetch
+      request._prefetch = Boolean(prefetch)
+
       return result
+    }
+
+    // emit render event
+    // () ->
+    function render () {
+      emitter.emit('render')
     }
 
     // get single document by uid
@@ -205,8 +230,11 @@ function first (callback) {
     if (err) return callback(err)
     if (!response) return callback(null)
     if (!response.results || !response.results.length) {
-      var message = response.results ? 'Document not found' : 'An error occured'
-      return callback(new Error(message))
+      err = new Error(
+        response.results ? 'Document not found' : 'An error occured'
+      )
+      err.status = response.status || 404
+      return callback(err)
     }
     return callback(null, response.results[0])
   }

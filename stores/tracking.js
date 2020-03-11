@@ -3,10 +3,19 @@
 module.exports = tracking
 
 function tracking (state, emitter) {
-  emitter.on('navigate', function (href) {
-    gtag('config', 'UA-136440787-1', {
-      'page_title': state.title,
-      'page_path': state.href
+  var href = state.href
+  emitter.on('meta', function (data) {
+    if (typeof gtag !== 'function') return
+    if (href === state.href || !data.title) return
+    href = state.href
+    gtag('config', 'UA-46200713-1', {
+      'page_title': data.title,
+      'page_path': href
     })
+  })
+
+  emitter.on('track', function (action, data) {
+    if (typeof gtag !== 'function') return
+    gtag.apply(undefined, ['event', action, data].filter(Boolean))
   })
 }
