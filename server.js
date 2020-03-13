@@ -1,4 +1,4 @@
-if (!process.env.NOW) require('dotenv/config')
+if (!process.env.HEROKU) require('dotenv/config')
 
 var url = require('url')
 var jalla = require('jalla')
@@ -44,9 +44,9 @@ app.use(post('/api/prismic-hook', compose([body(), function (ctx) {
 
 // set preview cookie
 app.use(get('/api/prismic-preview', async function (ctx) {
-  var host = process.env.NOW_URL && url.parse(process.env.NOW_URL).host
+  var host = process.env.SOURCE_VERSION && url.parse(process.env.SOURCE_VERSION).host
   if (host && ctx.host !== host) {
-    return ctx.redirect(url.resolve(process.env.NOW_URL, ctx.url))
+    return ctx.redirect(url.resolve(process.env.SOURCE_VERSION, ctx.url))
   }
 
   var token = ctx.query.token
@@ -109,7 +109,7 @@ app.use(function (ctx, next) {
 })
 
 app.listen(process.env.PORT || 8080, function () {
-  if (process.env.NOW && app.env === 'production') {
+  if (process.env.HEROKU && app.env === 'production') {
     purge(['/sw.js'], function (err) {
       if (err) app.emit('error', err)
     })

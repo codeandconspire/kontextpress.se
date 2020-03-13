@@ -7,7 +7,6 @@
     "build": "jalla build index.js --sw sw.js",
     "start": "node server.js",
     "purge": "node -r dotenv/config -e \"require('./lib/purge')(console.log)\"",
-    "deploy": "npx now --scope codeandconspire && npx now alias --scope codeandconspire",
     "test": "standard"
   },
   "repository": {
@@ -23,19 +22,6 @@
         }
       ]
     ]
-  },
-  "now": {
-    "alias": "www.kontextpress.se",
-    "env": {
-      "NODE_ENV": "production",
-      "CLOUDINARY_KEY": "@cloudinary-key",
-      "CLOUDINARY_SECRET": "@cloudinary-secret",
-      "PRISMIC_SECRET": "@prismic-kontextpress-secret",
-      "CLOUDFLARE_ZONE": "@cloudflare-kontextpress-zone",
-      "CLOUDFLARE_EMAIL": "@cloudflare-kontextpress-email",
-      "CLOUDFLARE_KEY": "@cloudflare-kontextpress-key",
-      "POLYFILL_FEATURES": "default-3.3,Array.prototype.find,Array.prototype.findIndex,Array.prototype.includes"
-    }
   },
   "author": "code and conspire",
   "license": "CC-BY-SA-4.0",
